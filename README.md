@@ -74,18 +74,19 @@ despite the efforts to create a consistent ecosystem around the Swift language, 
 					- tool
 					- extension
 					- helper
+					- framework
 				- search types
 					- keyword: default search type; searches for repos whose name contains the query term
 					- topic: these repositories have deliberately marked themselves with the query term as one of their github "topics"
 				- all searches are confined to repos that github recognizes as swift codebases
 				- `scripts/github_search_queries.rb` performs all the queries and writes the results to disk under `github_search_results/`, in subdirectories named as a unique id made of the search terms
 		  - processing results
-				- `scripts/convert_github_search_results_to_urls.rb` converts result json to lists of ssh cloning urls
+				- `scripts/gather_ssh_urls.rb` converts result json to lists of ssh cloning urls
 				- `scripts/deduplicate_urls.rb` distills a list of repos that appear in more than one search into a `_common.txt` file
 		- code search
 - clone repositories
-	- clone all to one flat repo, then create directory structure to mirror the github results', symlinking to the actual cloned repos
-	- create `_manual/` directory to symlink to those repos
+	- clone all to one flat repo
+	- create directory for each github search, containing symlinks to the cloned repos
 	- `scripts/clone_repos.rb`
 - run observation scripts, outputting results
 - visualize results

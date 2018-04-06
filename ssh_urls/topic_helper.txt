@@ -1,0 +1,11 @@
+git@github.com:Cosmo/TinyConsole.git
+git@github.com:Digipolitan/idylle-client-swift.git
+git@github.com:SimformSolutionsPvtLtd/ios-commons.git
+git@github.com:VojtaStavik/Trackable.git
+git@github.com:faganello60/StringUtils.git
+git@github.com:gokselkoksal/Lightning.git
+git@github.com:greenSyntax/FontAwesomeSwift.git
+git@github.com:mRs-/Blaupause.git
+git@github.com:narlei/NAMDatabaseHelper.git
+git@github.com:ovrchk/OVUIKitHelper.git
+git@github.com:rootstrap/RSFontSizes.git

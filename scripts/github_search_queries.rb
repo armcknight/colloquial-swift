@@ -21,7 +21,8 @@ def run_all_queries
     'utility',
     'tool',
     'helper',
-    'extension'
+    'extension',
+    'framework'
   ].map{ |query|
     [ query, 'topic:' + query ]
   }.flatten
