@@ -104,7 +104,7 @@
       "open_issues": 6,
       "watchers": 362,
       "default_branch": "master",
-      "score": 3.9490101
+      "score": 3.9468825
     },
     {
       "id": 22226733,
@@ -207,7 +207,7 @@
       "open_issues": 17,
       "watchers": 228,
       "default_branch": "master",
-      "score": 3.9490101
+      "score": 3.9468825
     },
     {
       "id": 27019741,
@@ -311,7 +311,7 @@
       "open_issues": 0,
       "watchers": 204,
       "default_branch": "master",
-      "score": 3.851569
+      "score": 3.8536656
     },
     {
       "id": 92713921,
@@ -421,7 +421,7 @@
       "open_issues": 0,
       "watchers": 32,
       "default_branch": "master",
-      "score": 3.7923553
+      "score": 3.8071272
     },
     {
       "id": 99010695,
@@ -528,7 +528,7 @@
       "open_issues": 1,
       "watchers": 21,
       "default_branch": "master",
-      "score": 3.927606
+      "score": 3.930608
     },
     {
       "id": 114449816,
@@ -630,7 +630,7 @@
       "open_issues": 0,
       "watchers": 19,
       "default_branch": "master",
-      "score": 3.9127314
+      "score": 3.9140327
     },
     {
       "id": 74213467,
@@ -733,7 +733,7 @@
       "open_issues": 1,
       "watchers": 19,
       "default_branch": "master",
-      "score": 3.8974497
+      "score": 3.899549
     },
     {
       "id": 67364960,
@@ -835,7 +835,7 @@
       "open_issues": 4,
       "watchers": 7,
       "default_branch": "master",
-      "score": 3.9380658
+      "score": 3.929074
     },
     {
       "id": 37345052,
@@ -937,7 +937,7 @@
       "open_issues": 0,
       "watchers": 7,
       "default_branch": "master",
-      "score": 3.851569
+      "score": 3.8536656
     },
     {
       "id": 56239887,
@@ -1040,7 +1040,7 @@
       "open_issues": 0,
       "watchers": 6,
       "default_branch": "master",
-      "score": 3.8974497
+      "score": 3.899549
     },
     {
       "id": 98695131,
@@ -1138,7 +1138,7 @@
       "open_issues": 0,
       "watchers": 6,
       "default_branch": "master",
-      "score": 3.7923553
+      "score": 3.8071272
     },
     {
       "id": 76133058,
@@ -1244,7 +1244,7 @@
       "open_issues": 4,
       "watchers": 5,
       "default_branch": "master",
-      "score": 3.8917458
+      "score": 3.8902056
     },
     {
       "id": 121395237,
@@ -1348,7 +1348,7 @@
       "open_issues": 0,
       "watchers": 4,
       "default_branch": "master",
-      "score": 3.951989
+      "score": 3.9507961
     },
     {
       "id": 120675604,
@@ -1451,7 +1451,110 @@
       "open_issues": 1,
       "watchers": 4,
       "default_branch": "master",
-      "score": 3.927606
+      "score": 3.930608
+    },
+    {
+      "id": 120510258,
+      "name": "Bedrock",
+      "full_name": "DuetHealth/Bedrock",
+      "owner": {
+        "login": "DuetHealth",
+        "id": 5605080,
+        "avatar_url": "https://avatars3.githubusercontent.com/u/5605080?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/DuetHealth",
+        "html_url": "https://github.com/DuetHealth",
+        "followers_url": "https://api.github.com/users/DuetHealth/followers",
+        "following_url": "https://api.github.com/users/DuetHealth/following{/other_user}",
+        "gists_url": "https://api.github.com/users/DuetHealth/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/DuetHealth/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/DuetHealth/subscriptions",
+        "organizations_url": "https://api.github.com/users/DuetHealth/orgs",
+        "repos_url": "https://api.github.com/users/DuetHealth/repos",
+        "events_url": "https://api.github.com/users/DuetHealth/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/DuetHealth/received_events",
+        "type": "Organization",
+        "site_admin": false
+      },
+      "private": false,
+      "html_url": "https://github.com/DuetHealth/Bedrock",
+      "description": "What's deeper than the foundation?",
+      "fork": false,
+      "url": "https://api.github.com/repos/DuetHealth/Bedrock",
+      "forks_url": "https://api.github.com/repos/DuetHealth/Bedrock/forks",
+      "keys_url": "https://api.github.com/repos/DuetHealth/Bedrock/keys{/key_id}",
+      "collaborators_url": "https://api.github.com/repos/DuetHealth/Bedrock/collaborators{/collaborator}",
+      "teams_url": "https://api.github.com/repos/DuetHealth/Bedrock/teams",
+      "hooks_url": "https://api.github.com/repos/DuetHealth/Bedrock/hooks",
+      "issue_events_url": "https://api.github.com/repos/DuetHealth/Bedrock/issues/events{/number}",
+      "events_url": "https://api.github.com/repos/DuetHealth/Bedrock/events",
+      "assignees_url": "https://api.github.com/repos/DuetHealth/Bedrock/assignees{/user}",
+      "branches_url": "https://api.github.com/repos/DuetHealth/Bedrock/branches{/branch}",
+      "tags_url": "https://api.github.com/repos/DuetHealth/Bedrock/tags",
+      "blobs_url": "https://api.github.com/repos/DuetHealth/Bedrock/git/blobs{/sha}",
+      "git_tags_url": "https://api.github.com/repos/DuetHealth/Bedrock/git/tags{/sha}",
+      "git_refs_url": "https://api.github.com/repos/DuetHealth/Bedrock/git/refs{/sha}",
+      "trees_url": "https://api.github.com/repos/DuetHealth/Bedrock/git/trees{/sha}",
+      "statuses_url": "https://api.github.com/repos/DuetHealth/Bedrock/statuses/{sha}",
+      "languages_url": "https://api.github.com/repos/DuetHealth/Bedrock/languages",
+      "stargazers_url": "https://api.github.com/repos/DuetHealth/Bedrock/stargazers",
+      "contributors_url": "https://api.github.com/repos/DuetHealth/Bedrock/contributors",
+      "subscribers_url": "https://api.github.com/repos/DuetHealth/Bedrock/subscribers",
+      "subscription_url": "https://api.github.com/repos/DuetHealth/Bedrock/subscription",
+      "commits_url": "https://api.github.com/repos/DuetHealth/Bedrock/commits{/sha}",
+      "git_commits_url": "https://api.github.com/repos/DuetHealth/Bedrock/git/commits{/sha}",
+      "comments_url": "https://api.github.com/repos/DuetHealth/Bedrock/comments{/number}",
+      "issue_comment_url": "https://api.github.com/repos/DuetHealth/Bedrock/issues/comments{/number}",
+      "contents_url": "https://api.github.com/repos/DuetHealth/Bedrock/contents/{+path}",
+      "compare_url": "https://api.github.com/repos/DuetHealth/Bedrock/compare/{base}...{head}",
+      "merges_url": "https://api.github.com/repos/DuetHealth/Bedrock/merges",
+      "archive_url": "https://api.github.com/repos/DuetHealth/Bedrock/{archive_format}{/ref}",
+      "downloads_url": "https://api.github.com/repos/DuetHealth/Bedrock/downloads",
+      "issues_url": "https://api.github.com/repos/DuetHealth/Bedrock/issues{/number}",
+      "pulls_url": "https://api.github.com/repos/DuetHealth/Bedrock/pulls{/number}",
+      "milestones_url": "https://api.github.com/repos/DuetHealth/Bedrock/milestones{/number}",
+      "notifications_url": "https://api.github.com/repos/DuetHealth/Bedrock/notifications{?since,all,participating}",
+      "labels_url": "https://api.github.com/repos/DuetHealth/Bedrock/labels{/name}",
+      "releases_url": "https://api.github.com/repos/DuetHealth/Bedrock/releases{/id}",
+      "deployments_url": "https://api.github.com/repos/DuetHealth/Bedrock/deployments",
+      "created_at": "2018-02-06T19:11:17Z",
+      "updated_at": "2018-03-27T18:45:43Z",
+      "pushed_at": "2018-03-27T18:45:42Z",
+      "git_url": "git://github.com/DuetHealth/Bedrock.git",
+      "ssh_url": "git@github.com:DuetHealth/Bedrock.git",
+      "clone_url": "https://github.com/DuetHealth/Bedrock.git",
+      "svn_url": "https://github.com/DuetHealth/Bedrock",
+      "homepage": null,
+      "size": 63,
+      "stargazers_count": 4,
+      "watchers_count": 4,
+      "language": "Swift",
+      "has_issues": true,
+      "has_projects": true,
+      "has_downloads": true,
+      "has_wiki": true,
+      "has_pages": false,
+      "forks_count": 0,
+      "mirror_url": null,
+      "archived": false,
+      "open_issues_count": 0,
+      "license": {
+        "key": "mit",
+        "name": "MIT License",
+        "spdx_id": "MIT",
+        "url": "https://api.github.com/licenses/mit"
+      },
+      "topics": [
+        "cocoa",
+        "foundation",
+        "swift",
+        "utility"
+      ],
+      "forks": 0,
+      "open_issues": 0,
+      "watchers": 4,
+      "default_branch": "master",
+      "score": 3.899549
     },
     {
       "id": 110706376,
@@ -1555,110 +1658,7 @@
       "open_issues": 1,
       "watchers": 4,
       "default_branch": "master",
-      "score": 3.90403
-    },
-    {
-      "id": 120510258,
-      "name": "Bedrock",
-      "full_name": "DuetHealth/Bedrock",
-      "owner": {
-        "login": "DuetHealth",
-        "id": 5605080,
-        "avatar_url": "https://avatars3.githubusercontent.com/u/5605080?v=4",
-        "gravatar_id": "",
-        "url": "https://api.github.com/users/DuetHealth",
-        "html_url": "https://github.com/DuetHealth",
-        "followers_url": "https://api.github.com/users/DuetHealth/followers",
-        "following_url": "https://api.github.com/users/DuetHealth/following{/other_user}",
-        "gists_url": "https://api.github.com/users/DuetHealth/gists{/gist_id}",
-        "starred_url": "https://api.github.com/users/DuetHealth/starred{/owner}{/repo}",
-        "subscriptions_url": "https://api.github.com/users/DuetHealth/subscriptions",
-        "organizations_url": "https://api.github.com/users/DuetHealth/orgs",
-        "repos_url": "https://api.github.com/users/DuetHealth/repos",
-        "events_url": "https://api.github.com/users/DuetHealth/events{/privacy}",
-        "received_events_url": "https://api.github.com/users/DuetHealth/received_events",
-        "type": "Organization",
-        "site_admin": false
-      },
-      "private": false,
-      "html_url": "https://github.com/DuetHealth/Bedrock",
-      "description": "What's deeper than the foundation?",
-      "fork": false,
-      "url": "https://api.github.com/repos/DuetHealth/Bedrock",
-      "forks_url": "https://api.github.com/repos/DuetHealth/Bedrock/forks",
-      "keys_url": "https://api.github.com/repos/DuetHealth/Bedrock/keys{/key_id}",
-      "collaborators_url": "https://api.github.com/repos/DuetHealth/Bedrock/collaborators{/collaborator}",
-      "teams_url": "https://api.github.com/repos/DuetHealth/Bedrock/teams",
-      "hooks_url": "https://api.github.com/repos/DuetHealth/Bedrock/hooks",
-      "issue_events_url": "https://api.github.com/repos/DuetHealth/Bedrock/issues/events{/number}",
-      "events_url": "https://api.github.com/repos/DuetHealth/Bedrock/events",
-      "assignees_url": "https://api.github.com/repos/DuetHealth/Bedrock/assignees{/user}",
-      "branches_url": "https://api.github.com/repos/DuetHealth/Bedrock/branches{/branch}",
-      "tags_url": "https://api.github.com/repos/DuetHealth/Bedrock/tags",
-      "blobs_url": "https://api.github.com/repos/DuetHealth/Bedrock/git/blobs{/sha}",
-      "git_tags_url": "https://api.github.com/repos/DuetHealth/Bedrock/git/tags{/sha}",
-      "git_refs_url": "https://api.github.com/repos/DuetHealth/Bedrock/git/refs{/sha}",
-      "trees_url": "https://api.github.com/repos/DuetHealth/Bedrock/git/trees{/sha}",
-      "statuses_url": "https://api.github.com/repos/DuetHealth/Bedrock/statuses/{sha}",
-      "languages_url": "https://api.github.com/repos/DuetHealth/Bedrock/languages",
-      "stargazers_url": "https://api.github.com/repos/DuetHealth/Bedrock/stargazers",
-      "contributors_url": "https://api.github.com/repos/DuetHealth/Bedrock/contributors",
-      "subscribers_url": "https://api.github.com/repos/DuetHealth/Bedrock/subscribers",
-      "subscription_url": "https://api.github.com/repos/DuetHealth/Bedrock/subscription",
-      "commits_url": "https://api.github.com/repos/DuetHealth/Bedrock/commits{/sha}",
-      "git_commits_url": "https://api.github.com/repos/DuetHealth/Bedrock/git/commits{/sha}",
-      "comments_url": "https://api.github.com/repos/DuetHealth/Bedrock/comments{/number}",
-      "issue_comment_url": "https://api.github.com/repos/DuetHealth/Bedrock/issues/comments{/number}",
-      "contents_url": "https://api.github.com/repos/DuetHealth/Bedrock/contents/{+path}",
-      "compare_url": "https://api.github.com/repos/DuetHealth/Bedrock/compare/{base}...{head}",
-      "merges_url": "https://api.github.com/repos/DuetHealth/Bedrock/merges",
-      "archive_url": "https://api.github.com/repos/DuetHealth/Bedrock/{archive_format}{/ref}",
-      "downloads_url": "https://api.github.com/repos/DuetHealth/Bedrock/downloads",
-      "issues_url": "https://api.github.com/repos/DuetHealth/Bedrock/issues{/number}",
-      "pulls_url": "https://api.github.com/repos/DuetHealth/Bedrock/pulls{/number}",
-      "milestones_url": "https://api.github.com/repos/DuetHealth/Bedrock/milestones{/number}",
-      "notifications_url": "https://api.github.com/repos/DuetHealth/Bedrock/notifications{?since,all,participating}",
-      "labels_url": "https://api.github.com/repos/DuetHealth/Bedrock/labels{/name}",
-      "releases_url": "https://api.github.com/repos/DuetHealth/Bedrock/releases{/id}",
-      "deployments_url": "https://api.github.com/repos/DuetHealth/Bedrock/deployments",
-      "created_at": "2018-02-06T19:11:17Z",
-      "updated_at": "2018-03-27T18:45:43Z",
-      "pushed_at": "2018-03-27T18:45:42Z",
-      "git_url": "git://github.com/DuetHealth/Bedrock.git",
-      "ssh_url": "git@github.com:DuetHealth/Bedrock.git",
-      "clone_url": "https://github.com/DuetHealth/Bedrock.git",
-      "svn_url": "https://github.com/DuetHealth/Bedrock",
-      "homepage": null,
-      "size": 63,
-      "stargazers_count": 4,
-      "watchers_count": 4,
-      "language": "Swift",
-      "has_issues": true,
-      "has_projects": true,
-      "has_downloads": true,
-      "has_wiki": true,
-      "has_pages": false,
-      "forks_count": 0,
-      "mirror_url": null,
-      "archived": false,
-      "open_issues_count": 0,
-      "license": {
-        "key": "mit",
-        "name": "MIT License",
-        "spdx_id": "MIT",
-        "url": "https://api.github.com/licenses/mit"
-      },
-      "topics": [
-        "cocoa",
-        "foundation",
-        "swift",
-        "utility"
-      ],
-      "forks": 0,
-      "open_issues": 0,
-      "watchers": 4,
-      "default_branch": "master",
-      "score": 3.8974497
+      "score": 3.898158
     },
     {
       "id": 104489553,
@@ -1760,7 +1760,7 @@
       "open_issues": 1,
       "watchers": 4,
       "default_branch": "master",
-      "score": 3.8917458
+      "score": 3.8902056
     },
     {
       "id": 56738037,
@@ -1862,7 +1862,7 @@
       "open_issues": 0,
       "watchers": 3,
       "default_branch": "master",
-      "score": 3.927606
+      "score": 3.930608
     },
     {
       "id": 84597866,
@@ -1968,7 +1968,7 @@
       "open_issues": 0,
       "watchers": 2,
       "default_branch": "master",
-      "score": 3.9077294
+      "score": 3.8990388
     },
     {
       "id": 47550790,
@@ -2070,7 +2070,7 @@
       "open_issues": 0,
       "watchers": 2,
       "default_branch": "master",
-      "score": 3.90403
+      "score": 3.898158
     },
     {
       "id": 82763309,
@@ -2168,7 +2168,7 @@
       "open_issues": 0,
       "watchers": 2,
       "default_branch": "master",
-      "score": 3.8283212
+      "score": 3.8328109
     },
     {
       "id": 83344502,
@@ -2270,7 +2270,7 @@
       "open_issues": 0,
       "watchers": 1,
       "default_branch": "master",
-      "score": 3.9396584
+      "score": 3.9386082
     },
     {
       "id": 79583963,
@@ -2368,7 +2368,7 @@
       "open_issues": 0,
       "watchers": 1,
       "default_branch": "master",
-      "score": 3.8974497
+      "score": 3.899549
     },
     {
       "id": 81991227,
@@ -2472,7 +2472,7 @@
       "open_issues": 0,
       "watchers": 1,
       "default_branch": "master",
-      "score": 3.8283212
+      "score": 3.8328109
     },
     {
       "id": 66216382,
@@ -2570,7 +2570,7 @@
       "open_issues": 0,
       "watchers": 1,
       "default_branch": "master",
-      "score": 3.810437
+      "score": 3.82713
     },
     {
       "id": 109507192,
@@ -2672,7 +2672,106 @@
       "open_issues": 0,
       "watchers": 0,
       "default_branch": "master",
-      "score": 3.9396584
+      "score": 3.9386082
+    },
+    {
+      "id": 108587116,
+      "name": "PopRequest",
+      "full_name": "datishans/PopRequest",
+      "owner": {
+        "login": "datishans",
+        "id": 4662037,
+        "avatar_url": "https://avatars3.githubusercontent.com/u/4662037?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/datishans",
+        "html_url": "https://github.com/datishans",
+        "followers_url": "https://api.github.com/users/datishans/followers",
+        "following_url": "https://api.github.com/users/datishans/following{/other_user}",
+        "gists_url": "https://api.github.com/users/datishans/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/datishans/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/datishans/subscriptions",
+        "organizations_url": "https://api.github.com/users/datishans/orgs",
+        "repos_url": "https://api.github.com/users/datishans/repos",
+        "events_url": "https://api.github.com/users/datishans/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/datishans/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "private": false,
+      "html_url": "https://github.com/datishans/PopRequest",
+      "description": "Shows the number of BitBucket pull requests in your macos' status bar.",
+      "fork": false,
+      "url": "https://api.github.com/repos/datishans/PopRequest",
+      "forks_url": "https://api.github.com/repos/datishans/PopRequest/forks",
+      "keys_url": "https://api.github.com/repos/datishans/PopRequest/keys{/key_id}",
+      "collaborators_url": "https://api.github.com/repos/datishans/PopRequest/collaborators{/collaborator}",
+      "teams_url": "https://api.github.com/repos/datishans/PopRequest/teams",
+      "hooks_url": "https://api.github.com/repos/datishans/PopRequest/hooks",
+      "issue_events_url": "https://api.github.com/repos/datishans/PopRequest/issues/events{/number}",
+      "events_url": "https://api.github.com/repos/datishans/PopRequest/events",
+      "assignees_url": "https://api.github.com/repos/datishans/PopRequest/assignees{/user}",
+      "branches_url": "https://api.github.com/repos/datishans/PopRequest/branches{/branch}",
+      "tags_url": "https://api.github.com/repos/datishans/PopRequest/tags",
+      "blobs_url": "https://api.github.com/repos/datishans/PopRequest/git/blobs{/sha}",
+      "git_tags_url": "https://api.github.com/repos/datishans/PopRequest/git/tags{/sha}",
+      "git_refs_url": "https://api.github.com/repos/datishans/PopRequest/git/refs{/sha}",
+      "trees_url": "https://api.github.com/repos/datishans/PopRequest/git/trees{/sha}",
+      "statuses_url": "https://api.github.com/repos/datishans/PopRequest/statuses/{sha}",
+      "languages_url": "https://api.github.com/repos/datishans/PopRequest/languages",
+      "stargazers_url": "https://api.github.com/repos/datishans/PopRequest/stargazers",
+      "contributors_url": "https://api.github.com/repos/datishans/PopRequest/contributors",
+      "subscribers_url": "https://api.github.com/repos/datishans/PopRequest/subscribers",
+      "subscription_url": "https://api.github.com/repos/datishans/PopRequest/subscription",
+      "commits_url": "https://api.github.com/repos/datishans/PopRequest/commits{/sha}",
+      "git_commits_url": "https://api.github.com/repos/datishans/PopRequest/git/commits{/sha}",
+      "comments_url": "https://api.github.com/repos/datishans/PopRequest/comments{/number}",
+      "issue_comment_url": "https://api.github.com/repos/datishans/PopRequest/issues/comments{/number}",
+      "contents_url": "https://api.github.com/repos/datishans/PopRequest/contents/{+path}",
+      "compare_url": "https://api.github.com/repos/datishans/PopRequest/compare/{base}...{head}",
+      "merges_url": "https://api.github.com/repos/datishans/PopRequest/merges",
+      "archive_url": "https://api.github.com/repos/datishans/PopRequest/{archive_format}{/ref}",
+      "downloads_url": "https://api.github.com/repos/datishans/PopRequest/downloads",
+      "issues_url": "https://api.github.com/repos/datishans/PopRequest/issues{/number}",
+      "pulls_url": "https://api.github.com/repos/datishans/PopRequest/pulls{/number}",
+      "milestones_url": "https://api.github.com/repos/datishans/PopRequest/milestones{/number}",
+      "notifications_url": "https://api.github.com/repos/datishans/PopRequest/notifications{?since,all,participating}",
+      "labels_url": "https://api.github.com/repos/datishans/PopRequest/labels{/name}",
+      "releases_url": "https://api.github.com/repos/datishans/PopRequest/releases{/id}",
+      "deployments_url": "https://api.github.com/repos/datishans/PopRequest/deployments",
+      "created_at": "2017-10-27T19:33:10Z",
+      "updated_at": "2017-10-27T19:46:50Z",
+      "pushed_at": "2017-11-17T18:39:33Z",
+      "git_url": "git://github.com/datishans/PopRequest.git",
+      "ssh_url": "git@github.com:datishans/PopRequest.git",
+      "clone_url": "https://github.com/datishans/PopRequest.git",
+      "svn_url": "https://github.com/datishans/PopRequest",
+      "homepage": "",
+      "size": 98,
+      "stargazers_count": 0,
+      "watchers_count": 0,
+      "language": "Swift",
+      "has_issues": true,
+      "has_projects": true,
+      "has_downloads": true,
+      "has_wiki": true,
+      "has_pages": false,
+      "forks_count": 1,
+      "mirror_url": null,
+      "archived": false,
+      "open_issues_count": 0,
+      "license": null,
+      "topics": [
+        "app",
+        "bitbucket",
+        "macos",
+        "statusbar",
+        "utility"
+      ],
+      "forks": 1,
+      "open_issues": 0,
+      "watchers": 0,
+      "default_branch": "master",
+      "score": 3.9312947
     },
     {
       "id": 106321682,
@@ -2769,7 +2868,7 @@
       "open_issues": 0,
       "watchers": 0,
       "default_branch": "master",
-      "score": 3.9380658
+      "score": 3.929074
     },
     {
       "id": 114478714,
@@ -2875,106 +2974,7 @@
       "open_issues": 0,
       "watchers": 0,
       "default_branch": "master",
-      "score": 3.9380658
-    },
-    {
-      "id": 108587116,
-      "name": "PopRequest",
-      "full_name": "datishans/PopRequest",
-      "owner": {
-        "login": "datishans",
-        "id": 4662037,
-        "avatar_url": "https://avatars3.githubusercontent.com/u/4662037?v=4",
-        "gravatar_id": "",
-        "url": "https://api.github.com/users/datishans",
-        "html_url": "https://github.com/datishans",
-        "followers_url": "https://api.github.com/users/datishans/followers",
-        "following_url": "https://api.github.com/users/datishans/following{/other_user}",
-        "gists_url": "https://api.github.com/users/datishans/gists{/gist_id}",
-        "starred_url": "https://api.github.com/users/datishans/starred{/owner}{/repo}",
-        "subscriptions_url": "https://api.github.com/users/datishans/subscriptions",
-        "organizations_url": "https://api.github.com/users/datishans/orgs",
-        "repos_url": "https://api.github.com/users/datishans/repos",
-        "events_url": "https://api.github.com/users/datishans/events{/privacy}",
-        "received_events_url": "https://api.github.com/users/datishans/received_events",
-        "type": "User",
-        "site_admin": false
-      },
-      "private": false,
-      "html_url": "https://github.com/datishans/PopRequest",
-      "description": "Shows the number of BitBucket pull requests in your macos' status bar.",
-      "fork": false,
-      "url": "https://api.github.com/repos/datishans/PopRequest",
-      "forks_url": "https://api.github.com/repos/datishans/PopRequest/forks",
-      "keys_url": "https://api.github.com/repos/datishans/PopRequest/keys{/key_id}",
-      "collaborators_url": "https://api.github.com/repos/datishans/PopRequest/collaborators{/collaborator}",
-      "teams_url": "https://api.github.com/repos/datishans/PopRequest/teams",
-      "hooks_url": "https://api.github.com/repos/datishans/PopRequest/hooks",
-      "issue_events_url": "https://api.github.com/repos/datishans/PopRequest/issues/events{/number}",
-      "events_url": "https://api.github.com/repos/datishans/PopRequest/events",
-      "assignees_url": "https://api.github.com/repos/datishans/PopRequest/assignees{/user}",
-      "branches_url": "https://api.github.com/repos/datishans/PopRequest/branches{/branch}",
-      "tags_url": "https://api.github.com/repos/datishans/PopRequest/tags",
-      "blobs_url": "https://api.github.com/repos/datishans/PopRequest/git/blobs{/sha}",
-      "git_tags_url": "https://api.github.com/repos/datishans/PopRequest/git/tags{/sha}",
-      "git_refs_url": "https://api.github.com/repos/datishans/PopRequest/git/refs{/sha}",
-      "trees_url": "https://api.github.com/repos/datishans/PopRequest/git/trees{/sha}",
-      "statuses_url": "https://api.github.com/repos/datishans/PopRequest/statuses/{sha}",
-      "languages_url": "https://api.github.com/repos/datishans/PopRequest/languages",
-      "stargazers_url": "https://api.github.com/repos/datishans/PopRequest/stargazers",
-      "contributors_url": "https://api.github.com/repos/datishans/PopRequest/contributors",
-      "subscribers_url": "https://api.github.com/repos/datishans/PopRequest/subscribers",
-      "subscription_url": "https://api.github.com/repos/datishans/PopRequest/subscription",
-      "commits_url": "https://api.github.com/repos/datishans/PopRequest/commits{/sha}",
-      "git_commits_url": "https://api.github.com/repos/datishans/PopRequest/git/commits{/sha}",
-      "comments_url": "https://api.github.com/repos/datishans/PopRequest/comments{/number}",
-      "issue_comment_url": "https://api.github.com/repos/datishans/PopRequest/issues/comments{/number}",
-      "contents_url": "https://api.github.com/repos/datishans/PopRequest/contents/{+path}",
-      "compare_url": "https://api.github.com/repos/datishans/PopRequest/compare/{base}...{head}",
-      "merges_url": "https://api.github.com/repos/datishans/PopRequest/merges",
-      "archive_url": "https://api.github.com/repos/datishans/PopRequest/{archive_format}{/ref}",
-      "downloads_url": "https://api.github.com/repos/datishans/PopRequest/downloads",
-      "issues_url": "https://api.github.com/repos/datishans/PopRequest/issues{/number}",
-      "pulls_url": "https://api.github.com/repos/datishans/PopRequest/pulls{/number}",
-      "milestones_url": "https://api.github.com/repos/datishans/PopRequest/milestones{/number}",
-      "notifications_url": "https://api.github.com/repos/datishans/PopRequest/notifications{?since,all,participating}",
-      "labels_url": "https://api.github.com/repos/datishans/PopRequest/labels{/name}",
-      "releases_url": "https://api.github.com/repos/datishans/PopRequest/releases{/id}",
-      "deployments_url": "https://api.github.com/repos/datishans/PopRequest/deployments",
-      "created_at": "2017-10-27T19:33:10Z",
-      "updated_at": "2017-10-27T19:46:50Z",
-      "pushed_at": "2017-11-17T18:39:33Z",
-      "git_url": "git://github.com/datishans/PopRequest.git",
-      "ssh_url": "git@github.com:datishans/PopRequest.git",
-      "clone_url": "https://github.com/datishans/PopRequest.git",
-      "svn_url": "https://github.com/datishans/PopRequest",
-      "homepage": "",
-      "size": 98,
-      "stargazers_count": 0,
-      "watchers_count": 0,
-      "language": "Swift",
-      "has_issues": true,
-      "has_projects": true,
-      "has_downloads": true,
-      "has_wiki": true,
-      "has_pages": false,
-      "forks_count": 1,
-      "mirror_url": null,
-      "archived": false,
-      "open_issues_count": 0,
-      "license": null,
-      "topics": [
-        "app",
-        "bitbucket",
-        "macos",
-        "statusbar",
-        "utility"
-      ],
-      "forks": 1,
-      "open_issues": 0,
-      "watchers": 0,
-      "default_branch": "master",
-      "score": 3.9316814
+      "score": 3.929074
     },
     {
       "id": 82626805,
@@ -3080,7 +3080,7 @@
       "open_issues": 0,
       "watchers": 0,
       "default_branch": "dev",
-      "score": 3.9127314
+      "score": 3.9140327
     },
     {
       "id": 105440907,
@@ -3185,7 +3185,7 @@
       "open_issues": 0,
       "watchers": 0,
       "default_branch": "master",
-      "score": 3.8917458
+      "score": 3.8902056
     }
   ]
 }

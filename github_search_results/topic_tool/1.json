@@ -105,7 +105,7 @@
       "open_issues": 10,
       "watchers": 1760,
       "default_branch": "master",
-      "score": 3.8112886
+      "score": 3.8048518
     },
     {
       "id": 98870159,
@@ -209,7 +209,7 @@
       "open_issues": 1,
       "watchers": 1554,
       "default_branch": "master",
-      "score": 3.7227187
+      "score": 3.7248352
     },
     {
       "id": 51076118,
@@ -317,7 +317,7 @@
       "open_issues": 29,
       "watchers": 347,
       "default_branch": "master",
-      "score": 3.8112886
+      "score": 3.8048518
     },
     {
       "id": 57291559,
@@ -420,7 +420,7 @@
       "open_issues": 2,
       "watchers": 287,
       "default_branch": "master",
-      "score": 3.7966394
+      "score": 3.7957702
     },
     {
       "id": 80989929,
@@ -488,7 +488,7 @@
       "deployments_url": "https://api.github.com/repos/Antondomashnev/FBSnapshotsViewer/deployments",
       "created_at": "2017-02-05T12:00:53Z",
       "updated_at": "2018-03-26T10:43:29Z",
-      "pushed_at": "2018-04-06T21:04:09Z",
+      "pushed_at": "2018-04-06T21:32:26Z",
       "git_url": "git://github.com/Antondomashnev/FBSnapshotsViewer.git",
       "ssh_url": "git@github.com:Antondomashnev/FBSnapshotsViewer.git",
       "clone_url": "https://github.com/Antondomashnev/FBSnapshotsViewer.git",
@@ -506,7 +506,7 @@
       "forks_count": 7,
       "mirror_url": null,
       "archived": false,
-      "open_issues_count": 5,
+      "open_issues_count": 7,
       "license": {
         "key": "mit",
         "name": "MIT License",
@@ -519,10 +519,10 @@
         "xcode"
       ],
       "forks": 7,
-      "open_issues": 5,
+      "open_issues": 7,
       "watchers": 156,
       "default_branch": "master",
-      "score": 3.7670572
+      "score": 3.7700527
     },
     {
       "id": 78416150,
@@ -589,7 +589,7 @@
       "releases_url": "https://api.github.com/repos/nevyn/OverPing/releases{/id}",
       "deployments_url": "https://api.github.com/repos/nevyn/OverPing/deployments",
       "created_at": "2017-01-09T09:56:50Z",
-      "updated_at": "2018-04-06T15:42:13Z",
+      "updated_at": "2018-04-06T23:25:39Z",
       "pushed_at": "2018-04-06T15:42:12Z",
       "git_url": "git://github.com/nevyn/OverPing.git",
       "ssh_url": "git@github.com:nevyn/OverPing.git",
@@ -597,8 +597,8 @@
       "svn_url": "https://github.com/nevyn/OverPing",
       "homepage": null,
       "size": 86,
-      "stargazers_count": 23,
-      "watchers_count": 23,
+      "stargazers_count": 24,
+      "watchers_count": 24,
       "language": "Swift",
       "has_issues": true,
       "has_projects": true,
@@ -622,9 +622,9 @@
       ],
       "forks": 1,
       "open_issues": 0,
-      "watchers": 23,
+      "watchers": 24,
       "default_branch": "master",
-      "score": 3.8425474
+      "score": 3.8295753
     },
     {
       "id": 93632588,
@@ -727,7 +727,7 @@
       "open_issues": 0,
       "watchers": 11,
       "default_branch": "master",
-      "score": 3.7330275
+      "score": 3.730791
     },
     {
       "id": 94114548,
@@ -834,7 +834,7 @@
       "open_issues": 0,
       "watchers": 10,
       "default_branch": "master",
-      "score": 3.7227187
+      "score": 3.7248352
     },
     {
       "id": 50788536,
@@ -936,7 +936,7 @@
       "open_issues": 0,
       "watchers": 8,
       "default_branch": "master",
-      "score": 3.7330275
+      "score": 3.730791
     },
     {
       "id": 107245412,
@@ -1040,7 +1040,7 @@
       "open_issues": 0,
       "watchers": 5,
       "default_branch": "master",
-      "score": 3.7966394
+      "score": 3.7957702
     },
     {
       "id": 107568551,
@@ -1139,7 +1139,7 @@
       "open_issues": 0,
       "watchers": 4,
       "default_branch": "master",
-      "score": 3.7883193
+      "score": 3.7900352
     },
     {
       "id": 90274433,
@@ -1253,7 +1253,7 @@
       "open_issues": 0,
       "watchers": 4,
       "default_branch": "master",
-      "score": 3.775806
+      "score": 3.773508
     },
     {
       "id": 118343389,
@@ -1351,7 +1351,7 @@
       "open_issues": 0,
       "watchers": 2,
       "default_branch": "master",
-      "score": 3.9063582
+      "score": 3.9083817
     },
     {
       "id": 114041977,
@@ -1456,7 +1456,7 @@
       "open_issues": 3,
       "watchers": 2,
       "default_branch": "master",
-      "score": 3.8300896
+      "score": 3.8376646
     },
     {
       "id": 111886157,
@@ -1559,7 +1559,7 @@
       "open_issues": 0,
       "watchers": 2,
       "default_branch": "master",
-      "score": 3.7966394
+      "score": 3.7957702
     },
     {
       "id": 84597866,
@@ -1665,7 +1665,7 @@
       "open_issues": 0,
       "watchers": 2,
       "default_branch": "master",
-      "score": 3.7227187
+      "score": 3.7248352
     },
     {
       "id": 105536681,
@@ -1762,7 +1762,7 @@
       "open_issues": 0,
       "watchers": 0,
       "default_branch": "master",
-      "score": 3.9063582
+      "score": 3.9083817
     },
     {
       "id": 100514197,
@@ -1868,7 +1868,7 @@
       "open_issues": 0,
       "watchers": 0,
       "default_branch": "master",
-      "score": 3.8112886
+      "score": 3.8048518
     },
     {
       "id": 121907169,
@@ -1977,7 +1977,7 @@
       "open_issues": 0,
       "watchers": 0,
       "default_branch": "master",
-      "score": 3.775806
+      "score": 3.773508
     },
     {
       "id": 79432456,
@@ -2076,7 +2076,7 @@
       "open_issues": 0,
       "watchers": 0,
       "default_branch": "master",
-      "score": 3.7670572
+      "score": 3.7700527
     },
     {
       "id": 105260805,
@@ -2174,7 +2174,7 @@
       "open_issues": 0,
       "watchers": 0,
       "default_branch": "master",
-      "score": 3.7670572
+      "score": 3.7700527
     },
     {
       "id": 80590188,
@@ -2273,7 +2273,7 @@
       "open_issues": 0,
       "watchers": 0,
       "default_branch": "master",
-      "score": 3.7665987
+      "score": 3.7667248
     },
     {
       "id": 115323728,
@@ -2377,7 +2377,7 @@
       "open_issues": 0,
       "watchers": 0,
       "default_branch": "master",
-      "score": 3.761814
+      "score": 3.7576656
     },
     {
       "id": 77791371,
@@ -2476,7 +2476,7 @@
       "open_issues": 0,
       "watchers": 0,
       "default_branch": "master",
-      "score": 3.7330275
+      "score": 3.730791
     }
   ]
 }

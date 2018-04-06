@@ -127,9 +127,6 @@ despite the efforts to create a consistent ecosystem around the Swift language, 
 
 - github search api results
   - total repos with "utility" in name: 99,601 as of 4/5/2017; swift not in top 10 languages, where the two distant leaders are python and javascript
-  - total repos with topic "utility": 
-  - total swift repos with "utility" in name: 
-  - total swift repos with topic "utility": 
 
 ### Conclusions
 

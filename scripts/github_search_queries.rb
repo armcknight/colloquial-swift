@@ -19,12 +19,14 @@ end
 def run_all_queries
   queries = [
     'utility',
+    'utils',
     'tool',
     'helper',
     'extension',
-    'framework'
+    'framework',
+    'library',
   ].map{ |query|
-    [ query, 'topic:' + query ]
+    [ query + '+in:name', 'topic:' + query ]
   }.flatten
 
   queries.each do |query|

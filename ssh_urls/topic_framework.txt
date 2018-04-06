@@ -4,7 +4,6 @@ git@github.com:570262616/EzPhotoBrowser.git
 git@github.com:AidyBao/BFramework_swift.git
 git@github.com:AlexeyDemedetskiy/ReduxStore.git
 git@github.com:Beaver/Beaver.git
-git@github.com:BhavinGupta/BGLogger.git
 git@github.com:Boilertalk/VaporFacebookBot.git
 git@github.com:Brightify/DataMapper.git
 git@github.com:BrunoMiguens/NetworkingKit.git
@@ -17,6 +16,7 @@ git@github.com:Digipolitan/collection-view-grid-layout.git
 git@github.com:Digipolitan/collection-view-left-align-flow-layout.git
 git@github.com:Digipolitan/collection-view-paginable-behavior.git
 git@github.com:Digipolitan/dependency-injector.git
+git@github.com:Digipolitan/dependency-injector.git
 git@github.com:Digipolitan/dialog-animator.git
 git@github.com:Digipolitan/framework-swift-template.git
 git@github.com:Digipolitan/side-navigation.git
@@ -24,10 +24,8 @@ git@github.com:Flinesoft/NewFrameworkTemplate.git
 git@github.com:FrostlightSolutions/FrostKit.git
 git@github.com:IoT-Ignite/IgniteAPI.git
 git@github.com:JohnCido/CKit.git
-git@github.com:JohnCido/CKit.git
 git@github.com:LittleGreenViper/BMLTiOSLib.git
 git@github.com:Luccifer/EyeriseExtensions.git
-git@github.com:Marcocanc/Orthoplay.git
 git@github.com:Mindera/Alicerce.git
 git@github.com:PayalUmraliya/PUGifLoaderControl.git
 git@github.com:PierrePerrin/ShadowView.git
@@ -74,6 +72,8 @@ git@github.com:damonthecricket/my-utils.git
 git@github.com:divadretlaw/Passcode.git
 git@github.com:divadretlaw/Themeable.git
 git@github.com:divadretlaw/UserDefaults.git
+git@github.com:durul/HSB.git
+git@github.com:durul/HSB.git
 git@github.com:eBardX/XestiMonitors.git
 git@github.com:eonist/Element.git
 git@github.com:essentialdevelopercom/quiz-app.git
@@ -101,7 +101,6 @@ git@github.com:juanpablofernandez/CountryList.git
 git@github.com:juanpablofernandez/SwiftyOnboard.git
 git@github.com:kayak/attributions.git
 git@github.com:kballard/Tomorrowland.git
-git@github.com:kimar/Burrito.git
 git@github.com:kimar/Promise.swift.git
 git@github.com:koingdev/KoingX-Swift.git
 git@github.com:kristorres/Sakura.git
@@ -146,6 +145,7 @@ git@github.com:tonystone/coherence.git
 git@github.com:vapor/vapor.git
 git@github.com:varvet/DynamicStackView.git
 git@github.com:willowtreeapps/spruce-ios.git
+git@github.com:xremix/SwiftDebouncer.git
 git@github.com:xremix/SwiftDebouncer.git
 git@github.com:zdenektopic/Guardian.git
 git@github.com:zjfjack/JZiOSFramework.git
