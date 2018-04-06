@@ -9,9 +9,9 @@ What if we could all share the same utility and wrapper libraries? It would be a
 Then what is the difference between that and the standard SDKs they're wrapping?
 
 - UIKit is 
-    - a wrapper around lower level C routines that handle the actual drawing of pixels, that provides patterns and vocabulary to create complex interfaces that harness the wrapped technologies
-    - an extension to what is possible to draw on a screen from the raw tools of the wrapped tech
-        - even if "extension" is subjective, like enhanced code expressibility via syntax sugar or alternative syntax
+	- a wrapper around lower level C routines that handle the actual drawing of pixels, that provides patterns and vocabulary to create complex interfaces that harness the wrapped technologies
+	- an extension to what is possible to draw on a screen from the raw tools of the wrapped tech
+		- even if "extension" is subjective, like enhanced code expressibility via syntax sugar or alternative syntax
 - This new "public" SDK would wrap "lower level" UIKit/Foundation constructs into common usages. It would have its own patterns and vocabulary, and would extend the capabilities of the underlying technologies.
 
 This middle ground is usually filled by something called a stdlib, a collection of functionality that is not part of the language itself. The language is just the set of keywords and punctuation that the compiler knows how to translate into machine code. It's like spoken/written languages like English or Chinese: the novels written in each are the stdlibs, and our utility libraries are like facebook comment sections for each book.
@@ -24,9 +24,9 @@ This middle ground is usually filled by something called a stdlib, a collection 
 - python:
 - javascript: 
 
-Not everything everyone wants can necessarily be a stdlib member. Swift has a proposal process called evolution: [https://github.com/apple/swift-evolution](https://github.com/apple/swift-evolution)
+Not everything everyone wants can necessarily be a stdlib member. Swift has a proposal process called evolution: [https://github.com/apple/swift-evolution](https://github.com/apple/swift-evolution). This process necessarily has friction, so it's much easier to write something you really want right now in your own code. Since you want to be able to reuse it, you put it in your utility belt.
 
-Why might people decide to write their own instead of using another?
+Why might people decide to write their own instead using and contributing to another?
 
 - discoverability is hard
 - reading others' code/docs is hard
@@ -36,84 +36,106 @@ Why might people decide to write their own instead of using another?
 - they do not know something has been solved alrady, or that it is solvable
 - they believe they can do a better job
 
-Colloquial: people, and groups of people, think differently, or at least exhibit varied linguistics in how they communicate. That applies to programming languages as well. Apple has created API guidelines for swift to help keep the ecosystem more coherent: [https://swift.org/documentation/api-design-guidelines/](https://swift.org/documentation/api-design-guidelines/)
+It's hard to imagine that each person's or team's utility belt are very similar. 
 
 Conway's law for Swift: "organizations which design Swift libraries ... are constrained to produce APIs which are copies of the communication structures of these organizations".
 
-Assumptions:
+Colloquial: people, and groups of people, think differently, or at least exhibit varied linguistics in how they communicate. That applies to programming languages as well. Apple has created API guidelines for swift to help keep the ecosystem more coherent: [https://swift.org/documentation/api-design-guidelines/](https://swift.org/documentation/api-design-guidelines/)
 
-- most devs/teams have a "utility" type collection of helper code that is difficult to fit into a specialized collection or make stand on its own. even if it's just a holding place where things go to mature and eventually become something (or get removed), but they just don't fit anywhere at the time.
+The same is true of documentation, something else developers must write, but comes in various styles, even just considering those written by native speakers of a particular language. This may even be observed on one team: some people paint lush images with flowery words in descriptive prose worthy of any salesman, others write series of tacit statements that may as well be program code itself (I tend to fall into the latter camp).
 
-Hypothesis: despite the efforts to create a consistent ecosystem around the Swift language, there is wide variation in the coding and naming conventions amongst publicly available 3rd party swift libraries. If the problems we're solving are unique, then the code we write and use the most will have evolved sufficiently past the point where they closely resemble other similarly mature libraries.
+## Experiment
 
-Methodology:
+### Assumptions:
+
+- most devs/teams have a "utility" type collection of helper code that is difficult to fit into a specialized collection or make stand on its own. 
+- it's often just a holding place where things go to mature and eventually become something (or get removed), but they just don't fit anywhere at the time... if so, should we change the word "utility"? If we use it as a place to let small ideas grow, then we can call it something like... well, playground, but that's taken... garden? Incubator? Evolution?
+
+### Hypothesis
+
+despite the efforts to create a consistent ecosystem around the Swift language, there is wide variation in the coding and naming conventions amongst publicly available 3rd party swift libraries. If the problems we're solving are unique, then the code we write and use the most will have evolved sufficiently past the point where they closely resemble other similarly mature libraries.
+
+### Methodology
 
 - maintain a set of git URLs to repositories
-    - discovery
-        - web search specific companies
-        - web search for lists of swift libraries
-        - github search
-            - perform searches using the github rest api
-                - [https://developer.github.com/v3/search/#search-repositories](https://developer.github.com/v3/search/#search-repositories)
-                - `scripts/github_search_queries.rb` performs all the queries and writes the results to disk under `github_search_results/`
-                - processing results
-                  - `scripts/convert_github_search_results_to_urls.rb` converts result json to lists of ssh cloning urls
-                - for searches with more than 1000 results (at which github caps results), sort by fork/star count as well as the default ("best match")
-            - characterize activity
-                - using created/pushed qualifiers
-            - searches
-                - repo name containing "utility"
-                - swift repo with "utility" in name
-                - github topic is "utility": these repositories have deliberately marked themselves with the "utility" topic keyword
-    - categorize by oss library, corporate offered library, oss app/corporate internal utilities collections
-    - including forks might involve looking at the modifications; will not consider them
-- script cloning all repositories under a root directory
+	- including forks might involve looking at the modifications; will not consider them
+	- manual
+		- web search repos 
+		- search companies' github accounts for utilities
+		- web search for lists of swift libraries
+		- script extraction of github repo urls from lists
+		- keep manual list in `ssh_urls/_manual.txt`
+	- automatic: github search rest api: [https://developer.github.com/v3/search/#search-repositories](https://developer.github.com/v3/search/#search-repositories)
+		- repository search
+			- searching
+				- for queries returning more than 1000 results, let github decide the best 1000 instead of sorting by star/forks
+				- queries
+					- utility
+					- tool
+					- extension
+					- helper
+				- search types
+					- keyword: default search type; searches for repos whose name contains the query term
+					- topic: these repositories have deliberately marked themselves with the query term as one of their github "topics"
+				- all searches are confined to repos that github recognizes as swift codebases
+				- `scripts/github_search_queries.rb` performs all the queries and writes the results to disk under `github_search_results/`, in subdirectories named as a unique id made of the search terms
+		  - processing results
+				- `scripts/convert_github_search_results_to_urls.rb` converts result json to lists of ssh cloning urls
+				- `scripts/deduplicate_urls.rb` distills a list of repos that appear in more than one search into a `_common.txt` file
+		- code search
+- clone repositories
+	- clone all to one flat repo, then create directory structure to mirror the github results', symlinking to the actual cloned repos
+	- create `_manual/` directory to symlink to those repos
+	- `scripts/clone_repos.rb`
 - run observation scripts, outputting results
 - visualize results
 
-Swift Code Observations
+#### Observations
 
-- declarations
-    - extension
-      - collate by thing being extended
-    - function
-    - protocol
-    - struct
-    - enum
-    - class
-    - custom operators
-- unicode identifiers
-        - emoji
-        - symbols
-- trivia
-    - longest function signature
-    - longest identifier for enum/class/struct/protocol 
+- code
+	- declarations
+	  - extension
+		- collate by thing being extended
+	  - function (non-XCTest)
+	  - protocol
+	  - struct
+	  - enum
+	  - class
+	  - custom operators
+	- unicode identifiers
+	  - emoji
+	  - symbols
+	- trivia
+	  - longest function signature
+	  - longest identifier for enum/class/struct/protocol 
+- repository
+	- number of stars/forks
+	- dependencies
+	  - import statements, non-apple... do the utilities stand on their own?
+	  - cocoapods/carthage/spm support and usage
+	  - usage of git submodules
 - testing
-    - number of test functions
-- dependencies
-    - import statements, non-apple... do the utilities stand on their own?
-    - cocoapods/carthage/spm support and usage
-    - usage of git submodules
+  - number of test functions
 
-Results
+- metrics and normalization
+	- encode violations of api guidelines
+	- remove and see how more similar different libraries become
 
-- 99,601 total repos with "utility" in name, as of 4/5/2017; swift not in top 10, where the two distant leaders are python and javascript
+### Results
 
-swift libraries:
+- github search api results
+  - total repos with "utility" in name: 99,601 as of 4/5/2017; swift not in top 10 languages, where the two distant leaders are python and javascript
+  - total repos with topic "utility": 
+  - total swift repos with "utility" in name: 
+  - total swift repos with topic "utility": 
 
-- [https://github.com/SwifterSwift/SwifterSwift](https://github.com/SwifterSwift/SwifterSwift)
-- [https://github.com/IanKeen/Components](https://github.com/IanKeen/Components)
-- [https://github.com/davedelong/Syzygy](https://github.com/davedelong/Syzygy)
-- [https://github.com/TwoRingSoft/Pippin/tree/develop/Sources/Pippin/Extensions](https://github.com/TwoRingSoft/Pippin/tree/develop/Sources/Pippin/Extensions)
-- [https://github.com/FabrizioBrancati/BFKit-Swift](https://github.com/FabrizioBrancati/BFKit-Swift)
-- [https://github.com/raywenderlich/swift-algorithm-club (sort of)](https://github.com/raywenderlich/swift-algorithm-club (sort of))
-- [https://github.com/practicalswift/Pythonic.swift](https://github.com/practicalswift/Pythonic.swift)
+### Conclusions
 
-company swift libraries:
+- 
 
-- [https://github.com/kickstarter/Kickstarter-Prelude](https://github.com/kickstarter/Kickstarter-Prelude)
+## Manual curation
 
-internal utility libraries:
+internal utility collections:
 
 - [https://github.com/wordpress-mobile/WordPress-iOS/tree/develop/WordPress/Classes/Utility](https://github.com/wordpress-mobile/WordPress-iOS/tree/develop/WordPress/Classes/Utility)
 - [https://github.com/kickstarter/ios-oss/tree/master/Kickstarter-iOS/TestHelpers (interesting, because they offer a separate swift utility library in its own repo)](https://github.com/kickstarter/ios-oss/tree/master/Kickstarter-iOS/TestHelpers (interesting, because they offer a separate swift utility library in its own repo))
@@ -130,6 +152,3 @@ swift.libhunt.com (particularly [https://swift.libhunt.com/categories/932-utilit
 newsletters:
 
 - [https://www.getrevue.co/profile/publicextension](https://www.getrevue.co/profile/publicextension)
-
-
-Should we change the word "utility"? If we use it as a place to let small ideas grow, then we can call it something like... well, playground, but that's taken... garden? Incubator?

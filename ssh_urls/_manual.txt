@@ -1,0 +1,9 @@
+git@github.com:SwifterSwift/SwifterSwift.git
+git@github.com:IanKeen/Components.git
+git@github.com:davedelong/Syzygy.git
+git@github.com:TwoRingSoft/Pippin.git
+git@github.com:FabrizioBrancati/BFKit-Swift.git
+git@github.com:practicalswift/Pythonic.swift.git
+git@github.com:kickstarter/Kickstarter-Prelude.git
+git@github.com:kickstarter/ios-oss/tree/master/Kickstarter-iOS/TestHelpers.git
+git@github.com:raywenderlich/swift-algorithm-club.git

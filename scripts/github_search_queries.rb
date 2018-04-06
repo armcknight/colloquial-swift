@@ -2,11 +2,11 @@ require 'json'
 
 # return the total count of results for the search
 def make_call_with_query query, page
-  slugified_query = query.gsub('+', '__').gsub(':', '_')
-  result_dir = "github_search_results/#{slugified_query}"
+  search_id = query.gsub('+', '__').gsub(':', '_')
+  result_dir = "github_search_results/#{search_id}"
   `mkdir -p #{result_dir}`
   result_path = "#{result_dir}/#{page}.json"
-  command = "curl -H \"Accept: application/vnd.github.mercy-preview+json\" \"https://api.github.com/search/repositories?q=#{query}&page=#{page}&per_page=100\""
+  command = "curl -H \"Accept: application/vnd.github.mercy-preview+json\" \"https://api.github.com/search/repositories?q=#{query}+language:swift&page=#{page}&per_page=100\""
   puts command
   json_result = `#{command}`
   parsed_json = JSON.parse(json_result)
@@ -19,12 +19,12 @@ end
 def run_all_queries
   queries = [
     'utility',
-    'utility+language:swift',
-    'topic:utility',
-    'topic:utility+language:swift',
-    'utility+language:swift+sort:stars',
-    'utility+language:swift+sort:forks'
-  ]
+    'tool',
+    'helper',
+    'extension'
+  ].map{ |query|
+    [ query, 'topic:' + query ]
+  }.flatten
 
   queries.each do |query|
     # depending on the result count, perform paginated search queries to get up to the first 1000 results (github doesn't provide more than that)
