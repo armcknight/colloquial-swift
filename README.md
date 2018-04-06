@@ -82,7 +82,6 @@ despite the efforts to create a consistent ecosystem around the Swift language, 
 				- `scripts/github_search_queries.rb` performs all the queries and writes the results to disk under `github_search_results/`, in subdirectories named as a unique id made of the search terms
 		  - processing results
 				- `scripts/gather_ssh_urls.rb` converts result json to lists of ssh cloning urls
-				- `scripts/deduplicate_urls.rb` distills a list of repos that appear in more than one search into a `_common.txt` file
 		- code search
 - clone repositories
 	- clone all to one flat repo
