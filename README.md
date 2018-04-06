@@ -95,8 +95,10 @@ despite the efforts to create a consistent ecosystem around the Swift language, 
 - code
 	- declarations
 	  - extension
-		- collate by thing being extended
+			- collate by thing being extended
+				- separate into extensions on Apple vs. non-Apple API
 	  - function (non-XCTest)
+			- collate by thing being extended
 	  - protocol
 	  - struct
 	  - enum
