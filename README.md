@@ -76,9 +76,16 @@ despite the efforts to create a consistent ecosystem around the Swift language, 
 					- helper
 					- framework
 					- library
+					- wrapper
+					- easy
 				- search types
 					- keyword: default search type; searches for repos whose name contains the query term
 					- topic: these repositories have deliberately marked themselves with the query term as one of their github "topics"
+						- these topics exist but were not used because they contain other search terms already used:
+							- swift-extensions
+							- swift-wrapper
+							- swift-library
+							- swift-framework
 				- all searches are confined to repos that github recognizes as swift codebases
 				- `scripts/github_search_queries.rb` performs all the queries and writes the results to disk under `github_search_results/`, in subdirectories named as a unique id made of the search terms
 		  - processing results

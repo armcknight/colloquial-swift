@@ -1,0 +1,6 @@
+git@github.com:benhurott/BHPhotoView.git
+git@github.com:brandy2015/SoHow.git
+git@github.com:izouxv/SwiftyDB.git
+git@github.com:pauljeannot/SwiftyBash.git
+git@github.com:roberthein/Observable.git
+git@github.com:victormanuelfrancodev/easyregister.git
