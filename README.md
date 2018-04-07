@@ -75,6 +75,7 @@ despite the efforts to create a consistent ecosystem around the Swift language, 
 					- extension
 					- helper
 					- framework
+					- library
 				- search types
 					- keyword: default search type; searches for repos whose name contains the query term
 					- topic: these repositories have deliberately marked themselves with the query term as one of their github "topics"
