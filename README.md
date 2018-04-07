@@ -134,7 +134,28 @@ despite the efforts to create a consistent ecosystem around the Swift language, 
 ### Results
 
 - github search api results
-  - total repos with "utility" in name: 99,601 as of 4/5/2017; swift not in top 10 languages, where the two distant leaders are python and javascript
+	- the sum of all (retrievable) search hits (plus my own hand-curated list) is 4917, with 4774 unique repositories, so the searches are almost completely nonoverlapping; only a maximum of 143 repos appeared in more than one search, about 3% of the total
+	- by search query:
+		- keyword
+			- easy: 549
+			- extension: 1030
+			- framework: 593
+			- helper: 559
+			- library: 661
+			- tool: 681
+			- utility: 100
+			- utils: 210
+			- wrapper: 113
+		- topic
+			- easy: 6
+			- extension: 70
+			- framework: 151
+			- helper: 11
+			- library: 111
+			- tool: 24
+			- utility: 31
+			- utils: 9
+			- wrapper: 30
 
 ### Conclusions
 
