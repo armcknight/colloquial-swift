@@ -18,8 +18,7 @@ end
 
 def run_all_queries
   queries = [
-    'utility',
-    'utils',
+    'util',
     'tool',
     'helper',
     'extension',
@@ -30,6 +29,7 @@ def run_all_queries
   ].map{ |query|
     [ query + '+in:name', 'topic:' + query ]
   }.flatten
+  queries << 'easier+in:description'
 
   queries.each do |query|
     # depending on the result count, perform paginated search queries to get up to the first 1000 results (github doesn't provide more than that)

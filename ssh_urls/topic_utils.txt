@@ -1,9 +1,0 @@
-git@github.com:AndyYoungCN/iOS_Utils.git
-git@github.com:AntonPoltoratskyi/SwiftyUtils.git
-git@github.com:Harley-xk/Comet.git
-git@github.com:adamgraham/chronos.git
-git@github.com:daviwiki/swift-labs-cookbook.git
-git@github.com:foxsin10/Snippet.git
-git@github.com:jbrunhuber/jc-utils.git
-git@github.com:lynxerzhang/SwiftUtil.git
-git@github.com:pisces/APNSUtil.git

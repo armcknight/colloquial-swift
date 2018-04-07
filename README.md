@@ -70,7 +70,7 @@ despite the efforts to create a consistent ecosystem around the Swift language, 
 			- searching
 				- for queries returning more than 1000 results, let github decide the best 1000 instead of sorting by star/forks
 				- queries
-					- utility
+					- util
 					- tool
 					- extension
 					- helper
@@ -80,6 +80,7 @@ despite the efforts to create a consistent ecosystem around the Swift language, 
 					- easy
 				- search types
 					- keyword: default search type; searches for repos whose name contains the query term
+						- one exception: search for repos with description containing 'easier'
 					- topic: these repositories have deliberately marked themselves with the query term as one of their github "topics"
 						- these topics exist but were not used because they contain other search terms already used:
 							- swift-extensions
