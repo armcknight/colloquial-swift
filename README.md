@@ -115,6 +115,10 @@ despite the efforts to create a consistent ecosystem around the Swift language, 
 		- class
 			- open usage
 		- custom operators
+		- typealiases
+		- advanced language features
+			- generics
+			- protocol conformance masks
 	- unicode identifiers
 		- emoji
 		- symbols
