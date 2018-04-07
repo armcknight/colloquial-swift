@@ -119,6 +119,7 @@ despite the efforts to create a consistent ecosystem around the Swift language, 
 	  - longest function signature
 	  - longest identifier for enum/class/struct/protocol 
 - repository
+	- swift version
 	- number of stars/forks
 	- dependencies
 	  - import statements, non-apple... do the utilities stand on their own?
