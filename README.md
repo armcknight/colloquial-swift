@@ -103,31 +103,33 @@ despite the efforts to create a consistent ecosystem around the Swift language, 
 
 - code
 	- declarations
-	  - extension
+		- access modifier usage for everything
+		- extension
 			- collate by thing being extended
 				- separate into extensions on Apple vs. non-Apple API
-	  - function (non-XCTest)
+		- function (non-XCTest)
 			- collate by thing being extended
-	  - protocol
-	  - struct
-	  - enum
-	  - class
-	  - custom operators
+		- protocol
+		- struct
+		- enum
+		- class
+			- open usage
+		- custom operators
 	- unicode identifiers
-	  - emoji
-	  - symbols
+		- emoji
+		- symbols
 	- trivia
-	  - longest function signature
-	  - longest identifier for enum/class/struct/protocol 
+		- longest function signature
+		- longest identifier for enum/class/struct/protocol 
 - repository
 	- swift version
 	- number of stars/forks
 	- dependencies
-	  - import statements, non-apple... do the utilities stand on their own?
-	  - cocoapods/carthage/spm support and usage
-	  - usage of git submodules
+		- import statements, non-apple... do the utilities stand on their own?
+		- cocoapods/carthage/spm support and usage
+		- usage of git submodules
 - testing
-  - number of test functions
+	- number of test functions
 
 - metrics and normalization
 	- encode violations of api guidelines
@@ -164,6 +166,8 @@ despite the efforts to create a consistent ecosystem around the Swift language, 
 - 
 
 ## Manual curation
+
+- extension of a third party library: [https://github.com/SwiftyJSON/Alamofire-SwiftyJSON](https://github.com/SwiftyJSON/Alamofire-SwiftyJSON)
 
 internal utility collections:
 
