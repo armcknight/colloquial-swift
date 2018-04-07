@@ -139,27 +139,29 @@ despite the efforts to create a consistent ecosystem around the Swift language, 
 
 - github search api results
 	- the sum of all (retrievable) search hits (plus my own hand-curated list) is 4917, with 4774 unique repositories, so the searches are almost completely nonoverlapping; only a maximum of 143 repos appeared in more than one search, about 3% of the total
+	- total: 6053
+	- unique: 5810
 	- by search query:
-		- keyword
-			- easy: 549
+		- keyword in name
 			- extension: 1030
+			- tool: 681
+			- library: 661
 			- framework: 593
 			- helper: 559
-			- library: 661
-			- tool: 681
-			- utility: 100
-			- utils: 210
+			- easy: 549
+			- util: 484
 			- wrapper: 113
+		- keyword in description
+			- easier: 1607
 		- topic
-			- easy: 6
-			- extension: 70
 			- framework: 151
-			- helper: 11
 			- library: 111
-			- tool: 24
-			- utility: 31
-			- utils: 9
+			- extension: 70
 			- wrapper: 30
+			- tool: 24
+			- util: 2
+			- easy: 6
+			- helper: 11
 
 ### Conclusions
 
