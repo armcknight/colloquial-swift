@@ -46,7 +46,7 @@ The same is true of documentation, something else developers must write, but com
 
 ## Experiment
 
-### Assumptions:
+### Assumptions
 
 - most devs/teams have a "utility" type collection of helper code that is difficult to fit into a specialized collection or make stand on its own. 
 - it's often just a holding place where things go to mature and eventually become something (or get removed), but they just don't fit anywhere at the time... if so, should we change the word "utility"? If we use it as a place to let small ideas grow, then we can call it something like... well, playground, but that's taken... garden? Incubator? Evolution?
@@ -127,7 +127,7 @@ despite the efforts to create a consistent ecosystem around the Swift language, 
 		- longest identifier for enum/class/struct/protocol 
 - repository
 	- swift version
-	- number of stars/forks
+	- number of stars, forks, pull requests
 	- dependencies
 		- import statements, non-apple... do the utilities stand on their own?
 		- cocoapods/carthage/spm support and usage
@@ -140,6 +140,8 @@ despite the efforts to create a consistent ecosystem around the Swift language, 
 	- remove and see how more similar different libraries become
 
 ### Results
+
+venn diagram generator: http://www.biovenn.nl/index.php
 
 - github search api results
 	- the sum of all (retrievable) search hits (plus my own hand-curated list) is 4917, with 4774 unique repositories, so the searches are almost completely nonoverlapping; only a maximum of 143 repos appeared in more than one search, about 3% of the total
