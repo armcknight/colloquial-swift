@@ -57,7 +57,7 @@ despite the efforts to create a consistent ecosystem around the Swift language, 
 
 ### Methodology
 
-- collect set of git URLs to repositories
+- ✅ collect set of git URLs to repositories
 	- including forks might involve looking at the modifications; will not consider them
 	- manual
 		- web search repos 
@@ -91,12 +91,16 @@ despite the efforts to create a consistent ecosystem around the Swift language, 
 				- `scripts/github_search_queries.rb` performs all the queries and writes the results to disk under `github_search_results/`, in subdirectories named as a unique id made of the search terms
 		- processing results
 			- ✅ `scripts/gather_ssh_urls.rb` converts result json to lists of ssh cloning urls
-- clone repositories
-	- ✅ clone all to one flat repo: `scripts/clone_repos.rb`
-	- create directory for each github search, containing symlinks to the cloned repos
-- filter repositories
+- ✅ clone repositories
+	- clone all to one flat repo: `scripts/clone_repos.rb`
+- ✅ remove dependency and example code `scripts/remove_dependencies_and_examples.rb`
+	- lots of Pods/ and Carthage/ directories will be checked in; remove them after cloning
+	- remove Example/ directories, which may contain their own dependencies too
+	- no need to worry about git submodules, we never sync them as part of cloning
+- ✅ filter repositories
 	- not all repositories will be relevant, many test/experimentation/example repos, or personal apps
 	- only select repositories with a podspec
+	- `scripts/filter_for_podspecs.rb`
 - run observation scripts, outputting results
 - visualize results
 
@@ -124,13 +128,15 @@ despite the efforts to create a consistent ecosystem around the Swift language, 
 	- comments
 		- ✅ inline, inline swift doc, multiline, headerdoc
 		- use of headerdoc keywords
-	- swift file lines-of-code counts
+	- ✅ swift file lines-of-code counts
+		- avg, min, max
 	- unicode identifiers
 		- emoji
 		- symbols
 	- trivia
 		- longest function signature
 		- longest identifier for enum/class/struct/protocol 
+		- longest swift file
 - repository
 	- contains playgrounds?
 	- swift version
@@ -154,8 +160,8 @@ venn diagram generator: http://www.biovenn.nl/index.php
 
 - github search api results
 	- the sum of all (retrievable) search hits (plus my own hand-curated list) is 4917, with 4774 unique repositories, so the searches are almost completely nonoverlapping; only a maximum of 143 repos appeared in more than one search, about 3% of the total
-	- total: 6053
-	- unique: 5810
+	- total: 6053 (`cat ssh_urls/*.txt | wc -l`)
+	- unique: 5810 (`cat ssh_urls/*.txt | sort | uniq | wc -l`)
 	- by search query:
 		- keyword in name
 			- extension: 1030
@@ -177,6 +183,12 @@ venn diagram generator: http://www.biovenn.nl/index.php
 			- util: 2
 			- easy: 6
 			- helper: 11
+			
+
+- removing Pods/Carthage/example/test directories
+	- before: 535,825 files, 39.6 GB
+	- after: 302,446 files, 23.38 GB
+- repositories with podspecs: 1357 (`jq '.[]' observations/_repos_with_podspecs.txt | wc -l`)
 
 ### Conclusions
 

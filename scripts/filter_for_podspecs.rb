@@ -8,6 +8,6 @@ Dir.chdir('repositories') do
   end
 end
 
-File.open('observations/_repos_with_podspecs.txt', 'w') do |file|
+File.open('observations/_repos_with_podspecs.json', 'w') do |file|
   file << JSON.dump(repos_with_podspecs)
 end

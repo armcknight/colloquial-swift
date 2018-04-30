@@ -42,8 +42,8 @@ Dir.entries(repositories_dir).each do |repository|
     # find /** */ documentation comments
     comments['headerdoc'] = massage_multiline_comment_result `ag --swift --nofilename --nogroup "/\\*\\*[^*]+\\*+(?:[^/*][^*]*\\*+)*/"`
     
-    # count total lines of code per swift file, excluding files in Pods/ and Carthage/ directories
-    swift_file_paths = `find . -type f -name "*.swift" | grep -v 'Pods/' | grep -v 'Carthage/'`
+    # count total lines of code per swift file
+    swift_file_paths = `find . -type f -name "*.swift"'`
     current_repo_lines_of_code_counts = Hash.new
     swift_file_paths.split("\n").each do |swift_file_path|
       swift_filename = swift_file_path.split('/')[-1]
