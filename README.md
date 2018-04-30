@@ -57,7 +57,7 @@ despite the efforts to create a consistent ecosystem around the Swift language, 
 
 ### Methodology
 
-- maintain a set of git URLs to repositories
+- collect set of git URLs to repositories
 	- including forks might involve looking at the modifications; will not consider them
 	- manual
 		- web search repos 
@@ -66,7 +66,7 @@ despite the efforts to create a consistent ecosystem around the Swift language, 
 		- script extraction of github repo urls from lists
 		- keep manual list in `ssh_urls/_manual.txt`
 	- automatic: github search rest api: [https://developer.github.com/v3/search/#search-repositories](https://developer.github.com/v3/search/#search-repositories)
-		- repository search
+		- ✅ repository search
 			- searching
 				- for queries returning more than 1000 results, let github decide the best 1000 instead of sorting by star/forks
 				- queries
@@ -89,13 +89,14 @@ despite the efforts to create a consistent ecosystem around the Swift language, 
 							- swift-framework
 				- all searches are confined to repos that github recognizes as swift codebases
 				- `scripts/github_search_queries.rb` performs all the queries and writes the results to disk under `github_search_results/`, in subdirectories named as a unique id made of the search terms
-		  - processing results
-				- `scripts/gather_ssh_urls.rb` converts result json to lists of ssh cloning urls
-		- code search
+		- processing results
+			- ✅ `scripts/gather_ssh_urls.rb` converts result json to lists of ssh cloning urls
 - clone repositories
-	- clone all to one flat repo
+	- ✅ clone all to one flat repo: `scripts/clone_repos.rb`
 	- create directory for each github search, containing symlinks to the cloned repos
-	- `scripts/clone_repos.rb`
+- filter repositories
+	- not all repositories will be relevant, many test/experimentation/example repos, or personal apps
+	- only select repositories with a podspec
 - run observation scripts, outputting results
 - visualize results
 
@@ -104,21 +105,26 @@ despite the efforts to create a consistent ecosystem around the Swift language, 
 - code
 	- declarations
 		- access modifier usage for everything
-		- extension
+		- ✅ extension
 			- collate by thing being extended
 				- separate into extensions on Apple vs. non-Apple API
-		- function (non-XCTest)
+		- ✅ function 
+			- (non-XCTest)
 			- collate by thing being extended
-		- protocol
-		- struct
-		- enum
-		- class
+		- ✅ protocol
+		- ✅ struct
+		- ✅ enum
+		- ✅ class
 			- open usage
-		- custom operators
-		- typealiases
+		- ✅ custom operators
+		- ✅ typealiases
 		- advanced language features
 			- generics
-			- protocol conformance masks
+			- protocol conformance masks (& operator)
+	- comments
+		- ✅ inline, inline swift doc, multiline, headerdoc
+		- use of headerdoc keywords
+	- swift file lines-of-code counts
 	- unicode identifiers
 		- emoji
 		- symbols
@@ -126,12 +132,15 @@ despite the efforts to create a consistent ecosystem around the Swift language, 
 		- longest function signature
 		- longest identifier for enum/class/struct/protocol 
 - repository
+	- contains playgrounds?
 	- swift version
 	- number of stars, forks, pull requests
 	- dependencies
 		- import statements, non-apple... do the utilities stand on their own?
 		- cocoapods/carthage/spm support and usage
 		- usage of git submodules
+	- sentiment analysis etc
+		- on readmes, markdowns, declarations, comments
 - testing
 	- number of test functions
 
