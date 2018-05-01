@@ -24,7 +24,6 @@ all_repositories.each do |repository|
   lines_of_code_counts = Hash.new
   repo_dir = "repositories/#{repository}"
   Dir.chdir(repo_dir) do
-    puts "analyzing #{repo_dir}"
     declarations["function"] = massage_results `ag -swQ --swift --nofilename --nogroup func | ag -svwQ override`
     declarations["enum"] = massage_results `ag -swQ --swift --nofilename --nogroup enum`
     declarations["extension"] = massage_results `ag -swQ --swift --nofilename --nogroup extension`
@@ -68,7 +67,12 @@ all_repositories.each do |repository|
   end
   
   metadata_file = "#{observations_metadata_dir}/#{repository}.json"
-  final_hash = {"declarations" => declarations, "comments" => comments, "lines_of_code_counts" => lines_of_code_counts}
+  final_hash = {
+      'repository' => repository,
+      'declarations' => declarations,
+      'comments' => comments,
+      'lines_of_code_counts' => lines_of_code_counts
+  }
   File.open(metadata_file, 'w') do |file|
     file << JSON.dump(final_hash)
   end
