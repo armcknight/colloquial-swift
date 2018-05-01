@@ -11,14 +11,20 @@ end
 observations_metadata_dir = 'observations'
 `mkdir -p #{observations_metadata_dir}`
 
-repositories_dir = 'repositories'
-Dir.entries(repositories_dir).each do |repository|
+all_repositories = Array.new
+File.open('filtering/repos_with_podspecs.json', 'r') do |file|
+  all_repositories = JSON.parse(file.read)
+end
+
+all_repositories.each do |repository|
   next if repository == '.' || repository == '..' || repository == '.DS_Store'
   
   declarations = Hash.new
   comments = Hash.new
   lines_of_code_counts = Hash.new
-  Dir.chdir("#{repositories_dir}/#{repository}") do
+  repo_dir = "repositories/#{repository}"
+  Dir.chdir(repo_dir) do
+    puts "analyzing #{repo_dir}"
     declarations["function"] = massage_results `ag -swQ --swift --nofilename --nogroup func | ag -svwQ override`
     declarations["enum"] = massage_results `ag -swQ --swift --nofilename --nogroup enum`
     declarations["extension"] = massage_results `ag -swQ --swift --nofilename --nogroup extension`
@@ -43,20 +49,22 @@ Dir.entries(repositories_dir).each do |repository|
     comments['headerdoc'] = massage_multiline_comment_result `ag --swift --nofilename --nogroup "/\\*\\*[^*]+\\*+(?:[^/*][^*]*\\*+)*/"`
     
     # count total lines of code per swift file
-    swift_file_paths = `find . -type f -name "*.swift"'`
-    current_repo_lines_of_code_counts = Hash.new
-    swift_file_paths.split("\n").each do |swift_file_path|
-      swift_filename = swift_file_path.split('/')[-1]
-      File.open(swift_file_path, 'r') do |file|
-      current_repo_lines_of_code_counts[swift_filename] = file.readlines.count
+    swift_file_paths = `find . -type f -name "*.swift"`.split("\n")
+    unless swift_file_paths.empty? then
+      current_repo_lines_of_code_counts = Hash.new
+      swift_file_paths.each do |swift_file_path|
+        swift_filename = swift_file_path.split('/')[-1]
+        File.open(swift_file_path, 'r') do |file|
+        current_repo_lines_of_code_counts[swift_filename] = file.readlines.count
+        end
       end
+      lines_of_code_counts['totals'] = current_repo_lines_of_code_counts
+
+      total_lines_of_code = current_repo_lines_of_code_counts.values.reduce(:+)
+      lines_of_code_counts['average'] = total_lines_of_code / current_repo_lines_of_code_counts.values.count
+      lines_of_code_counts['min'] = current_repo_lines_of_code_counts.values.min
+      lines_of_code_counts['max'] = current_repo_lines_of_code_counts.values.max
     end
-    lines_of_code_counts['totals'] = current_repo_lines_of_code_counts
-    
-    total_lines_of_code = current_repo_lines_of_code_counts.values.reduce(:+)
-    lines_of_code_counts['average'] = total_lines_of_code / current_repo_lines_of_code_counts.values.count
-    lines_of_code_counts['min'] = current_repo_lines_of_code_counts.values.min
-    lines_of_code_counts['max'] = current_repo_lines_of_code_counts.values.max
   end
   
   metadata_file = "#{observations_metadata_dir}/#{repository}.json"
