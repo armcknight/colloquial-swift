@@ -1,5 +1,8 @@
 require 'json'
 
+filter_results_dir = 'filtering'
+mkdir "#{filter_results_dir}"
+
 repos_with_podspecs = Array.new
 Dir.chdir('repositories') do
   podspec_locations = `find . -depth 2 -name '*.podspec'`# newline-delimited list of paths in form './some_repo/some.podspec'
@@ -8,6 +11,6 @@ Dir.chdir('repositories') do
   end
 end
 
-File.open('observations/_repos_with_podspecs.json', 'w') do |file|
+File.open("#{filter_results_dir}/repos_with_podspecs.json"'", 'w') do |file|
   file << JSON.dump(repos_with_podspecs)
 end

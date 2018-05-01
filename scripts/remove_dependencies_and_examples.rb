@@ -3,6 +3,9 @@ require 'json'
 
 reverse_removal = ARGV[0] == 'reverse'
 
+filter_results_dir = 'filtering'
+mkdir "#{filter_results_dir}"
+
 repositories_dir = 'repositories'
 removed = Hash.new
 Dir.entries(repositories_dir).each do |repository|
@@ -29,6 +32,6 @@ Dir.entries(repositories_dir).each do |repository|
   end
 end
 
-File.open('observations/_removed_directories.json', 'w') do |file|
+File.open("#{filter_results_dir}/removed_directories.json", 'w') do |file|
   file << JSON.dump(removed)
 end
