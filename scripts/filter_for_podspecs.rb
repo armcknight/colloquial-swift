@@ -1,7 +1,7 @@
 require 'json'
 
 filter_results_dir = 'filtering'
-mkdir "#{filter_results_dir}"
+`mkdir #{filter_results_dir}`
 
 repos_with_podspecs = Array.new
 Dir.chdir('repositories') do
@@ -11,6 +11,6 @@ Dir.chdir('repositories') do
   end
 end
 
-File.open("#{filter_results_dir}/repos_with_podspecs.json"'", 'w') do |file|
-  file << JSON.dump(repos_with_podspecs)
+File.open("#{filter_results_dir}/repos_with_podspecs.json", 'w') do |file|
+  file << JSON.dump(repos_with_podspecs.uniq)
 end

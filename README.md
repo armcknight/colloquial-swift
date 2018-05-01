@@ -99,7 +99,7 @@ despite the efforts to create a consistent ecosystem around the Swift language, 
 	- no need to worry about git submodules, we never sync them as part of cloning
 - ✅ filter repositories
 	- not all repositories will be relevant, many test/experimentation/example repos, or personal apps
-	- only select repositories with a podspec
+	- only select repositories with a podspec (some have more than one)
 	- `scripts/filter_for_podspecs.rb`
 - run observation scripts, outputting results
 - visualize results
