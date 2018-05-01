@@ -4,7 +4,7 @@ require 'json'
 reverse_removal = ARGV[0] == 'reverse'
 
 filter_results_dir = 'filtering'
-mkdir "#{filter_results_dir}"
+`mkdir #{filter_results_dir}`
 
 repositories_dir = 'repositories'
 removed = Hash.new
@@ -16,7 +16,7 @@ Dir.entries(repositories_dir).each do |repository|
       `git checkout .`
       next
     else
-      ['Pods', 'Carthage', 'Example', '*Test*'].each do |dependency_type|
+      ['Pods', 'Carthage', '*Example*', '*Test*', '*Demo*'].each do |dependency_type|
         dependency_directories = `find . -type d -name "#{dependency_type}"`
         dependency_directories.split("\n").each do |dependency_directory|
           repo_dependency_directory = "#{repository}/#{dependency_directory}"
