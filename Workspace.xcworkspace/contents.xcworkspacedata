@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <Group
+      location = "group:filtering"
+      name = "filtering">
+      <FileRef
+         location = "group:removed_directories.json">
+      </FileRef>
+      <FileRef
+         location = "group:repos_with_podspecs.json">
+      </FileRef>
+   </Group>
+   <FileRef
+      location = "group:Gemfile">
+   </FileRef>
+   <Group
+      location = "group:github_search_results"
+      name = "github_search_results">
+      <Group
+         location = "group:framework__in_name"
+         name = "framework__in_name">
+         <FileRef
+            location = "group:6.json">
+         </FileRef>
+         <FileRef
+            location = "group:1.json">
+         </FileRef>
+         <FileRef
+            location = "group:2.json">
+         </FileRef>
+         <FileRef
+            location = "group:3.json">
+         </FileRef>
+         <FileRef
+            location = "group:4.json">
+         </FileRef>
+         <FileRef
+            location = "group:5.json">
+         </FileRef>
+      </Group>
+      <Group
+         location = "group:easier__in_description"
+         name = "easier__in_description">
+         <FileRef
+            location = "group:6.json">
+         </FileRef>
+         <FileRef
+            location = "group:7.json">
+         </FileRef>
+         <FileRef
+            location = "group:10.json">
+         </FileRef>
+         <FileRef
+            location = "group:1.json">
+         </FileRef>
+         <FileRef
+            location = "group:2.json">
+         </FileRef>
+         <FileRef
+            location = "group:3.json">
+         </FileRef>
+         <FileRef
+            location = "group:8.json">
+         </FileRef>
+         <FileRef
+            location = "group:4.json">
+         </FileRef>
+         <FileRef
+            location = "group:5.json">
+         </FileRef>
+         <FileRef
+            location = "group:9.json">
+         </FileRef>
+      </Group>
+      <Group
+         location = "group:tool__in_name"
+         name = "tool__in_name">
+         <FileRef
+            location = "group:6.json">
+         </FileRef>
+         <FileRef
+            location = "group:7.json">
+         </FileRef>
+         <FileRef
+            location = "group:1.json">
+         </FileRef>
+         <FileRef
+            location = "group:2.json">
+         </FileRef>
+         <FileRef
+            location = "group:3.json">
+         </FileRef>
+         <FileRef
+            location = "group:4.json">
+         </FileRef>
+         <FileRef
+            location = "group:5.json">
+         </FileRef>
+      </Group>
+      <Group
+         location = "group:helper__in_name"
+         name = "helper__in_name">
+         <FileRef
+            location = "group:6.json">
+         </FileRef>
+         <FileRef
+            location = "group:1.json">
+         </FileRef>
+         <FileRef
+            location = "group:2.json">
+         </FileRef>
+         <FileRef
+            location = "group:3.json">
+         </FileRef>
+         <FileRef
+            location = "group:4.json">
+         </FileRef>
+         <FileRef
+            location = "group:5.json">
+         </FileRef>
+      </Group>
+      <Group
+         location = "group:topic_tool"
+         name = "topic_tool">
+         <FileRef
+            location = "group:1.json">
+         </FileRef>
+      </Group>
+      <Group
+         location = "group:extension__in_name"
+         name = "extension__in_name">
+         <FileRef
+            location = "group:6.json">
+         </FileRef>
+         <FileRef
+            location = "group:7.json">
+         </FileRef>
+         <FileRef
+            location = "group:10.json">
+         </FileRef>
+         <FileRef
+            location = "group:1.json">
+         </FileRef>
+         <FileRef
+            location = "group:2.json">
+         </FileRef>
+         <FileRef
+            location = "group:3.json">
+         </FileRef>
+         <FileRef
+            location = "group:8.json">
+         </FileRef>
+         <FileRef
+            location = "group:4.json">
+         </FileRef>
+         <FileRef
+            location = "group:5.json">
+         </FileRef>
+         <FileRef
+            location = "group:9.json">
+         </FileRef>
+      </Group>
+      <Group
+         location = "group:topic_framework"
+         name = "topic_framework">
+         <FileRef
+            location = "group:1.json">
+         </FileRef>
+         <FileRef
+            location = "group:2.json">
+         </FileRef>
+      </Group>
+      <Group
+         location = "group:topic_extension"
+         name = "topic_extension">
+         <FileRef
+            location = "group:1.json">
+         </FileRef>
+      </Group>
+      <Group
+         location = "group:topic_wrapper"
+         name = "topic_wrapper">
+         <FileRef
+            location = "group:1.json">
+         </FileRef>
+      </Group>
+      <Group
+         location = "group:topic_util"
+         name = "topic_util">
+         <FileRef
+            location = "group:1.json">
+         </FileRef>
+      </Group>
+      <Group
+         location = "group:wrapper__in_name"
+         name = "wrapper__in_name">
+         <FileRef
+            location = "group:1.json">
+         </FileRef>
+         <FileRef
+            location = "group:2.json">
+         </FileRef>
+      </Group>
+      <Group
+         location = "group:topic_easy"
+         name = "topic_easy">
+         <FileRef
+            location = "group:1.json">
+         </FileRef>
+      </Group>
+      <Group
+         location = "group:easy__in_name"
+         name = "easy__in_name">
+         <FileRef
+            location = "group:6.json">
+         </FileRef>
+         <FileRef
+            location = "group:1.json">
+         </FileRef>
+         <FileRef
+            location = "group:2.json">
+         </FileRef>
+         <FileRef
+            location = "group:3.json">
+         </FileRef>
+         <FileRef
+            location = "group:4.json">
+         </FileRef>
+         <FileRef
+            location = "group:5.json">
+         </FileRef>
+      </Group>
+      <Group
+         location = "group:topic_library"
+         name = "topic_library">
+         <FileRef
+            location = "group:1.json">
+         </FileRef>
+         <FileRef
+            location = "group:2.json">
+         </FileRef>
+      </Group>
+      <Group
+         location = "group:library__in_name"
+         name = "library__in_name">
+         <FileRef
+            location = "group:6.json">
+         </FileRef>
+         <FileRef
+            location = "group:7.json">
+         </FileRef>
+         <FileRef
+            location = "group:1.json">
+         </FileRef>
+         <FileRef
+            location = "group:2.json">
+         </FileRef>
+         <FileRef
+            location = "group:3.json">
+         </FileRef>
+         <FileRef
+            location = "group:4.json">
+         </FileRef>
+         <FileRef
+            location = "group:5.json">
+         </FileRef>
+      </Group>
+      <Group
+         location = "group:topic_helper"
+         name = "topic_helper">
+         <FileRef
+            location = "group:1.json">
+         </FileRef>
+      </Group>
+      <Group
+         location = "group:util__in_name"
+         name = "util__in_name">
+         <FileRef
+            location = "group:1.json">
+         </FileRef>
+         <FileRef
+            location = "group:2.json">
+         </FileRef>
+         <FileRef
+            location = "group:3.json">
+         </FileRef>
+         <FileRef
+            location = "group:4.json">
+         </FileRef>
+         <FileRef
+            location = "group:5.json">
+         </FileRef>
+      </Group>
+   </Group>
+   <Group
+      location = "group:observations"
+      name = "observations">
+   </Group>
+   <FileRef
+      location = "group:README.md">
+   </FileRef>
+   <Group
+      location = "group:scripts"
+      name = "scripts">
+      <FileRef
+         location = "group:remove_dependencies_and_examples.rb">
+      </FileRef>
+      <FileRef
+         location = "group:clone_repos.rb">
+      </FileRef>
+      <FileRef
+         location = "group:observe.rb">
+      </FileRef>
+      <FileRef
+         location = "group:/Users/andrew/Desktop/Colloquial Swift/scripts/execute.sh">
+      </FileRef>
+      <FileRef
+         location = "group:gather_ssh_urls.rb">
+      </FileRef>
+      <FileRef
+         location = "group:github_search_queries.rb">
+      </FileRef>
+      <FileRef
+         location = "group:get_search_result_counts.rb">
+      </FileRef>
+      <FileRef
+         location = "group:filter_for_podspecs.rb">
+      </FileRef>
+   </Group>
+   <Group
+      location = "group:ssh_urls"
+      name = "ssh_urls">
+      <FileRef
+         location = "group:tool__in_name.txt">
+      </FileRef>
+      <FileRef
+         location = "group:topic_framework.txt">
+      </FileRef>
+      <FileRef
+         location = "group:topic_tool.txt">
+      </FileRef>
+      <FileRef
+         location = "group:topic_extension.txt">
+      </FileRef>
+      <FileRef
+         location = "group:util__in_name.txt">
+      </FileRef>
+      <FileRef
+         location = "group:topic_wrapper.txt">
+      </FileRef>
+      <FileRef
+         location = "group:wrapper__in_name.txt">
+      </FileRef>
+      <FileRef
+         location = "group:library__in_name.txt">
+      </FileRef>
+      <FileRef
+         location = "group:easy__in_name.txt">
+      </FileRef>
+      <FileRef
+         location = "group:framework__in_name.txt">
+      </FileRef>
+      <FileRef
+         location = "group:helper__in_name.txt">
+      </FileRef>
+      <FileRef
+         location = "group:topic_easy.txt">
+      </FileRef>
+      <FileRef
+         location = "group:topic_helper.txt">
+      </FileRef>
+      <FileRef
+         location = "group:extension__in_name.txt">
+      </FileRef>
+      <FileRef
+         location = "group:topic_util.txt">
+      </FileRef>
+      <FileRef
+         location = "group:topic_library.txt">
+      </FileRef>
+      <FileRef
+         location = "group:easier__in_description.txt">
+      </FileRef>
+      <FileRef
+         location = "group:_manual.txt">
+      </FileRef>
+   </Group>
+</Workspace>
