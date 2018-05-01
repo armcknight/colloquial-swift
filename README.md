@@ -151,7 +151,7 @@ despite the efforts to create a consistent ecosystem around the Swift language, 
 	- number of test functions
 
 - metrics and normalization
-	- encode violations of api guidelines
+	- encode conformance/violation of api guidelines
 	- remove and see how more similar different libraries become
 
 ### Results
@@ -188,6 +188,11 @@ venn diagram generator: http://www.biovenn.nl/index.php
 - removing Pods/Carthage/example/test directories
 	- before: 535,825 files, 39.6 GB
 	- after: 302,446 files, 23.38 GB
+	- number of removed directories
+		- test: 4879
+		- example: 652
+		- pods: 918
+		- carthage: 156
 - repositories with podspecs: 1357 (`jq '.[]' observations/_repos_with_podspecs.txt | wc -l`)
 
 ### Conclusions
