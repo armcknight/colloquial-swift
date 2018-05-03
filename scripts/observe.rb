@@ -8,8 +8,8 @@ def massage_multiline_comment_result input
   input.split('*/').map{|x|x+"*/"}
 end
 
-def parsed_declarations parse_output, declaration_type
-  declarations = parse_output.select do |line|
+def parsed_declarations abstract_syntax_tree, declaration_type
+  declarations = abstract_syntax_tree.select do |line|
     if declaration_type == 'class' then
       line.include?(declaration_type + ' ') and !line.include?('func ')
     else
@@ -39,124 +39,121 @@ def extract_github_metadata github_results, repository
   end
 end
 
-def test_extension_end line
-  # reduce the line to just curly braces
-  braces_string = line.gsub(/[^\{\}]?/,'')
-  
-  # eliminate pairs, like for lines like `var something: Any { get }`
-  until braces_string == braces_string.gsub('{}', '') do
-    braces_string.gsub!('{}', '')
-  end
-  
-  braces_string.each do |brace|
-    if brace == '{' then
-      scopes += 1
-    elsif brace == '}' then
-      if scopes == 0 then
-        # end of extension!
-        return true
-      else
-        scopes -= 1
-      end
-    else
-      puts "unexpected character left over in braces string: #{braces_string}"
-    end
-  end
+def test_extension_end line, scopes
   false
 end
 
-def extract_extensions parse_output
+def extract_extensions abstract_syntax_tree
   extensions = Array.new
-  
+
   extension_decl = 'extension'
-  0..parse_output.count do |i|
-    parse_output_line = parse_output[i].strip
-    if parse_output_line.include?(extension_decl + ' ') then
-      extension_hash = extract_modifiers parse_output_line, extension_decl
+  
+  0.upto(abstract_syntax_tree.count - 1) do |i|
+    raw_line = abstract_syntax_tree[i]
+
+    abstract_syntax_tree_line = raw_line.strip
+    if abstract_syntax_tree_line.include?(extension_decl + ' ') then
+      extension_hash = extract_modifiers abstract_syntax_tree_line, extension_decl
       
-      # search to the end of the extension. it can have nested braced scopes, so maintain a stack to find the true end of the extension
+      # search to the end of the extension. it can have nested braced scopes, so maintain a count to find the true end of the extension
       extension_body = Array.new
       scopes = 0
       found_extension_end = false
-      i..parse_output.count do |j|
-        next_line = parse_output[j]
-        break if test_extension_end next_line
+      i.upto(abstract_syntax_tree.count - 1) do |j|
+        next_line = abstract_syntax_tree[j]
+
+        # reduce the line to just curly braces
+        braces_string = next_line.gsub(/[^\{\}]?/,'')
+
+        # eliminate pairs, like for lines like `var something: Any { get }`
+        until braces_string == braces_string.gsub('{}', '') do
+          braces_string.gsub!('{}', '')
+        end
+  
+        braces_string.chars.each do |brace|
+          if brace == '{' then
+            scopes += 1
+          elsif brace == '}' then
+            if scopes == 0 then
+              # end of extension!
+              found_extension_end = true
+              break
+            else
+              scopes -= 1
+              if scopes == 0 then
+                # end of extension!
+                found_extension_end = true
+                break
+              end
+            end
+          else
+            puts "unexpected character left over in braces string: #{braces_string}"
+          end
+        end
+        
+        break if found_extension_end
+        
+        # if we're still in the extension body, accumulate lines
         extension_body << next_line
       end
       
-      
+      extension_hash['declarations'] = extract_declarations(extension_body, false, false)
+      extensions << extension_hash
     end
   end
   
   extensions
 end
 
-def extract_declarations parse_output, include_raw_search, include_extensions
+def extract_declarations abstract_syntax_tree, include_raw_search, include_extensions
   declarations = Hash.new
   
-  declarations["function"] = {
-    'parsed' => parsed_declarations(parse_output, 'func')
-  }
+  declarations["function"] = { 'parsed' => parsed_declarations(abstract_syntax_tree, 'func') }
   if include_raw_search then
-    declarations["function"]['raw'] => massage_results(`ag -swQ --swift --nofilename --nogroup func | ag -svwQ override`)
+    declarations["function"]['raw'] = massage_results(`ag -swQ --swift --nofilename --nogroup func | ag -svwQ override`)
   end
   
-  declarations["enum"] = {
-    'raw' => massage_results(`ag -swQ --swift --nofilename --nogroup enum`),
-    'parsed' => parsed_declarations(parse_output, 'enum')
-  }
+  declarations["enum"] = { 'parsed' => parsed_declarations(abstract_syntax_tree, 'enum') }
   if include_raw_search then
-    declarations["function"]['raw'] => massage_results(`ag -swQ --swift --nofilename --nogroup func | ag -svwQ override`)
+    declarations["enum"]['raw'] = massage_results(`ag -swQ --swift --nofilename --nogroup enum`)
   end
   
-  declarations["protocol"] = {
-    'raw' => massage_results(`ag -swQ --swift --nofilename --nogroup protocol`),
-    'parsed' => parsed_declarations(parse_output, 'protocol')
-  }
+  declarations["protocol"] = { 'parsed' => parsed_declarations(abstract_syntax_tree, 'protocol') }
   if include_raw_search then
-    declarations["function"]['raw'] => massage_results(`ag -swQ --swift --nofilename --nogroup func | ag -svwQ override`)
+    declarations["protocol"]['raw'] = massage_results(`ag -swQ --swift --nofilename --nogroup protocol`)
   end
   
-  declarations["struct"] = {
-    'raw' => massage_results(`ag -swQ --swift --nofilename --nogroup struct`),
-    'parsed' => parsed_declarations(parse_output, 'struct')
-  }
+  declarations["struct"] = { 'parsed' => parsed_declarations(abstract_syntax_tree, 'struct') }
   if include_raw_search then
-    declarations["function"]['raw'] => massage_results(`ag -swQ --swift --nofilename --nogroup func | ag -svwQ override`)
+    declarations["struct"]['raw'] = massage_results(`ag -swQ --swift --nofilename --nogroup struct`)
   end
   
-  declarations["class"] = {
-    'raw' => massage_results(`ag -swQ --swift --nofilename --nogroup class`),
-    'parsed' => parsed_declarations(parse_output, 'class')
-  }
+  declarations["class"] = { 'parsed' => parsed_declarations(abstract_syntax_tree, 'class') }
   if include_raw_search then
-    declarations["function"]['raw'] => massage_results(`ag -swQ --swift --nofilename --nogroup func | ag -svwQ override`)
+    declarations["class"]['raw'] = massage_results(`ag -swQ --swift --nofilename --nogroup class`)
   end
   
-  declarations["typealias"] = {
-    'raw' => massage_results(`ag -swQ --swift --nofilename --nogroup typealias`),
-    'parsed' => parsed_declarations(parse_output, 'typealias')
-  }
+  declarations["typealias"] = { 'parsed' => parsed_declarations(abstract_syntax_tree, 'typealias') }
   if include_raw_search then
-    declarations["function"]['raw'] => massage_results(`ag -swQ --swift --nofilename --nogroup func | ag -svwQ override`)
+    declarations["typealias"]['raw'] = massage_results(`ag -swQ --swift --nofilename --nogroup typealias`)
   end
   
-  declarations["operator"] = {
-    'raw' => massage_results(`ag -swQ --swift --nofilename --nogroup operator`),
-    'parsed' => parsed_declarations(parse_output, 'operator')
-  }
+  declarations["operator"] = { 'parsed' => parsed_declarations(abstract_syntax_tree, 'operator') }
   if include_raw_search then
-    declarations["function"]['raw'] => massage_results(`ag -swQ --swift --nofilename --nogroup func | ag -svwQ override`)
+    declarations["operator"]['raw'] = massage_results(`ag -swQ --swift --nofilename --nogroup operator`)
   end
   
-  declarations["extension"] = {
-    'raw' => massage_results( )`ag -swQ --swift --nofilename --nogroup extension`),
-    'parsed' => extract_extensions(parse_output)
+  if include_extensions then
+    declarations["extension"] = { 'parsed' => extract_extensions(abstract_syntax_tree) }
+    if include_raw_search then
+      declarations["extension"]['raw'] = massage_results(`ag -swQ --swift --nofilename --nogroup extension`)
+    end
+  end
   
   declarations
 end
 
-def extract_comments parse_output
+def extract_comments abstract_syntax_tree
   comments = Hash.new
   
   # find comments starting with //
@@ -176,7 +173,7 @@ def extract_comments parse_output
   comments
 end
 
-def extract_readmes repo_info, parse_output
+def extract_readmes repo_info, abstract_syntax_tree
   readme_paths = `find . -type f -iname 'readme*'`.split("\n")
   readme_paths.each do |readme_path|
     File.open(readme_path, 'r') do |file|
@@ -234,21 +231,20 @@ all_repositories.each do |repository|
   comments = Hash.new
   lines_of_code_counts = Hash.new
   repo_info = extract_github_metadata github_results, repository
+    
+  abstract_syntax_tree = Array.new
+  File.open("asts/#{repository}.ast", 'r') do |file|
+    abstract_syntax_tree = JSON.parse(file.read)
+  end
 
   repo_dir = "repositories/#{repository}"
   Dir.chdir(repo_dir) do
     
     swift_file_paths = `find . -type f -name '*.swift'`.split("\n")
-    
-    parse_output = swift_file_paths.inject(Array.new) do |all_output_lines, swift_file_path|
-      all_output_lines += `swiftc -print-ast '#{swift_file_path}' 2>/dev/null`.split("\n")
-    end
-    
-    repo_info['ast'] = parse_output
 
-    declarations = extract_declarations parse_output
-    comments = extract_comments parse_output
-    extract_readmes repo_info, parse_output
+    declarations = extract_declarations abstract_syntax_tree, true, true
+    comments = extract_comments abstract_syntax_tree
+    extract_readmes repo_info, abstract_syntax_tree
     lines_of_code_counts = count_lines_of_code swift_file_paths
   end
   

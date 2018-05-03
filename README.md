@@ -105,23 +105,24 @@ despite the efforts to create a consistent ecosystem around the Swift language, 
 	- not all repositories will be relevant, many test/experimentation/example repos, or personal apps
 	- only select repositories with a podspec (some have more than one)
 	- `scripts/filter_for_podspecs.rb`
+- `swiftc -dump-parse` and/or `swiftc -print-ast`
+	- gets structured, canonical forms of declarations/etc in S-expressions (`-dump-parse`) or ASTs (`-print-ast`)
+	- parse in the ruby scripts with [sxp](https://github.com/dryruby/sxp.rb)?
+	- helps filter out commented declarations and other non-specific text containing a keyword used in the text search (e.g. searching with 'extension' turns up extension declarations but also any comments containing the word, etc)
 - extract observations
 	- text search (`ag`, the silver searcher) to grab raw lines of code
-	- `swiftc -dump-parse` or `swiftc -print-ast`
-		- gets structured, canonical forms of declarations/etc in S-expressions (`-dump-parse`) or ASTs (`-print-ast`)
-		- parse in the ruby scripts with [sxp](https://github.com/dryruby/sxp.rb)?
-		- helps filter out commented declarations and other non-specific text containing a keyword used in the text search (e.g. searching with 'extension' turns up extension declarations but also any comments containing the word, etc)
 
 #### Observations
 
 - code
 	- declarations
 		- ✅ extension
-			- collate by thing being extended
+			- ✅ collate by thing being extended `jq '.declarations.extension' ../observations/*.json 2>/dev/null | grep extension | sort | uniq -c | sort`
 				- separate into extensions on Apple vs. non-Apple API
 		- ✅ function 
 			- (non-XCTest)
 			- collate by thing being extended
+			- ✅ filter out overrides to avoid functions we know weren't written by the lib developer
 		- ✅ protocol
 		- ✅ struct
 		- ✅ enum
