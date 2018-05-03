@@ -39,10 +39,6 @@ def extract_github_metadata github_results, repository
   end
 end
 
-def test_extension_end line, scopes
-  false
-end
-
 def extract_extensions abstract_syntax_tree
   extensions = Array.new
 
@@ -110,7 +106,7 @@ def extract_declarations abstract_syntax_tree, include_raw_search, include_exten
   
   declarations["function"] = { 'parsed' => parsed_declarations(abstract_syntax_tree, 'func') }
   if include_raw_search then
-    declarations["function"]['raw'] = massage_results(`ag -swQ --swift --nofilename --nogroup func | ag -svwQ override`)
+    declarations["function"]['raw'] = massage_results(`ag -swQ --swift --nofilename --nogroup func`)
   end
   
   declarations["enum"] = { 'parsed' => parsed_declarations(abstract_syntax_tree, 'enum') }

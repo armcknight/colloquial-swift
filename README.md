@@ -117,12 +117,9 @@ despite the efforts to create a consistent ecosystem around the Swift language, 
 - code
 	- declarations
 		- ✅ extension
-			- ✅ collate by thing being extended `jq '.declarations.extension' ../observations/*.json 2>/dev/null | grep extension | sort | uniq -c | sort`
+			- ✅ collate by thing being extended `jq '.declarations.extension.parsed[].identifier' observations/*.json | sort | uniq -c | sort`
 				- separate into extensions on Apple vs. non-Apple API
 		- ✅ function 
-			- (non-XCTest)
-			- collate by thing being extended
-			- ✅ filter out overrides to avoid functions we know weren't written by the lib developer
 		- ✅ protocol
 		- ✅ struct
 		- ✅ enum
