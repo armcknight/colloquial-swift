@@ -1,0 +1,1 @@
+cat github_search_results/**/*.json | jq --slurp '[.[].items | map({full_name, html_url, description, created_at, updated_at, pushed_at, stargazers_count, forks, score})] | [.[][]]' > github_search_results/_all_results.json

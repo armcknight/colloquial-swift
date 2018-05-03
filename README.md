@@ -57,6 +57,8 @@ despite the efforts to create a consistent ecosystem around the Swift language, 
 
 ### Methodology
 
+#### Data set curation
+
 - ✅ collect set of git URLs to repositories
 	- including forks might involve looking at the modifications; will not consider them
 	- manual
@@ -91,24 +93,29 @@ despite the efforts to create a consistent ecosystem around the Swift language, 
 				- `scripts/github_search_queries.rb` performs all the queries and writes the results to disk under `github_search_results/`, in subdirectories named as a unique id made of the search terms
 		- processing results
 			- ✅ `scripts/gather_ssh_urls.rb` converts result json to lists of ssh cloning urls
+			- ✅ pull desired repo metadata out of paged results, into one large JSON array `scripts/combine_search_results.sh`
 - ✅ clone repositories
 	- clone all to one flat repo: `scripts/clone_repos.rb`
 - ✅ remove dependency and example code `scripts/remove_dependencies_and_examples.rb`
 	- lots of Pods/ and Carthage/ directories will be checked in; remove them after cloning
-	- remove Example/ directories, which may contain their own dependencies too
+	- remove example/demo directories, which may contain their own dependencies too
+	- remove playground and test directories also
 	- no need to worry about git submodules, we never sync them as part of cloning
 - ✅ filter repositories
 	- not all repositories will be relevant, many test/experimentation/example repos, or personal apps
 	- only select repositories with a podspec (some have more than one)
 	- `scripts/filter_for_podspecs.rb`
-- run observation scripts, outputting results
-- visualize results
+- extract observations
+	- text search (`ag`, the silver searcher) to grab raw lines of code
+	- `swiftc -dump-parse` or `swiftc -print-ast`
+		- gets structured, canonical forms of declarations/etc in S-expressions (`-dump-parse`) or ASTs (`-print-ast`)
+		- parse in the ruby scripts with [sxp](https://github.com/dryruby/sxp.rb)?
+		- helps filter out commented declarations and other non-specific text containing a keyword used in the text search (e.g. searching with 'extension' turns up extension declarations but also any comments containing the word, etc)
 
 #### Observations
 
 - code
 	- declarations
-		- access modifier usage for everything
 		- ✅ extension
 			- collate by thing being extended
 				- separate into extensions on Apple vs. non-Apple API
@@ -119,24 +126,27 @@ despite the efforts to create a consistent ecosystem around the Swift language, 
 		- ✅ struct
 		- ✅ enum
 		- ✅ class
-			- open usage
 		- ✅ custom operators
 		- ✅ typealiases
 		- advanced language features
 			- generics
+			- associatedtype
 			- protocol conformance masks (& operator)
+			- access modifiers (public, private, open etc)
+			- attributes (@discardableResult, @objc, @escaping, @autoclosure etc)
+	- error throwing
 	- comments
 		- ✅ inline, inline swift doc, multiline, headerdoc
 		- use of headerdoc keywords
+		- comment markers e.g. MARK, TODO, FIXME
 	- ✅ swift file lines-of-code counts
-		- avg, min, max
+		- ✅ avg, min, max
 	- unicode identifiers
 		- emoji
 		- symbols
 	- trivia
-		- longest function signature
-		- longest identifier for enum/class/struct/protocol 
-		- longest swift file
+		- longes/shortest identifier for enum/class/struct/protocol/function/operator
+		- longest/shortest swift file
 - repository
 	- contains playgrounds?
 	- swift version
@@ -145,14 +155,24 @@ despite the efforts to create a consistent ecosystem around the Swift language, 
 		- import statements, non-apple... do the utilities stand on their own?
 		- cocoapods/carthage/spm support and usage
 		- usage of git submodules
-	- sentiment analysis etc
-		- on readmes, markdowns, declarations, comments
 - testing
 	- number of test functions
 
-- metrics and normalization
+- text analysis
+	- types of analysis
+		- sentiment
+		- readability
+		- time to read
+	- on components
+		- github description
+		- readmes
+		- comments
+		- by declaration type
+
+- metrics
 	- encode conformance/violation of api guidelines
-	- remove and see how more similar different libraries become
+
+- segment per github search
 
 ### Results
 
@@ -187,13 +207,57 @@ venn diagram generator: http://www.biovenn.nl/index.php
 
 - removing Pods/Carthage/example/test directories
 	- before: 535,825 files, 39.6 GB
-	- after: 302,446 files, 23.38 GB
+	- after: 285,397 files, 22.72 GB
 	- number of removed directories
-		- test: 4879
-		- example: 652
-		- pods: 918
-		- carthage: 156
+		- test: 4787
+		- example: 1622
+		- demo: 990 
+		- pods: 916
+		- carthage: 154
+
 - repositories with podspecs: 1357 (`jq '.[]' observations/_repos_with_podspecs.txt | wc -l`)
+
+- all extension declarations, counting duplicates: `jq '.declarations.extension' ../observations/*.json 2>/dev/null | grep extension | sort | uniq -c | sort`
+
+- looking for common tasks
+	- image operations
+	- colors
+		- `jq '.declarations.function.parsed[].identifier' ../observations/*.json 2>/dev/null | grep -i UIColor | sort | uniq -c | sort`
+	- core graphics
+	- frame logic
+	- autolayout
+	- core data
+	- dictionaries
+	- arrays
+	- dates
+	- gestures
+	- sets
+	- files
+	- serialization
+		- plist
+		- json
+		- xml
+	- strings
+	- hashing
+	- notifications
+	- kvo
+	- user defaults
+	- webkit and webviews
+	- maps
+	- bundles
+	- networking
+	- uikit
+		- device stuff
+		- alerts
+		- collection views
+		- table views
+		- buttons
+		- modals
+		- 
+	- location manager
+	- device motion
+	- avfoundation
+	- 
 
 ### Conclusions
 

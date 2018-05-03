@@ -307,6 +307,9 @@
          location = "group:remove_dependencies_and_examples.rb">
       </FileRef>
       <FileRef
+         location = "group:/Users/andrew/Desktop/Colloquial Swift/scripts/combine_search_results.sh">
+      </FileRef>
+      <FileRef
          location = "group:clone_repos.rb">
       </FileRef>
       <FileRef
@@ -326,6 +329,9 @@
       </FileRef>
       <FileRef
          location = "group:filter_for_podspecs.rb">
+      </FileRef>
+      <FileRef
+         location = "group:extract.rb">
       </FileRef>
    </Group>
    <Group

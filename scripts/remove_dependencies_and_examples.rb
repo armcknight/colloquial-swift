@@ -1,6 +1,18 @@
 require 'fileutils'
 require 'json'
 
+def remove_directory repository, dependency_type, dependency_directories, removed
+  dependency_directories.split("\n").each do |dependency_directory|
+    repo_dependency_directory = "#{repository}/#{dependency_directory}"
+    FileUtils.rm_rf(dependency_directory)
+    if removed[dependency_type] == nil then
+      removed[dependency_type] = [repo_dependency_directory]
+      else
+      removed[dependency_type] << repo_dependency_directory
+    end
+  end
+end
+
 reverse_removal = ARGV[0] == 'reverse'
 
 filter_results_dir = 'filtering'
@@ -16,17 +28,16 @@ Dir.entries(repositories_dir).each do |repository|
       `git checkout .`
       next
     else
-      ['Pods', 'Carthage', '*Example*', '*Test*', '*Demo*'].each do |dependency_type|
+      # search for dependency code directories with case-sensitive search
+      ['Pods', 'Carthage'].each do |dependency_type|
         dependency_directories = `find . -type d -name "#{dependency_type}"`
-        dependency_directories.split("\n").each do |dependency_directory|
-          repo_dependency_directory = "#{repository}/#{dependency_directory}"
-          FileUtils.rm_rf(dependency_directory)
-          if removed[dependency_type] == nil then
-            removed[dependency_type] = [repo_dependency_directory]
-          else
-            removed[dependency_type] << repo_dependency_directory
-          end
-        end
+        remove_directory repository, dependency_type, dependency_directories, removed
+      end
+
+      # search for auxiliary code directories with case-insensitive search
+      ['*Example*', '*Test*', '*Demo*', '*.playground'].each do |dependency_type|
+        dependency_directories = `find . -type d -iname "#{dependency_type}"`
+        remove_directory repository, dependency_type, dependency_directories, removed
       end
     end
   end
