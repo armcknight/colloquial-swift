@@ -117,7 +117,6 @@ despite the efforts to create a consistent ecosystem around the Swift language, 
 - code
 	- declarations
 		- ✅ extension
-			- ✅ collate by thing being extended `jq '.declarations.extension.parsed[].identifier' observations/*.json | sort | uniq -c | sort`
 				- separate into extensions on Apple vs. non-Apple API
 		- ✅ function 
 		- ✅ protocol
@@ -215,12 +214,22 @@ venn diagram generator: http://www.biovenn.nl/index.php
 
 - repositories with podspecs: 1357 (`jq '.[]' observations/_repos_with_podspecs.txt | wc -l`)
 
-- all extension declarations, counting duplicates: `jq '.declarations.extension' ../observations/*.json 2>/dev/null | grep extension | sort | uniq -c | sort`
+- cli commands for extensions
+	- count all extension declarations grouped by uniq: `jq '.declarations.extension.parsed[].identifier' observations/*.json | sort | uniq -c | sort`
+		- count # of unique extensions (only 1 declaration found): `jq '.declarations.extension.parsed[].identifier' observations/*.json | sort | uniq -c | sort | grep "   1" | wc -l`
+		- count # of extensions involving certain API (different from the unrestricted extensions of String below): `jq '.declarations.extension.parsed[].identifier' observations/*.json | sort | uniq -c | sort | grep React | awk -F ' ' '{sum+=$0} END {print sum}'`
+	- sum counts of extension groups to include extensions for protocol conformance or generic where clauses: `jq '.declarations.extension.parsed[].identifier' observations/*.json | sort | uniq -c | sort | grep -w String | awk -F ' ' '{sum+=$0} END {print sum}'`
+	- drilling down into extensions on String (as an example case):
+		- count number of repos with a String extension: 	`jq '. | select(.declarations.extension.parsed[].identifier=="String") | .repository.full_name' observations/*.json | sort | uniq | wc -l`
+		- count total amount of extension functions: `jq '.declarations.extension.parsed[] | select(.identifier=="String") | .declarations | .function.parsed[].identifier' observations/*.json | wc -l`
+		- count function signatures grouped by uniq: `jq '.declarations.extension.parsed[] | select(.identifier=="String") | .declarations | .function.parsed[].identifier' observations/*.json | sort | uniq -c | sort`
+		- sum counts of grouped signatures in an extension, filtered by keyword (in this case, `trim`): `jq '.declarations.extension.parsed[] | select(.identifier=="String") | .declarations | .function.parsed[].identifier' observations/*.json | sort | uniq -c | sort | grep -i trim | awk -F ' ' '{sum+=$0} END {print sum}'`
+		- search for implementations of a particular function signature: `ag --swift --after=10 --literal "trim() -> String" 2>/dev/null`
+			- grab the return statements from the 10 lines following each text match of the signature, sort, count by uniq: `ag --nofilename --swift --after=3 --literal "trim() -> String" 2>/dev/null | grep return | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' | sort | uniq -c | sort`
 
 - looking for common tasks
 	- image operations
 	- colors
-		- `jq '.declarations.function.parsed[].identifier' ../observations/*.json 2>/dev/null | grep -i UIColor | sort | uniq -c | sort`
 	- core graphics
 	- frame logic
 	- autolayout
