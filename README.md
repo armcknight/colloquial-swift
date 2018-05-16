@@ -196,7 +196,9 @@ People are solving similar problems over and over again in their utility librari
 		- count number of repos with a String extension: 	`jq '. | select(.declarations.extension.parsed[].identifier=="String") | .repository.full_name' observations/*.json | sort | uniq | wc -l`
 		- count total amount of extension functions: `jq '.declarations.extension.parsed[] | select(.identifier=="String") | .declarations | .function.parsed[].identifier' observations/*.json | wc -l`
 		- count function signatures grouped by uniq: `jq '.declarations.extension.parsed[] | select(.identifier=="String") | .declarations | .function.parsed[].identifier' observations/*.json | sort | uniq -c | sort`
-		- sum counts of grouped signatures in an extension, filtered by keyword (in this case, `trim`): `jq '.declarations.extension.parsed[] | select(.identifier=="String") | .declarations | .function.parsed[].identifier' observations/*.json | sort | uniq -c | sort | grep -i trim | awk -F ' ' '{sum+=$0} END {print sum}'`
+		- looking at common tasks, e.g. trimming
+			- count signatures containing a keyword by uniq: `jq '.declarations.extension.parsed[] | select(.identifier=="String") | .declarations | .function.parsed[].identifier' observations/*.json | sort | uniq -c | sort | grep -i trim`
+			- sum counts of grouped signatures: `jq '.declarations.extension.parsed[] | select(.identifier=="String") | .declarations | .function.parsed[].identifier' observations/*.json | sort | uniq -c | sort | grep -i trim | awk -F ' ' '{sum+=$0} END {print sum}'`
 		- search for implementations of a particular function signature: `ag --swift --after=10 --literal "trim() -> String" 2>/dev/null`
 			- grab the return statements from the 10 lines following each text match of the signature, sort, count by uniq: `ag --nofilename --swift --after=3 --literal "trim() -> String" 2>/dev/null | grep return | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' | sort | uniq -c | sort`
 
