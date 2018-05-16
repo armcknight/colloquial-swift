@@ -196,6 +196,7 @@ People are solving similar problems over and over again in their utility librari
 		- count number of repos with a String extension: 	`jq '. | select(.declarations.extension.parsed[].identifier=="String") | .repository.full_name' observations/*.json | sort | uniq | wc -l`
 		- count total amount of extension functions: `jq '.declarations.extension.parsed[] | select(.identifier=="String") | .declarations | .function.parsed[].identifier' observations/*.json | wc -l`
 		- count function signatures grouped by uniq: `jq '.declarations.extension.parsed[] | select(.identifier=="String") | .declarations | .function.parsed[].identifier' observations/*.json | sort | uniq -c | sort`
+			- whittling away by keyword (e.g., all the functions _except_ trim/substring functions): `jq '.declarations.extension.parsed[] | select(.identifier=="String") | .declarations | .function.parsed[].identifier' observations/*.json | grep -vi -e trim -e substring | sort | uniq -c | sort`
 		- looking at common tasks, e.g. trimming
 			- count signatures containing a keyword by uniq: `jq '.declarations.extension.parsed[] | select(.identifier=="String") | .declarations | .function.parsed[].identifier' observations/*.json | sort | uniq -c | sort | grep -i trim`
 			- sum counts of grouped signatures: `jq '.declarations.extension.parsed[] | select(.identifier=="String") | .declarations | .function.parsed[].identifier' observations/*.json | sort | uniq -c | sort | grep -i trim | awk -F ' ' '{sum+=$0} END {print sum}'`

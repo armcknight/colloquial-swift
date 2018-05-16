@@ -1,0 +1,82 @@
+# jq '.declarations.extension.parsed[] | select(.identifier=="String") | .declarations | .function.parsed[].identifier' observations/*.json | sed s/\"//g | grep "^to.*" | sort | uniq -c | sort -r
+
+  10 toBool() -> Bool?
+   9 toDouble() -> Double?
+   8 toFloat() -> Float?
+   7 toUInt() -> UInt?
+   4 toInt() -> Int?
+   4 toDate(format: String? = default) -> NSDate?
+   3 toDate(format: String) -> Date?
+   2 to_regex(_ literal: Bool = default) -> Regex
+   2 to_i(_ base: Int = default) -> Int
+   2 toSlug() -> String
+   2 toNSData() -> Data
+   2 toDateTime(format: String? = default) -> NSDate?
+   2 toDate(_ format: String = default) -> Date?
+   2 toDate() -> String
+   2 toDate() -> NSDate?
+   2 toDate() -> Date?
+   2 toBase64String() -> String?
+   2 to400Type() -> String
+   2 to(_ num: Int) -> String?
+   1 totalNumbers() -> Int
+   1 totalLetters() -> Int
+   1 toWidth(fontSize: CGFloat, maximumNumberOfLines: Int = default) -> CGFloat
+   1 toUrl() -> URL?
+   1 toUpperCase() -> String
+   1 toUnicodeArray() -> Array<UnicodeScalar>
+   1 toUIImage() -> UIImage
+   1 toSize(size: CGSize, fontSize: CGFloat, maximumNumberOfLines: Int = default) -> CGSize
+   1 toReadable(_ obj: Any?, indent: Int = default) -> String
+   1 toRange(_ range: NSRange) -> Range<String.Index>
+   1 toPinYin() -> String
+   1 toPhoneNumber() -> String
+   1 toNumberString() -> String
+   1 toNSMutableAttributedString() -> NSMutableAttributedString?
+   1 toNSData() -> NSData
+   1 toMD5() -> String
+   1 toLowerCase() -> String
+   1 toLocalized() -> String
+   1 toJsonObject() -> [NSObject : Any]
+   1 toJsonObject() -> AnyObject?
+   1 toJson() -> [String : Any]?
+   1 toJSONObject(options opt: JSONSerialization.ReadingOptions = default) throws -> Any
+   1 toJSONObject() -> [String : Any]?
+   1 toJSONObject() -> Any?
+   1 toJSONArray() -> [Any]?
+   1 toJSONAny() -> Any?
+   1 toJSON() -> AnyObject?
+   1 toJOSN() -> [String : AnyObject]?
+   1 toHtmlWithStyle(_ css: String = default) -> NSAttributedString?
+   1 toHtml() -> NSAttributedString?
+   1 toHeight(width: CGFloat, fontSize: CGFloat, maximumNumberOfLines: Int = default) -> CGFloat
+   1 toHTML() -> NSAttributedString?
+   1 toFloat() -> CGFloat
+   1 toDouble(locale: Locale = default) -> Double?
+   1 toDictionary() -> [String : Any]
+   1 toDictionary() -> [AnyHashable : Any]?
+   1 toDateWithoutHours() -> String
+   1 toDateWithDefaultFormat() -> Date?
+   1 toDateTime(_ format: String = default) -> Date?
+   1 toDate(withFormat format: String = default) -> Date?
+   1 toDate(with format: String) -> Date
+   1 toDate(format: String, timezone: String? = default, locale: Locale? = default) -> Date?
+   1 toDate(format: String, timeZone: String? = default, locale: Locale? = default) -> Date?
+   1 toDate(dateFormatter formatter: DateFormatter, timezone: String? = default) -> Date?
+   1 toDate(dateFormatter formatter: DateFormatter, timeZone: String? = default) -> Date?
+   1 toDate(dateFormat: String) -> Date
+   1 toDate(_ dateFormat: String = default) -> Date?
+   1 toDataValue() -> Data?
+   1 toDataUTF8String() -> Data?
+   1 toData() throws -> Data
+   1 toData() -> Data?
+   1 toColor() -> UIColor?
+   1 toCharacters() -> UnsafePointer<Int8>?
+   1 toCapitalized() -> String
+   1 toBase64() -> String
+   1 toAttributedString(attributes: [NSAttributedStringKey : Any]? = default) -> NSAttributedString
+   1 toAttributedString() -> NSAttributedString?
+   1 toAttributed(highlight: [String], with attributes: [String : Any]) -> NSAttributedString
+   1 toAttributed(highlight: String, with attributes: [String : Any]) -> NSAttributedString
+   1 toArrayBy(separator: String) -> NSArray!
+   1 toArray() -> [Character]?

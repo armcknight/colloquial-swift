@@ -1,0 +1,7 @@
+# jq '.declarations.extension.parsed[] | select(.identifier=="Array") | .declarations | .function.parsed[].identifier' observations/*.json | sort | uniq -c | sort -r | grep -i shift
+
+   5 "shift() -> Element?"
+   2 "unshift(newElement: Element)"
+   2 "unshift(_ objs: Element...) -> [Element]"
+   2 "shift(_ num: Int) -> [Element]"
+   1 "unshift(elements: Element...)"

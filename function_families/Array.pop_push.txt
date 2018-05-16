@@ -1,0 +1,12 @@
+# jq '.declarations.extension.parsed[] | select(.identifier=="Array") | .declarations | .function.parsed[].identifier' observations/*.json | grep -vi random | sort | uniq -c | sort -r | grep -i pop
+
+   6 "pop() -> Element?"
+   2 "popFirst() -> Element?"
+   2 "pop(_ num: Int) -> [Element]"
+   
+# jq '.declarations.extension.parsed[] | select(.identifier=="Array") | .declarations | .function.parsed[].identifier' observations/*.json | grep -vi random | sort | uniq -c | sort -r | grep -i push
+
+   2 "push(newElement: Element)"
+   2 "push(_ objs: Element...) -> [Element]"
+   1 "push(elements: Element...)"
+   1 "push(_ newElement: Element)"

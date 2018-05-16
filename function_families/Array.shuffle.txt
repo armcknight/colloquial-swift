@@ -1,0 +1,8 @@
+# jq '.declarations.extension.parsed[] | select(.identifier=="Array") | .declarations | .function.parsed[].identifier' observations/*.json | sort | uniq -c | sort -r | grep -i shuffle
+
+  13 "shuffle()"
+   6 "shuffled() -> [Element]"
+   2 "shuffled() -> Array"
+   1 "shuffle() -> [Element]"
+   1 "shuffle() -> Array"
+

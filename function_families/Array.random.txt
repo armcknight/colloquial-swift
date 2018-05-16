@@ -1,0 +1,11 @@
+# jq '.declarations.extension.parsed[] | select(.identifier=="Array") | .declarations | .function.parsed[].identifier' observations/*.json | sort | uniq -c | sort -r | grep -i random
+
+   8 "random() -> Element?"
+   2 "randomElement() -> Element?"
+   2 "random() -> Element"
+   1 "randomItem() -> Element"
+   1 "randomElement() -> Element"
+   1 "random(n: Int) -> [Element]"
+   1 "random(isPop: Bool = default) -> (offset: Int, element: Element)?"
+   1 "omRandom() -> (offset: Int, element: Element)?"
+   1 "omPopRandom() -> (offset: Int, element: Element)?"

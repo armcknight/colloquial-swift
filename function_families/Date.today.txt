@@ -1,0 +1,13 @@
+# jq '.declarations.extension.parsed[] | select(.identifier=="Date") | .declarations | .function.parsed[].identifier' observations/*.json | sort | uniq -c | sort -r | grep -i today
+
+   7 "isToday() -> Bool"
+   2 "today() -> Date"
+   1 "todayWith(hour: Int, minute: Int, second: Int) -> Date"
+   1 "today() -> String"
+   1 "randomWithinDaysBeforeToday(_ days: Int) -> Date"
+   1 "jjs_isToday() -> Bool"
+   1 "daysBeforeToday(_ originalDate: Date) -> Int"
+   1 "datePhraseRelativeToToday(from date: Date) -> String"
+   1 "dateEndOfToday() -> Date?"
+   1 "componentFor(date: Date, type component: TodayDateComponent, calendar fromCalendar: Calendar?) -> Int"
+   1 "CSJST_isToday() -> Bool"

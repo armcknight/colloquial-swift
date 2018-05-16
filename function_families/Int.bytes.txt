@@ -1,0 +1,5 @@
+# jq '.declarations.extension.parsed[] | select(.identifier=="Int") | .declarations | .function.parsed[].identifier' observations/*.json | grep -vi -e random | sort | uniq -c | sort -r | grep -i -e bytes
+
+   8 "bytes(_ totalBytes: Int = default) -> [UInt8]"
+   1 "fromByteArray(bytes: [UInt8]) -> Int"
+   1 "bytes(totalBytes: Int = default) -> [UInt8]"

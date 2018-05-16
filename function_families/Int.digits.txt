@@ -1,0 +1,6 @@
+# jq '.declarations.extension.parsed[] | select(.identifier=="Int") | .declarations | .function.parsed[].identifier' observations/*.json | sort | uniq -c | sort -r | grep -i digits
+
+   3 "digits() -> [Int]"
+   2 "digits(_ base: Int = default) -> [Int]"
+   1 "numberOfDigits(in number: Int) -> Int"
+   1 "formattedString(_ fractionDigits: Int = default) -> String"
