@@ -1,65 +1,38 @@
-Swift Babel
+# Colloquial Swift
 
-Writing libraries of reusable code allows us to work more quickly, avoiding reinventing wheels
+## Background
 
-Everyone writing their own library for themselves is in and of itself reinventing wheels
-
-What if we could all share the same utility and wrapper libraries? It would be a singular wrapper around UIKit/Foundation.
-
-Then what is the difference between that and the standard SDKs they're wrapping?
-
-- UIKit is 
-	- a wrapper around lower level C routines that handle the actual drawing of pixels, that provides patterns and vocabulary to create complex interfaces that harness the wrapped technologies
-	- an extension to what is possible to draw on a screen from the raw tools of the wrapped tech
-		- even if "extension" is subjective, like enhanced code expressibility via syntax sugar or alternative syntax
-- This new "public" SDK would wrap "lower level" UIKit/Foundation constructs into common usages. It would have its own patterns and vocabulary, and would extend the capabilities of the underlying technologies.
-
-This middle ground is usually filled by something called a stdlib, a collection of functionality that is not part of the language itself. The language is just the set of keywords and punctuation that the compiler knows how to translate into machine code. It's like spoken/written languages like English or Chinese: the novels written in each are the stdlibs, and our utility libraries are like facebook comment sections for each book.
-
-- java: 
-- kotlin: [https://kotlinlang.org/api/latest/jvm/stdlib/index.html \](https://kotlinlang.org/api/latest/jvm/stdlib/index.html)
-- swift: 
-- c++:
-- ruby:
-- python:
-- javascript: 
-
-Not everything everyone wants can necessarily be a stdlib member. Swift has a proposal process called evolution: [https://github.com/apple/swift-evolution](https://github.com/apple/swift-evolution). This process necessarily has friction, so it's much easier to write something you really want right now in your own code. Since you want to be able to reuse it, you put it in your utility belt.
+Not every code construct people want can necessarily be a swiftlang/stdlib member. Swift has a proposal process called Evolution: [https://github.com/apple/swift-evolution](https://github.com/apple/swift-evolution). This process necessarily has friction, so it's much easier to write something you really want right now in your own code. Since you want to be able to reuse it, you put it in your utility belt. Writing libraries of reusable code allows us to work more quickly, avoiding reinventing wheels.
 
 Why might people decide to write their own instead using and contributing to another?
 
-- discoverability is hard
 - reading others' code/docs is hard
-- desire to be thought leader
+- desire to be a thought leader
 - they didn't find an answer to their problem
 - nobody has solved the problem
-- they do not know something has been solved alrady, or that it is solvable
+- they do not know something has been solved alrady, or that it is even solvable
 - they believe they can do a better job
 
-It's hard to imagine that each person's or team's utility belt are very similar. 
+Colloquial: people, and groups of people, think differently, or at least exhibit varied linguistics in how they communicate. That applies to programming languages as well. Apple has created API guidelines for Swift to help keep the ecosystem more coherent: [https://swift.org/documentation/api-design-guidelines/](https://swift.org/documentation/api-design-guidelines/)
 
 Conway's law for Swift: "organizations which design Swift libraries ... are constrained to produce APIs which are copies of the communication structures of these organizations".
-
-Colloquial: people, and groups of people, think differently, or at least exhibit varied linguistics in how they communicate. That applies to programming languages as well. Apple has created API guidelines for swift to help keep the ecosystem more coherent: [https://swift.org/documentation/api-design-guidelines/](https://swift.org/documentation/api-design-guidelines/)
-
-The same is true of documentation, something else developers must write, but comes in various styles, even just considering those written by native speakers of a particular language. This may even be observed on one team: some people paint lush images with flowery words in descriptive prose worthy of any salesman, others write series of tacit statements that may as well be program code itself (I tend to fall into the latter camp).
 
 ## Experiment
 
 ### Assumptions
 
-- most devs/teams have a "utility" type collection of helper code that is difficult to fit into a specialized collection or make stand on its own. 
-- it's often just a holding place where things go to mature and eventually become something (or get removed), but they just don't fit anywhere at the time... if so, should we change the word "utility"? If we use it as a place to let small ideas grow, then we can call it something like... well, playground, but that's taken... garden? Incubator? Evolution?
+- most devs/teams have a "utility" type collection of helper code that is difficult to fit into a specialized collection or make stand on its own
+- these collections can also act as holding places where things go to mature and eventually are extracted to their own home
 
 ### Hypothesis
 
-despite the efforts to create a consistent ecosystem around the Swift language, there is wide variation in the coding and naming conventions amongst publicly available 3rd party swift libraries. If the problems we're solving are unique, then the code we write and use the most will have evolved sufficiently past the point where they closely resemble other similarly mature libraries.
+People are solving similar problems over and over again in their utility libraries.
 
 ### Methodology
 
 #### Data set curation
 
-- ✅ collect set of git URLs to repositories
+- [x] collect set of git URLs to repositories
 	- including forks might involve looking at the modifications; will not consider them
 	- manual
 		- web search repos 
@@ -68,7 +41,7 @@ despite the efforts to create a consistent ecosystem around the Swift language, 
 		- script extraction of github repo urls from lists
 		- keep manual list in `ssh_urls/_manual.txt`
 	- automatic: github search rest api: [https://developer.github.com/v3/search/#search-repositories](https://developer.github.com/v3/search/#search-repositories)
-		- ✅ repository search
+		- [x] repository search
 			- searching
 				- for queries returning more than 1000 results, let github decide the best 1000 instead of sorting by star/forks
 				- queries
@@ -91,59 +64,60 @@ despite the efforts to create a consistent ecosystem around the Swift language, 
 							- swift-framework
 				- all searches are confined to repos that github recognizes as swift codebases
 				- `scripts/github_search_queries.rb` performs all the queries and writes the results to disk under `github_search_results/`, in subdirectories named as a unique id made of the search terms
-		- processing results
-			- ✅ `scripts/gather_ssh_urls.rb` converts result json to lists of ssh cloning urls
-			- ✅ pull desired repo metadata out of paged results, into one large JSON array `scripts/combine_search_results.sh`
-- ✅ clone repositories
-	- clone all to one flat repo: `scripts/clone_repos.rb`
-- ✅ remove dependency and example code `scripts/remove_dependencies_and_examples.rb`
+		- [x] processing results
+			- `scripts/gather_ssh_urls.rb` converts result json to lists of ssh cloning urls
+			- pull desired repo metadata out of paged results, into one large JSON array `scripts/combine_search_results.sh`
+- [x] clone repositories: `scripts/clone_repos.rb`
+- [x] remove dependency and example code `scripts/remove_dependencies_and_examples.rb`
 	- lots of Pods/ and Carthage/ directories will be checked in; remove them after cloning
 	- remove example/demo directories, which may contain their own dependencies too
 	- remove playground and test directories also
 	- no need to worry about git submodules, we never sync them as part of cloning
-- ✅ filter repositories
+- [x] filter repositories
 	- not all repositories will be relevant, many test/experimentation/example repos, or personal apps
 	- only select repositories with a podspec (some have more than one)
 	- `scripts/filter_for_podspecs.rb`
-- `swiftc -dump-parse` and/or `swiftc -print-ast`
-	- gets structured, canonical forms of declarations/etc in S-expressions (`-dump-parse`) or ASTs (`-print-ast`)
-	- parse in the ruby scripts with [sxp](https://github.com/dryruby/sxp.rb)?
+- [x] `swiftc -print-ast`
+	- gets structured, canonical forms of declarations
 	- helps filter out commented declarations and other non-specific text containing a keyword used in the text search (e.g. searching with 'extension' turns up extension declarations but also any comments containing the word, etc)
 - extract observations
 	- text search (`ag`, the silver searcher) to grab raw lines of code
 
 #### Observations
 
-- code
-	- declarations
-		- ✅ extension
-				- separate into extensions on Apple vs. non-Apple API
-		- ✅ function 
-		- ✅ protocol
-		- ✅ struct
-		- ✅ enum
-		- ✅ class
-		- ✅ custom operators
-		- ✅ typealiases
-		- advanced language features
-			- generics
-			- associatedtype
-			- protocol conformance masks (& operator)
-			- access modifiers (public, private, open etc)
-			- attributes (@discardableResult, @objc, @escaping, @autoclosure etc)
-	- error throwing
-	- comments
-		- ✅ inline, inline swift doc, multiline, headerdoc
-		- use of headerdoc keywords
-		- comment markers e.g. MARK, TODO, FIXME
-	- ✅ swift file lines-of-code counts
-		- ✅ avg, min, max
-	- unicode identifiers
-		- emoji
-		- symbols
-	- trivia
-		- longes/shortest identifier for enum/class/struct/protocol/function/operator
-		- longest/shortest swift file
+- [ ] code
+	- [ ] declarations
+		- [x] extension
+				- [ ] separate into extensions on Apple vs. non-Apple API
+		- [x] function 
+		- [x] protocol
+		- [x] struct
+		- [x] enum
+		- [x] class
+		- [x] custom operators
+		- [x] typealiases
+		- [ ] advanced language features
+			- [ ] generics
+			- [ ] associatedtype
+			- [ ] protocol conformance masks (& operator)
+			- [ ] access modifiers (public, private, open etc)
+			- [ ] attributes (@discardableResult, @objc, @escaping, @autoclosure etc)
+	- [ ] error throwing
+	- [ ] comments
+		- [x] inline, inline swift doc, multiline, headerdoc
+		- [ ] use of headerdoc keywords
+		- [ ] comment markers e.g. MARK, TODO, FIXME
+	- [x] swift file lines-of-code counts
+		- [x] avg, min, max
+	- [ ] unicode identifiers
+		- [ ] emoji
+		- [ ] symbols
+	- [ ] trivia
+		- [ ] longes/shortest identifier for enum/class/struct/protocol/function/operator
+		- [ ] longest/shortest swift file
+	- [ ] testing
+		- [ ] number of test functions
+		
 - repository
 	- contains playgrounds?
 	- swift version
@@ -152,8 +126,6 @@ despite the efforts to create a consistent ecosystem around the Swift language, 
 		- import statements, non-apple... do the utilities stand on their own?
 		- cocoapods/carthage/spm support and usage
 		- usage of git submodules
-- testing
-	- number of test functions
 
 - text analysis
 	- types of analysis
@@ -172,8 +144,6 @@ despite the efforts to create a consistent ecosystem around the Swift language, 
 - segment per github search
 
 ### Results
-
-venn diagram generator: http://www.biovenn.nl/index.php
 
 - github search api results
 	- the sum of all (retrievable) search hits (plus my own hand-curated list) is 4917, with 4774 unique repositories, so the searches are almost completely nonoverlapping; only a maximum of 143 repos appeared in more than one search, about 3% of the total
@@ -214,6 +184,8 @@ venn diagram generator: http://www.biovenn.nl/index.php
 
 - repositories with podspecs: 1357 (`jq '.[]' observations/_repos_with_podspecs.txt | wc -l`)
 
+### Commands not yet automated
+
 - cli commands for extensions
 	- count all extension declarations grouped by uniq: `jq '.declarations.extension.parsed[].identifier' observations/*.json | sort | uniq -c | sort`
 		- count # of unique extensions (only 1 declaration found): `jq '.declarations.extension.parsed[].identifier' observations/*.json | sort | uniq -c | sort | grep "   1" | wc -l`
@@ -227,7 +199,9 @@ venn diagram generator: http://www.biovenn.nl/index.php
 		- search for implementations of a particular function signature: `ag --swift --after=10 --literal "trim() -> String" 2>/dev/null`
 			- grab the return statements from the 10 lines following each text match of the signature, sort, count by uniq: `ag --nofilename --swift --after=3 --literal "trim() -> String" 2>/dev/null | grep return | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' | sort | uniq -c | sort`
 
-- looking for common tasks
+### TODO
+
+- look for common tasks
 	- image operations
 	- colors
 	- core graphics
@@ -264,11 +238,6 @@ venn diagram generator: http://www.biovenn.nl/index.php
 	- location manager
 	- device motion
 	- avfoundation
-	- 
-
-### Conclusions
-
-- 
 
 ## Manual curation
 
