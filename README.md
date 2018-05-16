@@ -190,7 +190,7 @@ People are solving similar problems over and over again in their utility librari
 	- count all extension declarations grouped by uniq: `jq '.declarations.extension.parsed[].identifier' observations/*.json | sort | uniq -c | sort`
 		- count all extension declarations not on Cocoa frameworks (so, no AVFoundation/UIKit/etc): `jq '.declarations.extension.parsed[].identifier' observations/*.json | sed s/\"//g | grep -v -e "^UI.*" -e "^NS.*" -e "^CG.*" -e "^CI.*" -e "^CL.*" -e "^MK.*" -e "^AV.*" -e "^CA.*" | sort | uniq -c | sort`
 		- count # of unique extensions (only 1 declaration found): `jq '.declarations.extension.parsed[].identifier' observations/*.json | sort | uniq -c | sort | grep "   1" | wc -l`
-		- count # of extensions involving certain API (different from the unrestricted extensions of String below): `jq '.declarations.extension.parsed[].identifier' observations/*.json | sort | uniq -c | sort | grep React | awk -F ' ' '{sum+=$0} END {print sum}'`
+		- count # of extensions, including protocol conformations and where clauses involving certain API: `jq '.declarations.extension.parsed[].identifier' observations/*.json | sort | uniq -c | sort | grep React | awk -F ' ' '{sum+=$0} END {print sum}'`
 	- sum counts of extension groups to include extensions for protocol conformance or generic where clauses: `jq '.declarations.extension.parsed[].identifier' observations/*.json | sort | uniq -c | sort | grep -w String | awk -F ' ' '{sum+=$0} END {print sum}'`
 	- drilling down into extensions on String (as an example case):
 		- count number of repos with a String extension: 	`jq '. | select(.declarations.extension.parsed[].identifier=="String") | .repository.full_name' observations/*.json | sort | uniq | wc -l`
