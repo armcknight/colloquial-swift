@@ -1,0 +1,12 @@
+git@github.com:attaswift/Attabench.git
+git@github.com:devxoul/graygram-ios.git
+git@github.com:dkhamsing/open-source-ios-apps.git
+git@github.com:gkaimakas/SwiftValidators.git
+git@github.com:lexrus/Huahui.git
+git@github.com:louisdh/openterm.git
+git@github.com:louisdh/textor.git
+git@github.com:michaelvillar/timer-app.git
+git@github.com:richardxyx/BoardBank.git
+git@github.com:sindresorhus/touch-bar-simulator.git
+git@github.com:tnantoka/edhita.git
+git@github.com:wireapp/wire-ios.git

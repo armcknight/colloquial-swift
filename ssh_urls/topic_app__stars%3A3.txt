@@ -1,0 +1,10 @@
+git@github.com:ArnavChawla/InteliChat.git
+git@github.com:JoeyTawadrous/Simple-Apple-Watch-Apps.git
+git@github.com:adafruit/Bluefruit-Swift-Playground-Book.git
+git@github.com:darkwind666/SpaceBeaverAppleWatch.git
+git@github.com:hg1915/datingAppSwift.git
+git@github.com:kirankunigiri/until-app.git
+git@github.com:madebymist/habit-tracker.git
+git@github.com:ntkhoi/Observer-Design-Pattern.git
+git@github.com:ronakdev/imedici.git
+git@github.com:thanhtungka91/weather.git

@@ -26,6 +26,14 @@ def run_all_queries
     'library',
     'wrapper',
     'easy',
+    'app+stars%3A0',
+    'app+stars%3A1',
+    'app+stars%3A2',
+    'app+stars%3A3',
+    'app+stars%3A4',
+    'app+stars%3A5..10',
+    'app+stars%3A11..100',
+    'app+stars%3A%3E101',
   ].map{ |query|
     [ query + '+in:name', 'topic:' + query ]
   }.flatten
