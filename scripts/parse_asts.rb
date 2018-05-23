@@ -11,6 +11,13 @@ end
 all_repositories.each do |repository|
   next if repository == '.' || repository == '..' || repository == '.DS_Store'
   
+  output_file = "#{asts_dir}/#{repository}.ast"
+  
+  if File.exist?(output_file) then
+    puts "already parsed #{repository}"
+    next
+  end
+  
   puts "parsing #{repository}"
 
   repo_dir = "repositories/#{repository}"
@@ -21,7 +28,7 @@ all_repositories.each do |repository|
     all_output_lines += `swiftc -print-ast '#{swift_file_path}' 2>/dev/null`.split("\n")
   end
   
-  File.open("#{asts_dir}/#{repository}.ast", 'w') do |file|
+  File.open(output_file, 'w') do |file|
     file << JSON.dump(parse_output)
   end
 end
