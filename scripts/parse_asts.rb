@@ -3,20 +3,12 @@ require 'json'
 asts_dir = 'asts'
 `mkdir -p #{asts_dir}`
 
-all_repositories = Array.new
-File.open('filtering/repos_with_podspecs.json', 'r') do |file|
-  all_repositories = JSON.parse(file.read)
-end
+all_repositories = Dir.entries('repositories')
 
 all_repositories.each do |repository|
   next if repository == '.' || repository == '..' || repository == '.DS_Store'
   
   output_file = "#{asts_dir}/#{repository}.ast"
-  
-  if File.exist?(output_file) then
-    puts "already parsed #{repository}"
-    next
-  end
   
   puts "parsing #{repository}"
 
