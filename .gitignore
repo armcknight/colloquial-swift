@@ -5,3 +5,4 @@ extractions/
 github_search_results/_all_results.json
 asts/
 *xcuserdata*
+*DS_Store
