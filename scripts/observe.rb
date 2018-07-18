@@ -207,10 +207,7 @@ end
 observations_metadata_dir = 'observations'
 `mkdir -p #{observations_metadata_dir}`
 
-all_repositories = Array.new
-File.open('filtering/repos_with_podspecs.json', 'r') do |file|
-  all_repositories = JSON.parse(file.read)
-end
+all_repositories = Dir.entries('asts')
 
 # get repo metadata from combined github search result json
 github_results = Array.new
@@ -220,6 +217,8 @@ end
 
 all_repositories.each do |repository|
   next if repository == '.' || repository == '..' || repository == '.DS_Store'
+  
+  repository.gsub!('.ast', '')
   
   puts "analyzing #{repository}"
   
@@ -233,17 +232,13 @@ all_repositories.each do |repository|
     abstract_syntax_tree = JSON.parse(file.read)
   end
 
-  repo_dir = "repositories/#{repository}"
-  Dir.chdir(repo_dir) do
-    
-    swift_file_paths = `find . -type f -name '*.swift'`.split("\n")
+  swift_file_paths = `find . -type f -name '*.swift'`.split("\n")
 
-    declarations = extract_declarations abstract_syntax_tree, true, true
-    comments = extract_comments abstract_syntax_tree
-    extract_readmes repo_info, abstract_syntax_tree
-    lines_of_code_counts = count_lines_of_code swift_file_paths
-  end
-  
+  declarations = extract_declarations abstract_syntax_tree, false, true
+  comments = extract_comments abstract_syntax_tree
+  extract_readmes repo_info, abstract_syntax_tree
+  lines_of_code_counts = count_lines_of_code swift_file_paths
+
   metadata_file = "#{observations_metadata_dir}/#{repository}.json"
   final_hash = {
       'repository' => repo_info,
