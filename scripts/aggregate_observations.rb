@@ -113,7 +113,18 @@ File.open("#{aggregations_dir}/unique_extensions.json", 'w') do |file|
   file << JSON.dump(all_unique_extensions.to_a)
 end
 
+File.open("#{aggregations_dir}/_stats.json", 'w') do |file|
+  file << JSON.dump({
+    'total_apis_extended' => all_extensions.size,
+    'non_cocoa_apis_extended' => all_non_cocoa_extensions.size,
+    'unique_extension_declarations' => all_unique_extensions.size,
+  })
+end
+
 # write consolidated, simple text versions of the results
 
-`jq '' #{aggregations_dir}/extensions.json | awk -F'":' '{print $2 $1};' | sort -rn | sed s/\\\"//g | sed s/,//g > #{aggregations_dir}/extensions.simple.txt`
-`jq '' #{aggregations_dir}/non_cocoa_extensions.json | awk -F'":' '{print $2 $1};' | sort -rn | sed s/\\\"//g | sed s/,//g > #{aggregations_dir}/non_cocoa_extensions.simple.txt`
+remove_first_comma = 'sed s/,//1'
+remove_double_quotes = "sed s/\\\"//g"
+`jq '' #{aggregations_dir}/extensions.json | awk -F'":' '{print $2 $1};' | sort -rn | #{remove_double_quotes} | #{remove_first_comma} > #{aggregations_dir}/extensions.simple.txt`
+`jq '' #{aggregations_dir}/non_cocoa_extensions.json | awk -F'":' '{print $2 $1};' | sort -rn | #{remove_double_quotes} | #{remove_first_comma} > #{aggregations_dir}/non_cocoa_extensions.simple.txt`
+`jq '' #{aggregations_dir}/non_cocoa_extensions.json | #{remove_double_quotes} | #{remove_first_comma} | sort > #{aggregations_dir}/unique_extensions.simple.txt`
