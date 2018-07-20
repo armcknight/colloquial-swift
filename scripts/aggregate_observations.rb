@@ -45,9 +45,10 @@ repo_sets.each_with_index do |repo_set, i|
   # count all extension declarations grouped by uniq
   extensions = massage_results `cat #{repo_set.join(' ')} | jq '.declarations.extension.parsed[].identifier' | sort | uniq -c | sort`
 
-  # count all extension declarations not on Cocoa frameworks (so, no AVFoundation/UIKit/etc)
-  cocoa_prefixes = ['UI', 'NS', 'CG', 'CI', 'CL', 'MK', 'AV', 'CA']
-  exclusion_expr = cocoa_prefixes.map{|x| "-e ^#{x}.*"}.join(' ')
+  # count all extension declarations not on Cocoa frameworks (so, no AVFoundation/UIKit/etc); taken from https://nshipster.com/namespacing/
+  cocoa_prefixes = [ 'AB', 'AC', 'AD', 'AL', 'AU', 'AV', 'CA', 'CB', 'CF', 'CG', 'CI', 'CL', 'CM', 'CV', 'EA', 'EK', 'GC', 'GLK', 'JS', 'MA', 'MC', 'MF', 'MIDI', 'MK', 'MP', 'NK', 'NS', 'PK', 'QL', 'SC', 'Sec', 'SK', 'SL', 'SS', 'TW', 'UI', 'UT' ]
+  
+  exclusion_expr = cocoa_prefixes.map{|x| '-e "^\"' + x + '.*"'}.join(' ')
   non_cocoa_touch_extensions = massage_results `cat #{repo_set.join(' ')} | jq '.declarations.extension.parsed[].identifier' | grep -v #{exclusion_expr} | sort | uniq -c | sort`
 
   # count unique extensions (only 1 declaration found)
