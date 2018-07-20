@@ -10,3 +10,4 @@ ruby scripts/remove_dependencies_and_examples.rb
 ruby scripts/filter_for_podspecs.rb
 ruby scripts/parse_asts.rb
 ruby scripts/observe.rb
+ruby scripts/aggregate_observations.rb
