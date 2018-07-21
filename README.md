@@ -87,8 +87,22 @@ People are solving similar problems over and over again in their utility librari
 
 - [ ] code
 	- [ ] declarations
-		- [x] extension
-				- [ ] separate into extensions on Apple vs. non-Apple API
+		- [x] extension with signature frequencies
+				- [x] non cocoa classes (e.g. UIImage, CLLocationManager) (swift team not likely to accept new api for these)
+						- [ ] count
+				- [x] unique extension declarations
+						- [ ] count
+				- [x] group by api (top N extended apis)
+						- [x] functions with signature frequencies
+								- [ ] count (unique)
+								- [ ] tokenize function names and parameter labels by underscores and camelcased components
+										- [ ] count unique word frequencies and total #
+										- [ ] cluster by synonyms
+												- [ ] counts and distributions
+										- [ ] index into function lists to cluster them by semantics
+										- [ ] note usage of '_', different parameter labels and names, same labels and names, absence of labels
+						- [x] repositories
+								- [ ] count
 		- [x] function 
 		- [x] protocol
 		- [x] struct
@@ -183,65 +197,6 @@ People are solving similar problems over and over again in their utility librari
 		- carthage: 154
 
 - repositories with podspecs: 1357 (`jq '.[]' observations/_repos_with_podspecs.txt | wc -l`)
-
-### Commands not yet automated
-
-- cli commands for extensions
-	- count all extension declarations grouped by uniq: `jq '.declarations.extension.parsed[].identifier' observations/*.json | sort | uniq -c | sort`
-		- count all extension declarations not on Cocoa frameworks (so, no AVFoundation/UIKit/etc): `jq '.declarations.extension.parsed[].identifier' observations/*.json | sed s/\"//g | grep -v -e "^UI.*" -e "^NS.*" -e "^CG.*" -e "^CI.*" -e "^CL.*" -e "^MK.*" -e "^AV.*" -e "^CA.*" | sort | uniq -c | sort`
-		- count # of unique extensions (only 1 declaration found): `jq '.declarations.extension.parsed[].identifier' observations/*.json | sort | uniq -c | sort | grep "   1" | wc -l`
-		- count # of extensions, including protocol conformations and where clauses involving certain API: `jq '.declarations.extension.parsed[].identifier' observations/*.json | sort | uniq -c | sort | grep React | awk -F ' ' '{sum+=$0} END {print sum}'`
-	- sum counts of extension groups to include extensions for protocol conformance or generic where clauses: `jq '.declarations.extension.parsed[].identifier' observations/*.json | sort | uniq -c | sort | grep -w String | awk -F ' ' '{sum+=$0} END {print sum}'`
-	- drilling down into extensions on String (as an example case):
-		- count number of repos with a String extension: 	`jq '. | select(.declarations.extension.parsed[].identifier=="String") | .repository.full_name' observations/*.json | sort | uniq | wc -l`
-		- count total amount of extension functions: `jq '.declarations.extension.parsed[] | select(.identifier=="String") | .declarations | .function.parsed[].identifier' observations/*.json | wc -l`
-		- count function signatures grouped by uniq: `jq '.declarations.extension.parsed[] | select(.identifier=="String") | .declarations | .function.parsed[].identifier' observations/*.json | sort | uniq -c | sort`
-			- whittling away by keyword (e.g., all the functions _except_ trim/substring functions): `jq '.declarations.extension.parsed[] | select(.identifier=="String") | .declarations | .function.parsed[].identifier' observations/*.json | grep -vi -e trim -e substring | sort | uniq -c | sort`
-		- looking at common tasks, e.g. trimming
-			- count signatures containing a keyword by uniq: `jq '.declarations.extension.parsed[] | select(.identifier=="String") | .declarations | .function.parsed[].identifier' observations/*.json | sort | uniq -c | sort | grep -i trim`
-			- sum counts of grouped signatures: `jq '.declarations.extension.parsed[] | select(.identifier=="String") | .declarations | .function.parsed[].identifier' observations/*.json | sort | uniq -c | sort | grep -i trim | awk -F ' ' '{sum+=$0} END {print sum}'`
-		- search for implementations of a particular function signature: `ag --swift --after=10 --literal "trim() -> String" 2>/dev/null`
-			- grab the return statements from the 10 lines following each text match of the signature, sort, count by uniq: `ag --nofilename --swift --after=3 --literal "trim() -> String" 2>/dev/null | grep return | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' | sort | uniq -c | sort`
-
-### TODO
-
-- look for common tasks
-	- image operations
-	- colors
-	- core graphics
-	- frame logic
-	- autolayout
-	- core data
-	- dictionaries
-	- arrays
-	- dates
-	- gestures
-	- sets
-	- files
-	- serialization
-		- plist
-		- json
-		- xml
-	- strings
-	- hashing
-	- notifications
-	- kvo
-	- user defaults
-	- webkit and webviews
-	- maps
-	- bundles
-	- networking
-	- uikit
-		- device stuff
-		- alerts
-		- collection views
-		- table views
-		- buttons
-		- modals
-		- 
-	- location manager
-	- device motion
-	- avfoundation
 
 ## Manual curation
 
