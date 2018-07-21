@@ -23,6 +23,11 @@ def massage_counted_uniqued_results result_string
   result_hash
 end
 
+# given a string with a number and one or more words etc, like "  227 Data and other stuff", extract "Data and other stuff"
+def strip_frequency_count line
+  /\s*\d*\s*(.*)/.match(line).captures.first 
+end
+
 def hash_values_to_i hash
   temp = Hash.new
   hash.each do |decl, count|
@@ -144,7 +149,7 @@ simple_unique_extensions = `jq '' #{aggregations_dir}/non_cocoa_extensions.json 
 # get the top 10 extended non-cocoa apis and aggregate how they're extended
 
 api_names = simple_non_cocoa_extensions[0..9].map do |count_and_api| 
-  /\s*\d*\s*(.*)/.match(count_and_api).captures.first # given a string with a number and one or more words etc, like "  227 Data and other stuff", extract "Data and other stuff"
+  strip_frequency_count(count_and_api)
   .gsub(':', 'conforms to') # convert colons because they can't be used in filenames
   .gsub(' ', '_')
 end
@@ -176,7 +181,7 @@ end
 
 # combine the chunked aggregations
 
-all_api_aggregations = Hash.new
+simple_extending_functions_by_api = Hash.new
 api_aggregations_dir = "#{aggregations_dir}/api"
 `mkdir -p #{api_aggregations_dir}`
 api_names.each do |api_name|
@@ -209,6 +214,24 @@ api_names.each do |api_name|
   # write consolidated, simple text versions of the results
 
   simple_extending_functions = `jq '.extending_functions' #{aggregations_dir}/api/#{api_name}.json | awk -F'":' '{print $2 $1};' | sort -rn | #{remove_double_quotes} | #{remove_first_comma} | tee #{aggregations_dir}/api/#{api_name}_functions.simple.txt`.split("\n")
+  
+  # memoize the function lists for next step
+  simple_extending_functions_by_api[api_name] = simple_extending_functions
+end
+
+# get the top 10 extending function names for each api (so, just the part to the left of the first opening parens or generic expression, if present)
+top_extending_functions_by_api = Hash.new
+simple_extending_functions_by_api.each do |api_name, simple_extending_functions|
+  top_extending_functions_by_api[api_name] = simple_extending_functions[0..9].map do |x| 
+    signature = strip_frequency_count(x)
+    first_generic_opening_bracket = signature '<'
+    first_opening_parenthesis = signature '('
+    if first_generic_opening_bracket < first_opening_parenthesis then
+      signature[0..first_generic_opening_bracket]
+    else
+      signature[0..first_opening_parenthesis]
+    end
+  end
 end
 
 # repo_sets.each_with_index do |repo_set, i|
