@@ -11,14 +11,24 @@ require 'set'
 #
 def massage_counted_uniqued_results result_string
   result_hash = Hash.new
-  result_string.split("\n").map{|extension_count| # split whole list into individual lines, each containing one extension with its frequency count
-    trimmed_components = extension_count.split("\"") # split that one item into the count string and the api name string
-    .map {|extension_count_component| # and trim whitespace from the count string and api name string
-      extension_count_component.strip
-    }
+  
+  # split whole list into individual lines, each containing one extension with its frequency count
+  result_string.split("\n").each do |extension_count|     
+    # split that one item into the count string and the api name string, and trim whitespace from the count string and api name string
+    trimmed_components = extension_count.split("\"").map {|extension_count_component| extension_count_component.strip }
+
     result_hash[trimmed_components[1]] = trimmed_components[0]
-  }
+  end
+  
   result_hash
+end
+
+def hash_values_to_i hash
+  temp = Hash.new
+  hash.each do |decl, count|
+    temp[decl] = count.to_i
+  end
+  temp
 end
 
 all_repositories = Dir.entries('observations').select{|x| x != '.' && x != '..' && x != '.DS_Store'}.map{|x| 'observations/' + x}
@@ -52,14 +62,10 @@ repo_sets.each_with_index do |repo_set, i|
   
   exclusion_expr = cocoa_prefixes.map{|x| '-e "^\"' + x + '.*"'}.join(' ')
   non_cocoa_extensions = massage_counted_uniqued_results `cat #{observation_files} | jq '.declarations.extension.parsed[].identifier' | grep -v #{exclusion_expr} | sort | uniq -c | sort`
-
-  # count unique extensions (only 1 declaration found)
-  unique_extensions = massage_counted_uniqued_results(`cat #{observation_files} | jq '.declarations.extension.parsed[].identifier' | sort | uniq -c | sort | grep "   1"`).keys
   
   aggregations_hash[i] = {
     'extensions' => extensions,
     'non_cocoa_extensions' => non_cocoa_extensions,
-    'unique_extensions' => unique_extensions,
   }
 end
 
@@ -90,12 +96,12 @@ end
 
 all_extensions = Hash.new
 all_non_cocoa_extensions = Hash.new
-all_unique_extensions = Set.new
 
 aggregations_hash.each do |repo_set_i, aggregations|
   all_extensions.merge!(aggregations['extensions']) {|key, a_val, b_val| a_val.to_i + b_val.to_i }
+  all_extensions = hash_values_to_i all_extensions
   all_non_cocoa_extensions.merge!(aggregations['non_cocoa_extensions']) {|key, a_val, b_val| a_val.to_i + b_val.to_i }
-  aggregations['unique_extensions'].each {|unique_extension| all_unique_extensions << unique_extension }
+  all_non_cocoa_extensions = hash_values_to_i all_non_cocoa_extensions
 end
 
 # write to files
@@ -108,14 +114,22 @@ end
 File.open("#{aggregations_dir}/non_cocoa_extensions.json", 'w') do |file|
   file << JSON.dump(all_non_cocoa_extensions)
 end
-File.open("#{aggregations_dir}/unique_extensions.json", 'w') do |file|
-  file << JSON.dump(all_unique_extensions.to_a)
+
+total_extension_declarations = 0
+total_non_cocoa_extension_declarations = 0
+all_extensions.each do |extension, count|
+  total_extension_declarations += count
 end
+all_non_cocoa_extensions.each do |extension, count|
+  total_non_cocoa_extension_declarations += count
+end
+
 File.open("#{aggregations_dir}/_stats.json", 'w') do |file|
   file << JSON.dump({
-    'total_apis_extended' => all_extensions.size,
-    'non_cocoa_apis_extended' => all_non_cocoa_extensions.size,
-    'unique_extension_declarations' => all_unique_extensions.size,
+    'unique_extension_declarations' => all_extensions.size,
+    'non_cocoa_unique_extension_declarations' => all_non_cocoa_extensions.size,
+    'total_extension_declarations' => total_extension_declarations,
+    'total_non_cocoa_extension_declarations' => total_non_cocoa_extension_declarations,
   })
 end
 
@@ -139,7 +153,7 @@ repo_sets.each_with_index do |repo_set, i|
   api_names.each do |api_name|
     observation_files = repo_set.join(' ')
     # repos with an extension of the supplied api
-    extending_repos = `cat #{observation_files} | jq '. | select(.declarations.extension.parsed[].identifier=="#{api_name}") | .repository.full_name' | sort | uniq`.split("\n")
+    extending_repos = massage_counted_uniqued_results `cat #{observation_files} | jq '. | select(.declarations.extension.parsed[].identifier=="#{api_name}") | .repository.full_name' | sort | uniq -c | sort`
 
     # count function signatures grouped by uniq
     extending_functions = massage_counted_uniqued_results `cat #{observation_files} | jq '.declarations.extension.parsed[] | select(.identifier=="#{api_name}") | .declarations | .function.parsed[].identifier' | sort | uniq -c | sort`
@@ -166,19 +180,29 @@ all_api_aggregations = Hash.new
 api_aggregations_dir = "#{aggregations_dir}/api"
 `mkdir -p #{api_aggregations_dir}`
 api_names.each do |api_name|
-  all_extending_repos = Set.new
+  all_extending_repos = Hash.new
   all_extending_functions = Hash.new
   all_aggregations = chunked_api_aggregations[api_name].each do |repo_set_i, aggregations|
-    aggregations['extending_repos'].each {|extending_repo| all_extending_repos << extending_repo }
     all_extending_functions.merge!(aggregations['extending_functions']) {|key, a_val, b_val| a_val.to_i + b_val.to_i }
+    all_extending_repos.merge!(aggregations['extending_repos']) {|key, a_val, b_val| a_val.to_i + b_val.to_i }
+    all_extending_repos = hash_values_to_i all_extending_repos
+    all_extending_functions = hash_values_to_i all_extending_functions
+  end
+  
+  total_extending_functions = 0
+  all_extending_functions.each do |extension, count|
+    total_extending_functions += count
   end
   
   # write to files
 
   File.open("#{api_aggregations_dir}/#{api_name}.json", 'w') do |file|
     file << JSON.dump({
-      'extending_repos' => all_extending_repos.to_a,
+      'extending_repos' => all_extending_repos,
       'extending_functions' => all_extending_functions,
+      'unique_extending_repos' => all_extending_repos.size,
+      'unique_extending_functions' => all_extending_functions.size,
+      'total_extending_functions' => total_extending_functions,
     })
   end
 

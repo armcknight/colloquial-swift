@@ -88,21 +88,21 @@ People are solving similar problems over and over again in their utility librari
 - [ ] code
 	- [ ] declarations
 		- [x] extension with signature frequencies
+				- [x] count total and uniques 
 				- [x] non cocoa classes (e.g. UIImage, CLLocationManager) (swift team not likely to accept new api for these)
-						- [ ] count
-				- [x] unique extension declarations
-						- [ ] count
+						- [x] count total and uniques
 				- [x] group by api (top N extended apis)
 						- [x] functions with signature frequencies
-								- [ ] count (unique)
+								- [x] count total and uniques
 								- [ ] tokenize function names and parameter labels by underscores and camelcased components
 										- [ ] count unique word frequencies and total #
 										- [ ] cluster by synonyms
 												- [ ] counts and distributions
 										- [ ] index into function lists to cluster them by semantics
 										- [ ] note usage of '_', different parameter labels and names, same labels and names, absence of labels
-						- [x] repositories
-								- [ ] count
+										- [ ] note generics, blocks, return values
+						- [x] repositories with extension frequencies
+								- [x] count total
 		- [x] function 
 		- [x] protocol
 		- [x] struct
