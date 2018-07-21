@@ -129,8 +129,12 @@ simple_unique_extensions = `jq '' #{aggregations_dir}/non_cocoa_extensions.json 
 
 # get the top 10 extended non-cocoa apis and aggregate how they're extended
 
-api_names = simple_non_cocoa_extensions[0..9]
-api_aggregations_hash = Hash.new
+api_names = simple_non_cocoa_extensions[0..9].map do |count_and_api| 
+  /\s*\d*\s*(.*)/.match(count_and_api).captures.first # given a string with a number and one or more words etc, like "  227 Data and other stuff", extract "Data and other stuff"
+  .gsub(':', 'conforms to') # convert colons because they can't be used in filenames
+  .gsub(' ', '_')
+end
+chunked_api_aggregations = Hash.new
 repo_sets.each_with_index do |repo_set, i|
   api_names.each do |api_name|
     observation_files = repo_set.join(' ')
@@ -140,36 +144,48 @@ repo_sets.each_with_index do |repo_set, i|
     # count function signatures grouped by uniq
     extending_functions = massage_counted_uniqued_results `cat #{observation_files} | jq '.declarations.extension.parsed[] | select(.identifier=="#{api_name}") | .declarations | .function.parsed[].identifier' | sort | uniq -c | sort`
     
-    api_aggregations_hash[api_name] = {
-      i => {
+    if chunked_api_aggregations[api_name] == nil then
+      chunked_api_aggregations[api_name] = {
+        i => {
+          'extending_repos' => extending_repos,
+          'extending_functions' => extending_functions,
+        }
+      }
+    else
+      chunked_api_aggregations[api_name][i] = {
         'extending_repos' => extending_repos,
         'extending_functions' => extending_functions,
       }
-    }
+    end
   end
 end
 
 # combine the chunked aggregations
+
 all_api_aggregations = Hash.new
 api_aggregations_dir = "#{aggregations_dir}/api"
 `mkdir -p #{api_aggregations_dir}`
 api_names.each do |api_name|
   all_extending_repos = Set.new
   all_extending_functions = Hash.new
-  all_aggregations = api_aggregations_hash[api_name].each do |repo_set_i, aggregations|
+  all_aggregations = chunked_api_aggregations[api_name].each do |repo_set_i, aggregations|
     aggregations['extending_repos'].each {|extending_repo| all_extending_repos << extending_repo }
     all_extending_functions.merge!(aggregations['extending_functions']) {|key, a_val, b_val| a_val.to_i + b_val.to_i }
   end
+  
+  # write to files
 
   File.open("#{api_aggregations_dir}/#{api_name}.json", 'w') do |file|
     file << JSON.dump({
-      'extending_repos' => all_extending_repos,
+      'extending_repos' => all_extending_repos.to_a,
       'extending_functions' => all_extending_functions,
     })
   end
+
+  # write consolidated, simple text versions of the results
+
+  simple_extending_functions = `jq '.extending_functions' #{aggregations_dir}/api/#{api_name}.json | awk -F'":' '{print $2 $1};' | sort -rn | #{remove_double_quotes} | #{remove_first_comma} | tee #{aggregations_dir}/api/#{api_name}_functions.simple.txt`.split("\n")
 end
-
-
 
 # repo_sets.each_with_index do |repo_set, i|
 #   api_names.each do |api_name|
@@ -193,5 +209,3 @@ end
 #
 #   end
 # end
-
-
