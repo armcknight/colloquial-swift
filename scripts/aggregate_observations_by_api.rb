@@ -84,7 +84,7 @@ api_names.each do |api_name|
   simple_extending_function_names_by_api[api_name] = simple_extending_functions
 end
 
-# get the extending function names (just the part to the left of the first opening parens, or generic expression if present) for each api mapped to their full signatures
+# get all extending function names (just the part to the left of the first opening parens, or generic expression if present) for each api mapped to their full signatures
 
 top_extending_function_signatures_to_names_by_api = Hash.new
 simple_extending_function_names_by_api.each do |api_name, simple_extending_functions|
@@ -103,6 +103,7 @@ end
 # tokenize the function names into keyword lists per API
 
 extending_function_keywords_by_api = Hash.new
+simple_keyword_lists_by_api = Hash.new
 top_extending_function_signatures_to_names_by_api.each do |api_name, top_extending_function_signatures_to_names|
   top_extending_function_signatures_to_names.each do |function_signature, function_name|
     keywords = function_name.split('_').reduce(Array.new) do |keyword_list, next_function_name_token|
@@ -125,19 +126,24 @@ top_extending_function_signatures_to_names_by_api.each do |api_name, top_extendi
     keywords_with_frequencies[unique_keyword] = count
   end
   
-  # write to simple text file
+  # write to simple text file and memoize for subsequent analysis
   
   simple_filename = "#{AGGREGATIONS_DIR}/api/#{slugified_api_name api_name}.keywords.simple.txt"
   `rm -f #{simple_filename}`
+  simple_keyword_list = Array.new
   File.open("#{simple_filename}", 'a') do |file|
     keywords_with_frequencies.keys.sort do |a, b|
       keywords_with_frequencies[b] - keywords_with_frequencies[a] # descending sort
     end.each do |keyword|
-      file << "#{keywords_with_frequencies[keyword]} #{keyword}\n"
+      keyword_with_count = "#{keywords_with_frequencies[keyword]} #{keyword}"
+      file << "#{keyword_with_count}\n"
+      simple_keyword_list << keyword_with_count
     end
   end
-  hash_values_to_i keywords_with_frequencies
   
+  simple_keyword_lists_by_api[api_name] = simple_keyword_list
+  
+  hash_values_to_i keywords_with_frequencies
   total_keyword_count = 0
   keywords_with_frequencies.each do |keyword, count|
     total_keyword_count += count  
