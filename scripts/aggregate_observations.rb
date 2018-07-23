@@ -58,15 +58,7 @@ aggregations_hash.each do |repo_set_i, aggregations|
   all_non_cocoa_extensions = hash_values_to_i all_non_cocoa_extensions
 end
 
-# write to files
-
-`mkdir -p #{AGGREGATIONS_DIR}`
-File.open("#{AGGREGATIONS_DIR}/extensions.json", 'w') do |file|
-  file << JSON.dump(all_extensions)
-end
-File.open("#{AGGREGATIONS_DIR}/non_cocoa_extensions.json", 'w') do |file|
-  file << JSON.dump(all_non_cocoa_extensions)
-end
+# count totals
 
 total_extension_declarations = 0
 total_non_cocoa_extension_declarations = 0
@@ -77,16 +69,34 @@ all_non_cocoa_extensions.each do |extension, count|
   total_non_cocoa_extension_declarations += count
 end
 
-File.open("#{AGGREGATIONS_DIR}/_stats.json", 'w') do |file|
+# write to file
+
+`mkdir -p #{AGGREGATIONS_DIR}`
+File.open("#{AGGREGATIONS_DIR}/_all.json", 'w') do |file|
   file << JSON.dump({
-    'unique_extension_declarations' => all_extensions.size,
-    'non_cocoa_unique_extension_declarations' => all_non_cocoa_extensions.size,
-    'total_extension_declarations' => total_extension_declarations,
-    'total_non_cocoa_extension_declarations' => total_non_cocoa_extension_declarations,
+    'all_extensions' => {
+      'declarations' => all_extensions,
+      'unique_declaration_count' => all_extensions.size,
+      'total_declaration_count' => total_extension_declarations,
+    },
+    'non_cocoa_extensions' => {
+      'declarations' => all_non_cocoa_extensions,
+      'unique_declaration_count' => all_non_cocoa_extensions.size,
+      'total_declaration_count' => total_non_cocoa_extension_declarations,
+    }
   })
 end
 
-# write consolidated, simple text versions of the results
+# write consolidated, simple text versions of the all_[non_cocoa]extensions lists
 
-`jq '' #{AGGREGATIONS_DIR}/extensions.json | #{REMOVE_ENCLOSING_BRACES} | #{REVERSE_COLUMNS} | sort -rn | #{REMOVE_DOUBLE_QUOTES} | #{REMOVE_FIRST_COMMA} > #{AGGREGATIONS_DIR}/extensions.simple.txt`.split("\n")
-`jq '' #{AGGREGATIONS_DIR}/non_cocoa_extensions.json | #{REMOVE_ENCLOSING_BRACES} | #{REVERSE_COLUMNS} | sort -rn | #{REMOVE_DOUBLE_QUOTES} | #{REMOVE_FIRST_COMMA} > #{AGGREGATIONS_DIR}/non_cocoa_extensions.simple.txt`.split("\n")
+{ 'extensions' => all_extensions, 'non_cocoa_extensions' => all_non_cocoa_extensions }.each do |filename, hash|
+  simple_filename = "#{AGGREGATIONS_DIR}/#{filename}.simple.txt"
+  `rm #{simple_filename}`
+  File.open("#{simple_filename}", 'a') do |file|
+    hash.keys.sort do |a, b|
+      hash[b] - hash[a] # descending sort
+    end.each do |extension_declaration|
+      file << "#{hash[extension_declaration]} #{extension_declaration}\n"
+    end
+  end
+end

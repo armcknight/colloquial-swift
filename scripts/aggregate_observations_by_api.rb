@@ -2,6 +2,7 @@ require 'json'
 require_relative '_helpers'
 
 repo_sets = chunked_repo_sets
+all_api_aggregations = Hash.new
 
 # get simple lists back out
 
@@ -54,22 +55,30 @@ api_names.each do |api_name|
     total_extending_functions += count
   end
   
-  # write to files
+  # add data points to big aggregation hash
 
-  api_filename = slugified_api_name api_name
-  File.open("#{API_AGGREGATIONS_DIR}/#{api_filename}.json", 'w') do |file|
-    file << JSON.dump({
-      'extending_repos' => all_extending_repos,
-      'extending_functions' => all_extending_functions,
-      'unique_extending_repos' => all_extending_repos.size,
-      'unique_extending_functions' => all_extending_functions.size,
-      'total_extending_functions' => total_extending_functions,
-    })
+  all_api_aggregations[api_name] ={
+    'extending_repos' => all_extending_repos,
+    'extending_functions' => all_extending_functions,
+    'extending_repo_count' => all_extending_repos.size,
+    'unique_extending_function_count' => all_extending_functions.size,
+    'total_extending_function_count' => total_extending_functions,
+  }
+
+  # collect simple text version of extensing functions with counts, write to file 
+  
+  simple_filename = "#{AGGREGATIONS_DIR}/api/#{slugified_api_name api_name}.json"
+  `rm #{simple_filename}`
+  simple_extending_functions = Array.new
+  File.open("#{simple_filename}", 'a') do |file|
+    all_extending_functions.keys.sort do |a, b|
+      all_extending_functions[b] - all_extending_functions[a] # descending sort
+    end.each do |function_declaration|
+      function_with_count = "#{all_extending_functions[function_declaration]} #{function_declaration}"
+      file << "#{function_with_count}\n"
+      simple_extending_functions << function_with_count
+    end
   end
-
-  # write consolidated, simple text versions of the results
-
-  simple_extending_functions = `jq '.extending_functions' #{AGGREGATIONS_DIR}/api/#{api_filename}.json | #{REMOVE_ENCLOSING_BRACES} | #{REVERSE_COLUMNS} | sort -rn | #{REMOVE_DOUBLE_QUOTES} | #{REMOVE_FIRST_COMMA} | tee #{AGGREGATIONS_DIR}/api/#{api_filename}_functions.simple.txt`.split("\n").select{|x| !x.empty?}
   
   # memoize the function lists for next step
   simple_extending_function_names_by_api[api_name] = simple_extending_functions
@@ -108,9 +117,7 @@ top_extending_function_signatures_to_names_by_api.each do |api_name, top_extendi
     end
   end
 
-  File.open("#{API_AGGREGATIONS_DIR}/#{slugified_api_name api_name}.extending_keywords.json", 'w') do |file|
-    file << JSON.dump(extending_function_keywords_by_api[api_name].uniq)
-  end
+  all_api_aggregations[api_name]['extending_keywords'] = extending_function_keywords_by_api[api_name]
 end
   
 # index all functions (not just top N) by keyword for current api into new Hash
@@ -137,8 +144,14 @@ top_extending_function_signatures_to_names_by_api.each do |api_name, top_extendi
     end
   end
 
-  File.open("#{API_AGGREGATIONS_DIR}/#{slugified_api_name api_name}.function_families.json", 'w') do |file|
-    file << JSON.dump(function_families_by_api[api_name])
+  all_api_aggregations[api_name]['function_families'] = function_families_by_api[api_name]
+end
+
+# write big hash to file
+
+all_api_aggregations.keys.each do |api_name|
+  File.open("#{API_AGGREGATIONS_DIR}/#{slugified_api_name api_name}.json", 'w') do |file|
+    file << JSON.dump(all_api_aggregations[api_name])
   end
 end
 
