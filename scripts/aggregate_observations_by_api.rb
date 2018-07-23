@@ -10,11 +10,8 @@ simple_non_cocoa_extensions = `cat #{AGGREGATIONS_DIR}/non_cocoa_extensions.simp
 
 # get the top 10 extended non-cocoa apis and aggregate how they're extended
 
-api_names = simple_non_cocoa_extensions[0..9].map do |count_and_api| 
-  strip_frequency_count(count_and_api)
-  .gsub(':', 'conforms to') # convert colons because they can't be used in filenames
-  .gsub(' ', '_')
-end
+api_names = simple_non_cocoa_extensions[0...TOP_EXTENDED_API_AMOUNT].map {|count_and_api| strip_frequency_count(count_and_api)}
+
 chunked_api_aggregations = Hash.new
 repo_sets.each_with_index do |repo_set, i|
   api_names.each do |api_name|
@@ -25,27 +22,23 @@ repo_sets.each_with_index do |repo_set, i|
     # count function signatures grouped by uniq
     extending_functions = massage_counted_uniqued_results `cat #{observation_files} | jq '.declarations.extension.parsed[] | select(.identifier=="#{api_name}") | .declarations | .function.parsed[].identifier' | sort | uniq -c | sort`
     
+    repos_and_functions_hash = {
+      'extending_repos' => extending_repos,
+      'extending_functions' => extending_functions,
+    }
+    
     if chunked_api_aggregations[api_name] == nil then
-      chunked_api_aggregations[api_name] = {
-        i => {
-          'extending_repos' => extending_repos,
-          'extending_functions' => extending_functions,
-        }
-      }
+      chunked_api_aggregations[api_name] = {i => repos_and_functions_hash}
     else
-      chunked_api_aggregations[api_name][i] = {
-        'extending_repos' => extending_repos,
-        'extending_functions' => extending_functions,
-      }
+      chunked_api_aggregations[api_name][i] = repos_and_functions_hash
     end
   end
 end
 
 # combine the chunked aggregations
 
-simple_extending_functions_by_api = Hash.new
-api_AGGREGATIONS_DIR = "#{AGGREGATIONS_DIR}/api"
-`mkdir -p #{api_AGGREGATIONS_DIR}`
+simple_extending_function_names_by_api = Hash.new
+`mkdir -p #{API_AGGREGATIONS_DIR}`
 api_names.each do |api_name|
   all_extending_repos = Hash.new
   all_extending_functions = Hash.new
@@ -63,7 +56,8 @@ api_names.each do |api_name|
   
   # write to files
 
-  File.open("#{api_AGGREGATIONS_DIR}/#{api_name}.json", 'w') do |file|
+  api_filename = slugified_api_name api_name
+  File.open("#{API_AGGREGATIONS_DIR}/#{api_filename}.json", 'w') do |file|
     file << JSON.dump({
       'extending_repos' => all_extending_repos,
       'extending_functions' => all_extending_functions,
@@ -75,60 +69,86 @@ api_names.each do |api_name|
 
   # write consolidated, simple text versions of the results
 
-  simple_extending_functions = `jq '.extending_functions' #{AGGREGATIONS_DIR}/api/#{api_name}.json | #{REMOVE_ENCLOSING_BRACES} | #{REVERSE_COLUMNS} | sort -rn | #{REMOVE_DOUBLE_QUOTES} | #{REMOVE_FIRST_COMMA} | tee #{AGGREGATIONS_DIR}/api/#{api_name}_functions.simple.txt`.split("\n")
+  simple_extending_functions = `jq '.extending_functions' #{AGGREGATIONS_DIR}/api/#{api_filename}.json | #{REMOVE_ENCLOSING_BRACES} | #{REVERSE_COLUMNS} | sort -rn | #{REMOVE_DOUBLE_QUOTES} | #{REMOVE_FIRST_COMMA} | tee #{AGGREGATIONS_DIR}/api/#{api_filename}_functions.simple.txt`.split("\n").select{|x| !x.empty?}
   
   # memoize the function lists for next step
-  simple_extending_functions_by_api[api_name] = simple_extending_functions
+  simple_extending_function_names_by_api[api_name] = simple_extending_functions
 end
 
-# get the top 10 extending function names for each api (so, just the part to the left of the first opening parens or generic expression, if present)
+# get the extending function names (just the part to the left of the first opening parens, or generic expression if present) for each api mapped to their full signatures
 
-top_extending_functions_by_api = Hash.new
-simple_extending_functions_by_api.each do |api_name, simple_extending_functions|
-  top_extending_functions_by_api[api_name] = simple_extending_functions[0..9].map do |x| 
-    signature = strip_frequency_count(x)
-    first_generic_opening_bracket = signature.index '<'
-    first_opening_parenthesis = signature.index '('
-    last_closing_parenthesis = signature.size - signature.reverse.index(')') - 1
-    puts "signature #{signature}; last_closing_parenthesis: #{last_closing_parenthesis}"
-    if first_generic_opening_bracket == nil || first_generic_opening_bracket > first_opening_parenthesis then
-      signature[0...first_opening_parenthesis]
-    else
-      signature[0...first_generic_opening_bracket]
+top_extending_function_signatures_to_names_by_api = Hash.new
+simple_extending_function_names_by_api.each do |api_name, simple_extending_functions|
+  simple_extending_functions.each do |signature_with_count| 
+    signature = strip_frequency_count signature_with_count
+    function_name = extract_function_name signature
+    
+    if top_extending_function_signatures_to_names_by_api[api_name] == nil then
+      top_extending_function_signatures_to_names_by_api[api_name] = {signature => function_name}
+    else 
+      top_extending_function_signatures_to_names_by_api[api_name][signature] = function_name
     end
   end
 end
 
-# tokenize the function names into keyword lists per API  
+# tokenize the function names into keyword lists per API
 
 extending_function_keywords_by_api = Hash.new
-top_extending_functions_by_api.each do |api_name, top_extending_functions|
-  top_extending_functions.each do |function_name|
-    tokenized = function_name.split('_').reduce(Array.new) do |acc, next_obj|
-      tokenized_by_case = next_obj.gsub(/([[:lower:]\\d])([[:upper:]])/, '\1 \2') \
-        .gsub(/([^-\\d])(\\d[-\\d]*( |$))/,'\1 \2') \
-        .gsub(/([[:upper:]])([[:upper:]][[:lower:]\\d])/, '\1 \2') \
-        .split # splitting on uppercase, preserving acronyms, from https://stackoverflow.com/a/48019684/4789448
-      acc.concat tokenized_by_case
+top_extending_function_signatures_to_names_by_api.each do |api_name, top_extending_function_signatures_to_names|
+  top_extending_function_signatures_to_names.each do |function_signature, function_name|
+    keywords = function_name.split('_').reduce(Array.new) do |keyword_list, next_function_name_token|
+      tokenized_by_case = tokenize_camel_case_string next_function_name_token
+      keyword_list.concat tokenized_by_case
     end
     
     if extending_function_keywords_by_api[api_name] == nil then
-      extending_function_keywords_by_api[api_name] = tokenized
+      extending_function_keywords_by_api[api_name] = keywords
     else
-      extending_function_keywords_by_api[api_name].concat tokenized
+      extending_function_keywords_by_api[api_name].concat keywords
     end
+  end
+
+  File.open("#{API_AGGREGATIONS_DIR}/#{slugified_api_name api_name}.extending_keywords.json", 'w') do |file|
+    file << JSON.dump(extending_function_keywords_by_api[api_name].uniq)
+  end
+end
+  
+# index all functions (not just top N) by keyword for current api into new Hash
+
+function_families_by_api = Hash.new
+top_extending_function_signatures_to_names_by_api.each do |api_name, top_extending_function_signatures_to_names|
+  extending_function_keywords_by_api[api_name].uniq.each do |keyword|
+
+    functions_including_keyword = Hash.new
+    simple_extending_function_names_by_api[api_name].select do |function_signature|
+      top_extending_function_signatures_to_names[strip_frequency_count(function_signature)].include? keyword
+    end.each do |function_signature|
+      stripped_signature = strip_frequency_count(function_signature)
+      count = function_signature.gsub(stripped_signature, '').strip.to_i
+      functions_including_keyword[function_signature] = count
+    end
+
+    if function_families_by_api[api_name] == nil then
+      function_families_by_api[api_name] = {
+        keyword => functions_including_keyword
+      }
+    else
+      function_families_by_api[api_name][keyword] = functions_including_keyword
+    end
+  end
+
+  File.open("#{API_AGGREGATIONS_DIR}/#{slugified_api_name api_name}.function_families.json", 'w') do |file|
+    file << JSON.dump(function_families_by_api[api_name])
   end
 end
 
-puts extending_function_keywords_by_api
 exit
-
 
 # aggregate based on function keywords
 
 repo_sets.each_with_index do |repo_set, i|
   api_names.each do |api_name|
-    simple_extending_functions_by_api[api_name].each do |function|
+    simple_extending_function_names_by_api[api_name].each do |function|
 
       # looking at common tasks, e.g. trimming
 

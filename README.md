@@ -94,11 +94,11 @@ People are solving similar problems over and over again in their utility librari
 				- [x] group by api (top N extended apis)
 						- [x] functions with signature frequencies
 								- [x] count total and uniques
-								- [ ] tokenize function names and parameter labels by underscores and camelcased components
+								- [x] tokenize function names and parameter labels by underscores and camelcased components
 										- [ ] count unique word frequencies and total #
 										- [ ] cluster by synonyms
 												- [ ] counts and distributions
-										- [ ] index into function lists to cluster them by semantics
+										- [x] index into function lists to cluster them by semantics
 										- [ ] note usage of '_', different parameter labels and names, same labels and names, absence of labels
 										- [ ] note generics, blocks, return values
 						- [x] repositories with extension frequencies

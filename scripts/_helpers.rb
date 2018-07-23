@@ -1,7 +1,13 @@
 # locations
 
 AGGREGATIONS_DIR = 'aggregations'
+API_AGGREGATIONS_DIR = "#{AGGREGATIONS_DIR}/api"
 OBSERVATIONS_DIR = 'observations'
+
+# controls (set to -1 for all instead of top N)
+
+TOP_EXTENDED_API_AMOUNT = 10
+TOP_EXTENDING_FUNCTION_AMOUNT = 10
 
 # unix stream processing pipeline commands
 
@@ -11,6 +17,42 @@ REVERSE_COLUMNS = 'awk -F\'":\' \'{print $2 $1};\''
 REMOVE_ENCLOSING_BRACES = 'sed \'1d;$d\''
 
 # functions
+
+# split on uppercase, preserving acronyms, from https://stackoverflow.com/a/48019684/4789448
+def tokenize_camel_case_string string
+  string.gsub(/([[:lower:]\\d])([[:upper:]])/, '\1 \2')
+        .gsub(/([^-\\d])(\\d[-\\d]*( |$))/,'\1 \2')
+        .gsub(/([[:upper:]])([[:upper:]][[:lower:]\\d])/, '\1 \2')
+        .split 
+end
+
+def extract_function_name signature
+  first_generic_opening_bracket = signature.index '<'
+  first_opening_parenthesis = signature.index '('
+  last_closing_parenthesis = signature.size - signature.reverse.index(')') - 1
+  
+  if first_generic_opening_bracket == nil || first_generic_opening_bracket > first_opening_parenthesis then
+    signature[0...first_opening_parenthesis].strip
+  else
+    signature[0...first_generic_opening_bracket].strip
+  end
+end
+
+def strip_return_clause signature
+  clause_separator = '->'
+  if signature.include? clause_separator then
+    clause_start_i = signature.index clause_separator
+    signature[0...clause_start_i].strip
+  else
+    signature
+  end
+end
+
+def slugified_api_name api_name
+  api_name
+  .gsub(':', 'conforms to') # convert colons because they can't be used in filenames
+  .gsub(' ', '_')
+end
 
 # chunk up the set of repos to process so `jq` doesn't run out of memory
 def chunked_repo_sets 
