@@ -98,7 +98,7 @@ People are solving similar problems over and over again in their utility librari
 										- [ ] count unique word frequencies and total #
 										- [ ] cluster by synonyms
 												- [ ] counts and distributions
-										- [x] index into function lists to cluster them by semantics
+										- [x] index into function lists with function frequencies, to cluster them by semantics
 										- [ ] note usage of '_', different parameter labels and names, same labels and names, absence of labels
 										- [ ] note generics, blocks, return values
 						- [x] repositories with extension frequencies

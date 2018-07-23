@@ -59,16 +59,16 @@ api_names.each do |api_name|
 
   all_api_aggregations[api_name] ={
     'extending_repos' => all_extending_repos,
-    'extending_functions' => all_extending_functions,
     'extending_repo_count' => all_extending_repos.size,
+    'extending_functions' => all_extending_functions,
     'unique_extending_function_count' => all_extending_functions.size,
     'total_extending_function_count' => total_extending_functions,
   }
 
   # collect simple text version of extensing functions with counts, write to file 
   
-  simple_filename = "#{AGGREGATIONS_DIR}/api/#{slugified_api_name api_name}.json"
-  `rm #{simple_filename}`
+  simple_filename = "#{AGGREGATIONS_DIR}/api/#{slugified_api_name api_name}.functions.simple.txt"
+  `rm -f #{simple_filename}`
   simple_extending_functions = Array.new
   File.open("#{simple_filename}", 'a') do |file|
     all_extending_functions.keys.sort do |a, b|
@@ -116,8 +116,37 @@ top_extending_function_signatures_to_names_by_api.each do |api_name, top_extendi
       extending_function_keywords_by_api[api_name].concat keywords
     end
   end
-
-  all_api_aggregations[api_name]['extending_keywords'] = extending_function_keywords_by_api[api_name]
+  
+  # distill to unique keywords with frequencies
+  
+  keywords_with_frequencies = Hash.new
+  extending_function_keywords_by_api[api_name].uniq.each do |unique_keyword|
+    count = extending_function_keywords_by_api[api_name].select {|x| x == unique_keyword}.size
+    keywords_with_frequencies[unique_keyword] = count
+  end
+  
+  # write to simple text file
+  
+  simple_filename = "#{AGGREGATIONS_DIR}/api/#{slugified_api_name api_name}.keywords.simple.txt"
+  `rm -f #{simple_filename}`
+  File.open("#{simple_filename}", 'a') do |file|
+    keywords_with_frequencies.keys.sort do |a, b|
+      keywords_with_frequencies[b] - keywords_with_frequencies[a] # descending sort
+    end.each do |keyword|
+      file << "#{keywords_with_frequencies[keyword]} #{keyword}\n"
+    end
+  end
+  hash_values_to_i keywords_with_frequencies
+  
+  total_keyword_count = 0
+  keywords_with_frequencies.each do |keyword, count|
+    total_keyword_count += count  
+  end
+  
+  # put in big hash to write to file later
+  all_api_aggregations[api_name]['total_extending_keyword_count'] = total_keyword_count
+  all_api_aggregations[api_name]['unique_extending_keyword_count'] = keywords_with_frequencies.size
+  all_api_aggregations[api_name]['extending_keywords'] = keywords_with_frequencies
 end
   
 # index all functions (not just top N) by keyword for current api into new Hash

@@ -91,7 +91,7 @@ end
 
 { 'extensions' => all_extensions, 'non_cocoa_extensions' => all_non_cocoa_extensions }.each do |filename, hash|
   simple_filename = "#{AGGREGATIONS_DIR}/#{filename}.simple.txt"
-  `rm #{simple_filename}`
+  `rm -f #{simple_filename}`
   File.open("#{simple_filename}", 'a') do |file|
     hash.keys.sort do |a, b|
       hash[b] - hash[a] # descending sort
