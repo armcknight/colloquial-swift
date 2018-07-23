@@ -163,7 +163,9 @@ top_extending_function_signatures_to_names_by_api.each do |api_name, top_extendi
 
     functions_including_keyword = Hash.new
     simple_extending_function_names_by_api[api_name].select do |function_signature|
-      top_extending_function_signatures_to_names[strip_frequency_count(function_signature)].include? keyword
+      function_name = top_extending_function_signatures_to_names[strip_frequency_count(function_signature)]
+      match = /^(#{Regexp.quote(keyword)})[^a-z]/.match(function_name)
+      match != nil && match.captures != nil && match.captures.size > 0
     end.each do |function_signature|
       stripped_signature = strip_frequency_count(function_signature)
       count = function_signature.gsub(stripped_signature, '').strip.to_i
