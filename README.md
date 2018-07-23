@@ -88,21 +88,23 @@ People are solving similar problems over and over again in their utility librari
 - [ ] code
 	- [ ] declarations
 		- [x] extension with signature frequencies
-				- [x] count total and uniques 
-				- [x] non cocoa classes (e.g. UIImage, CLLocationManager) (swift team not likely to accept new api for these)
-						- [x] count total and uniques
-				- [x] group by api (top N extended apis)
-						- [x] functions with signature frequencies
-								- [x] count total and uniques
-								- [x] tokenize function names and parameter labels by underscores and camelcased components
-										- [ ] count unique word frequencies and total #
-										- [ ] cluster by synonyms
-												- [ ] counts and distributions
-										- [x] index into function lists with function frequencies, to cluster them by semantics
-										- [ ] note usage of '_', different parameter labels and names, same labels and names, absence of labels
-										- [ ] note generics, blocks, return values
-						- [x] repositories with extension frequencies
-								- [x] count total
+			- [x] count total and uniques 
+			- [x] non cocoa classes (e.g. UIImage, CLLocationManager) (swift team not likely to accept new api for these)
+				- [x] count total and uniques
+			- [x] group by api (top N extended apis)
+				- [x] functions with signature frequencies
+					- [x] count total and uniques
+					- [x] tokenize function names and parameter labels by underscores and camelcased components
+						- [x] count unique word frequencies and total
+						- [x] index into function lists with function frequencies, to cluster them by semantics
+						- nice to haves:
+							- [ ] cluster by anagrams and/or edit distance to group typos? (Double/Duoble/Duble)
+							- [ ] cluster by synonyms
+								- [ ] counts and distributions
+							- [ ] note usage of '_', different parameter labels and names, same labels and names, absence of labels
+							- [ ] note generics, blocks, return values
+				- [x] repositories with extension frequencies
+					- [x] count total
 		- [x] function 
 		- [x] protocol
 		- [x] struct
@@ -131,7 +133,7 @@ People are solving similar problems over and over again in their utility librari
 		- [ ] longest/shortest swift file
 	- [ ] testing
 		- [ ] number of test functions
-		
+
 - repository
 	- contains playgrounds?
 	- swift version
