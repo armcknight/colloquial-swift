@@ -96,7 +96,7 @@ People are solving similar problems over and over again in their utility librari
 					- [x] with signature frequencies
 					- [x] count total and uniques
 					- [ ] count repos containing the declaration
-					- [x] tokenize function names and parameter labels by underscores and camelcased components
+					- [x] tokenize function names and [ ] parameter labels by underscores, camel case and numeric digit substrings
 						- [x] count unique word frequencies and total
 						- [ ] count repos containing the keyword in a function name
 						- [x] index into function lists with function frequencies, to cluster them by semantics
