@@ -92,10 +92,13 @@ People are solving similar problems over and over again in their utility librari
 			- [x] non cocoa classes (e.g. UIImage, CLLocationManager) (swift team not likely to accept new api for these)
 				- [x] count total and uniques
 			- [x] group by api (top N extended apis)
-				- [x] functions with signature frequencies
+				- [x] functions
+					- [x] with signature frequencies
 					- [x] count total and uniques
+					- [ ] count repos containing the declaration
 					- [x] tokenize function names and parameter labels by underscores and camelcased components
 						- [x] count unique word frequencies and total
+						- [ ] count repos containing the keyword in a function name
 						- [x] index into function lists with function frequencies, to cluster them by semantics
 						- nice to haves:
 							- [ ] cluster by anagrams and/or edit distance to group typos? (Double/Duoble/Duble)
