@@ -2,7 +2,6 @@ require 'json'
 require_relative '_helpers'
 
 repo_sets = chunked_repo_sets
-all_api_aggregations = Hash.new
 
 # get simple lists back out
 
@@ -38,9 +37,9 @@ end
 
 # combine the chunked aggregations
 
+all_api_aggregations = Hash.new
 simple_extending_function_names_by_api = Hash.new
-`mkdir -p #{API_AGGREGATIONS_DIR}`
-api_names.each do |api_name|
+api_names.each_with_index do |api_name, api_index|
   all_extending_repos = Hash.new
   all_extending_functions = Hash.new
   all_aggregations = chunked_api_aggregations[api_name].each do |repo_set_i, aggregations|
@@ -68,7 +67,9 @@ api_names.each do |api_name|
   # collect simple text version of extending functions with counts, write to file 
   
   api_filename = slugified_api_name api_name
-  simple_functions_filename = "#{AGGREGATIONS_DIR}/api/#{api_filename}.functions.simple.txt"
+  api_dir = "#{AGGREGATIONS_DIR}/#{api_index + 1}. #{api_filename}"
+  `mkdir -p "#{api_dir}"`
+  simple_functions_filename = "#{api_dir}/functions.simple.txt"
   `rm -f #{simple_functions_filename}`
   simple_extending_functions = Array.new
   File.open(simple_functions_filename, 'a') do |file|
@@ -81,7 +82,7 @@ api_names.each do |api_name|
     end
   end
   
-  simple_repos_filename = "#{AGGREGATIONS_DIR}/api/#{api_filename}.repos.simple.txt"
+  simple_repos_filename = "#{api_dir}/repos.simple.txt"
   `rm -f #{simple_repos_filename}`
   File.open(simple_repos_filename, 'a') do |file|
     all_extending_repos.keys.sort do |a, b|
@@ -106,7 +107,7 @@ simple_extending_function_names_by_api.each do |api_name, simple_extending_funct
     
     name_and_count = {
       'name' => function_name,
-      'count' => count,
+      'count' => count.to_i,
     }
     
     if extending_function_signatures_to_names_and_counts_by_api[api_name] == nil then
@@ -121,8 +122,8 @@ end
 
 extending_function_keywords_by_api = Hash.new
 simple_keyword_lists_with_counts_by_api = Hash.new
-
-extending_function_signatures_to_names_and_counts_by_api.each do |api_name, signature_to_name_and_count_hash|
+extending_function_signatures_to_names_and_counts_by_api.keys.each_with_index do |api_name, api_index|
+  signature_to_name_and_count_hash = extending_function_signatures_to_names_and_counts_by_api[api_name]
   function_families = Hash.new
   signature_to_name_and_count_hash.each do |function_signature, name_and_count|
     keywords = name_and_count['name'].split('_').reduce(Array.new) do |keyword_list, next_function_name_token|
@@ -162,8 +163,8 @@ extending_function_signatures_to_names_and_counts_by_api.each do |api_name, sign
   
   # write to simple text file and memoize for subsequent analysis
   
-  simple_filename = "#{AGGREGATIONS_DIR}/api/#{slugified_api_name api_name}.keywords.simple.txt"
-  `rm -f #{simple_filename}`
+  simple_filename = "#{AGGREGATIONS_DIR}/#{api_index + 1}. #{slugified_api_name api_name}/keywords.simple.txt"
+  `rm -f "#{simple_filename}"`
   simple_keyword_list = Array.new
   File.open(simple_filename, 'a') do |file|
     keywords_with_frequencies.keys.sort do |a, b|
@@ -191,22 +192,32 @@ end
 
 # write big hash to file
 
-all_api_aggregations.keys.each do |api_name|
-  File.open("#{API_AGGREGATIONS_DIR}/#{slugified_api_name api_name}.json", 'w') do |file|
+all_api_aggregations.keys.each_with_index do |api_name, api_index|
+  File.open("#{AGGREGATIONS_DIR}/#{api_index + 1}. #{slugified_api_name api_name}/all.json", 'w') do |file|
     file << JSON.dump(all_api_aggregations[api_name])
   end
 end
 
-# grab the top N keywords' function families for each API and write to new json
+# grab the top N keywords' function families for each API and write keyword list and function lists per keyword
 
-api_names.each do |api_name|
+api_names.each_with_index do |api_name, api_index|
   top_function_families = Hash.new
-  simple_keyword_lists_with_counts_by_api[api_name][0...TOP_EXTENDING_FUNCTION_NAME_KEYWORD_AMOUNT].map do |keyword|
+  simple_keyword_lists_with_counts_by_api[api_name][0...TOP_EXTENDING_FUNCTION_NAME_KEYWORD_AMOUNT].each_with_index do |keyword, keyword_index|
     stripped_keyword = strip_frequency_count keyword
     top_function_families[stripped_keyword] = all_api_aggregations[api_name]['function_families'][stripped_keyword]
-  end
-  File.open("#{API_AGGREGATIONS_DIR}/#{slugified_api_name api_name}.top_function_families.json", 'w') do |file|
-    file << JSON.dump(top_function_families)
+    signatures_to_counts = top_function_families[stripped_keyword]
+  
+    function_family_dir = "#{AGGREGATIONS_DIR}/#{api_index + 1}. #{slugified_api_name api_name}/function_families/#{keyword_index + 1}. #{stripped_keyword}"
+    `mkdir -p "#{function_family_dir}"`
+    simple_keyword_functions_filename = "#{function_family_dir}/functions.simple.txt"
+    `rm -f #{simple_keyword_functions_filename}`
+    File.open(simple_keyword_functions_filename, 'a') do |file|
+      signatures_to_counts.keys.sort do |a, b|
+        signatures_to_counts[b] - signatures_to_counts[a] # descending sort
+      end.each do |signature|
+        file << "#{signatures_to_counts[signature]} #{signature}\n"
+      end
+    end
   end
 end
 

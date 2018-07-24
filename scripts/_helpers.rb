@@ -1,7 +1,6 @@
 # locations
 
 AGGREGATIONS_DIR = 'aggregations'
-API_AGGREGATIONS_DIR = "#{AGGREGATIONS_DIR}/api"
 OBSERVATIONS_DIR = 'observations'
 
 # controls (set to -1 for all instead of top N)
