@@ -97,16 +97,22 @@ end
 
 # get all extending function names (just the part to the left of the first opening parens, or generic expression if present) for each api mapped to their full signatures
 
-top_extending_function_signatures_to_names_by_api = Hash.new
+extending_function_signatures_to_names_and_counts_by_api = Hash.new
 simple_extending_function_names_by_api.each do |api_name, simple_extending_functions|
   simple_extending_functions.each do |signature_with_count| 
     signature = strip_frequency_count signature_with_count
+    count = signature_with_count.gsub(signature, '').strip
     function_name = extract_function_name signature
     
-    if top_extending_function_signatures_to_names_by_api[api_name] == nil then
-      top_extending_function_signatures_to_names_by_api[api_name] = {signature => function_name}
+    name_and_count = {
+      'name' => function_name,
+      'count' => count,
+    }
+    
+    if extending_function_signatures_to_names_and_counts_by_api[api_name] == nil then
+      extending_function_signatures_to_names_and_counts_by_api[api_name] = {signature => name_and_count}
     else 
-      top_extending_function_signatures_to_names_by_api[api_name][signature] = function_name
+      extending_function_signatures_to_names_and_counts_by_api[api_name][signature] = name_and_count
     end
   end
 end
@@ -116,10 +122,10 @@ end
 extending_function_keywords_by_api = Hash.new
 simple_keyword_lists_with_counts_by_api = Hash.new
 
-top_extending_function_signatures_to_names_by_api.each do |api_name, top_extending_function_signatures_to_names|
+extending_function_signatures_to_names_and_counts_by_api.each do |api_name, signature_to_name_and_count_hash|
   function_families = Hash.new
-  top_extending_function_signatures_to_names.each do |function_signature, function_name|
-    keywords = function_name.split('_').reduce(Array.new) do |keyword_list, next_function_name_token|
+  signature_to_name_and_count_hash.each do |function_signature, name_and_count|
+    keywords = name_and_count['name'].split('_').reduce(Array.new) do |keyword_list, next_function_name_token|
       tokenized_by_case = tokenize_camel_case_string next_function_name_token
       keyword_list.concat tokenized_by_case
     end.map do |x|
@@ -135,12 +141,12 @@ top_extending_function_signatures_to_names_by_api.each do |api_name, top_extendi
       extending_function_keywords_by_api[api_name].concat keywords
     end
     
-    # index the function signature by the keyword]
+    # index the function signature by the keyword
     keywords.each do |keyword|
       if function_families[keyword] == nil then
-        function_families[keyword] = [function_signature]
+        function_families[keyword] = {function_signature => name_and_count['count']}
       else
-        function_families[keyword] << function_signature
+        function_families[keyword][function_signature] = name_and_count['count']
       end
     end
   end
