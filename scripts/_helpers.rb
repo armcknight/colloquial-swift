@@ -8,6 +8,7 @@ OBSERVATIONS_DIR = 'observations'
 
 TOP_EXTENDED_API_AMOUNT = 10
 TOP_EXTENDING_FUNCTION_AMOUNT = 10
+TOP_EXTENDING_FUNCTION_NAME_KEYWORD_AMOUNT = 10
 
 # unix stream processing pipeline commands
 
@@ -15,6 +16,18 @@ REMOVE_FIRST_COMMA = 'sed s/,//1'
 REMOVE_DOUBLE_QUOTES = "sed s/\\\"//g"
 REVERSE_COLUMNS = 'awk -F\'":\' \'{print $2 $1};\''
 REMOVE_ENCLOSING_BRACES = 'sed \'1d;$d\''
+
+# remove superfluous words that don't convey intent of functions
+SUPERFLUOUS_WORDS = [ 
+  # common two-letter words
+  'an', 'as', 'at', 'it', 'to', 'in', 'is', 'on', 'am', 'be', 'no', 'do', 'of', 'go', 'if', 'so', 'by', 'or',
+  
+  # common three-letter words
+  'the', 'and', 'for', 'are', 'but', 'not', 'you', 'all', 'any', 'can', 'was', 'our', 'get', 'has', 'how', 'did', 'its', 'let', 'put', 'too', 'use',
+  
+  # prepositions
+  'with', 'from', 'into', 'during', 'including', 'until', 'among', 'about', 
+]
 
 # functions
 

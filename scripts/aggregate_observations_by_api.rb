@@ -103,12 +103,19 @@ end
 # tokenize the function names into keyword lists per API
 
 extending_function_keywords_by_api = Hash.new
-simple_keyword_lists_by_api = Hash.new
+simple_keyword_lists_with_counts_by_api = Hash.new
+
 top_extending_function_signatures_to_names_by_api.each do |api_name, top_extending_function_signatures_to_names|
+  function_families = Hash.new
   top_extending_function_signatures_to_names.each do |function_signature, function_name|
     keywords = function_name.split('_').reduce(Array.new) do |keyword_list, next_function_name_token|
       tokenized_by_case = tokenize_camel_case_string next_function_name_token
       keyword_list.concat tokenized_by_case
+    end.map do |x|
+      x.downcase.split(/(\d+)/) # split by contiguous sequences of digits, like 'int8array' -> ['int', '8', 'array']
+    end.flatten.uniq
+    .select do |x|
+      !SUPERFLUOUS_WORDS.include? x
     end
     
     if extending_function_keywords_by_api[api_name] == nil then
@@ -116,7 +123,17 @@ top_extending_function_signatures_to_names_by_api.each do |api_name, top_extendi
     else
       extending_function_keywords_by_api[api_name].concat keywords
     end
+    
+    # index the function signature by the keyword]
+    keywords.each do |keyword|
+      if function_families[keyword] == nil then
+        function_families[keyword] = [function_signature]
+      else
+        function_families[keyword] << function_signature
+      end
+    end
   end
+  all_api_aggregations[api_name]['function_families'] = function_families
   
   # distill to unique keywords with frequencies
   
@@ -141,7 +158,7 @@ top_extending_function_signatures_to_names_by_api.each do |api_name, top_extendi
     end
   end
   
-  simple_keyword_lists_by_api[api_name] = simple_keyword_list
+  simple_keyword_lists_with_counts_by_api[api_name] = simple_keyword_list
   
   hash_values_to_i keywords_with_frequencies
   total_keyword_count = 0
@@ -154,35 +171,6 @@ top_extending_function_signatures_to_names_by_api.each do |api_name, top_extendi
   all_api_aggregations[api_name]['unique_extending_keyword_count'] = keywords_with_frequencies.size
   all_api_aggregations[api_name]['extending_keywords'] = keywords_with_frequencies
 end
-  
-# index all functions (not just top N) by keyword for current api into new Hash
-
-function_families_by_api = Hash.new
-top_extending_function_signatures_to_names_by_api.each do |api_name, top_extending_function_signatures_to_names|
-  extending_function_keywords_by_api[api_name].uniq.each do |keyword|
-
-    functions_including_keyword = Hash.new
-    simple_extending_function_names_by_api[api_name].select do |function_signature|
-      function_name = top_extending_function_signatures_to_names[strip_frequency_count(function_signature)]
-      match = /^(#{Regexp.quote(keyword)})[^a-z]/.match(function_name)
-      match != nil && match.captures != nil && match.captures.size > 0
-    end.each do |function_signature|
-      stripped_signature = strip_frequency_count(function_signature)
-      count = function_signature.gsub(stripped_signature, '').strip.to_i
-      functions_including_keyword[function_signature] = count
-    end
-
-    if function_families_by_api[api_name] == nil then
-      function_families_by_api[api_name] = {
-        keyword => functions_including_keyword
-      }
-    else
-      function_families_by_api[api_name][keyword] = functions_including_keyword
-    end
-  end
-
-  all_api_aggregations[api_name]['function_families'] = function_families_by_api[api_name]
-end
 
 # write big hash to file
 
@@ -192,24 +180,24 @@ all_api_aggregations.keys.each do |api_name|
   end
 end
 
-exit
+# grab the top N keywords' function families for each API and write to new json
 
-# aggregate based on function keywords
+api_names.each do |api_name|
+  top_function_families = Hash.new
+  simple_keyword_lists_with_counts_by_api[api_name][0...TOP_EXTENDING_FUNCTION_NAME_KEYWORD_AMOUNT].map do |keyword|
+    stripped_keyword = strip_frequency_count keyword
+    top_function_families[stripped_keyword] = all_api_aggregations[api_name]['function_families'][stripped_keyword]
+  end
+  File.open("#{API_AGGREGATIONS_DIR}/#{slugified_api_name api_name}.top_function_families.json", 'w') do |file|
+    file << JSON.dump(top_function_families)
+  end
+end
+
+exit
 
 repo_sets.each_with_index do |repo_set, i|
   api_names.each do |api_name|
     simple_extending_function_names_by_api[api_name].each do |function|
-
-      # looking at common tasks, e.g. trimming
-
-      # count signatures containing a keyword by uniq
-      `cat #{observation_files} | jq '.declarations.extension.parsed[] | select(.identifier=="String") | .declarations | .function.parsed[].identifier' | sort | uniq -c | sort | grep -i trim`
-
-      # whittling away by keyword (e.g., all the functions _except_ trim/substring functions)
-      `cat #{observation_files} | jq '.declarations.extension.parsed[] | select(.identifier=="String") | .declarations | .function.parsed[].identifier' | grep -vi -e trim -e substring | sort | uniq -c | sort`
-
-      # sum counts of grouped signatures
-      `cat #{observation_files} | jq '.declarations.extension.parsed[] | select(.identifier=="String") | .declarations | .function.parsed[].identifier' | sort | uniq -c | sort | grep -i trim | awk -F ' ' '{sum+=$0} END {print sum}'`
 
       # search for implementations of a particular function signature
       `ag --swift --after=10 --literal "trim() -> String" 2>/dev/null`
