@@ -65,18 +65,29 @@ api_names.each do |api_name|
     'total_extending_function_count' => total_extending_functions,
   }
 
-  # collect simple text version of extensing functions with counts, write to file 
+  # collect simple text version of extending functions with counts, write to file 
   
-  simple_filename = "#{AGGREGATIONS_DIR}/api/#{slugified_api_name api_name}.functions.simple.txt"
-  `rm -f #{simple_filename}`
+  api_filename = slugified_api_name api_name
+  simple_functions_filename = "#{AGGREGATIONS_DIR}/api/#{api_filename}.functions.simple.txt"
+  `rm -f #{simple_functions_filename}`
   simple_extending_functions = Array.new
-  File.open("#{simple_filename}", 'a') do |file|
+  File.open(simple_functions_filename, 'a') do |file|
     all_extending_functions.keys.sort do |a, b|
       all_extending_functions[b] - all_extending_functions[a] # descending sort
     end.each do |function_declaration|
       function_with_count = "#{all_extending_functions[function_declaration]} #{function_declaration}"
       file << "#{function_with_count}\n"
       simple_extending_functions << function_with_count
+    end
+  end
+  
+  simple_repos_filename = "#{AGGREGATIONS_DIR}/api/#{api_filename}.repos.simple.txt"
+  `rm -f #{simple_repos_filename}`
+  File.open(simple_repos_filename, 'a') do |file|
+    all_extending_repos.keys.sort do |a, b|
+      all_extending_repos[b] - all_extending_repos[a] # descending sort
+    end.each do |repo|
+      file << "#{all_extending_repos[repo]} #{repo}\n"
     end
   end
   
@@ -148,7 +159,7 @@ top_extending_function_signatures_to_names_by_api.each do |api_name, top_extendi
   simple_filename = "#{AGGREGATIONS_DIR}/api/#{slugified_api_name api_name}.keywords.simple.txt"
   `rm -f #{simple_filename}`
   simple_keyword_list = Array.new
-  File.open("#{simple_filename}", 'a') do |file|
+  File.open(simple_filename, 'a') do |file|
     keywords_with_frequencies.keys.sort do |a, b|
       keywords_with_frequencies[b] - keywords_with_frequencies[a] # descending sort
     end.each do |keyword|
