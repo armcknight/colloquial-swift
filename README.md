@@ -136,6 +136,9 @@ People are solving similar problems over and over again in their utility librari
 		- [ ] longest/shortest swift file
 	- [ ] testing
 		- [ ] number of test functions
+	- [ ] generation
+		- [ ] gyb
+		- [ ] sourcery
 
 - repository
 	- contains playgrounds?
