@@ -108,20 +108,27 @@ People are solving similar problems over and over again in their utility librari
 							- [ ] note generics, blocks, return values
 				- [x] repositories with extension frequencies
 					- [x] count total
-		- [x] function 
+		- [ ] functions
+			- [x] declarations
+			- [ ] parameters 
+				- [ ] counts and distributions per:
+					- [ ] repo
+					- [ ] 
+			- [ ] closures
+			- [ ] error throwing
+				- [ ] throws
+				- [ ] rethrows
 		- [x] protocol
 		- [x] struct
 		- [x] enum
 		- [x] class
 		- [x] custom operators
 		- [x] typealiases
-		- [ ] advanced language features
-			- [ ] generics
-			- [ ] associatedtype
-			- [ ] protocol conformance masks (& operator)
-			- [ ] access modifiers (public, private, open etc)
-			- [ ] attributes (@discardableResult, @objc, @escaping, @autoclosure etc)
-	- [ ] error throwing
+		- [ ] generics
+		- [ ] associatedtype
+		- [ ] protocol conformance masks (& operator)
+		- [ ] access modifiers (public, private, open, final, static etc)
+		- [ ] attributes (@discardableResult, @objc, @escaping, @autoclosure, @available etc)
 	- [ ] comments
 		- [x] inline, inline swift doc, multiline, headerdoc
 		- [ ] use of headerdoc keywords
