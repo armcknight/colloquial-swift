@@ -223,6 +223,8 @@ end
 
 exit
 
+# TODO: looking at implementations of popular functions:
+
 repo_sets.each_with_index do |repo_set, i|
   api_names.each do |api_name|
     simple_extending_function_names_by_api[api_name].each do |function|
