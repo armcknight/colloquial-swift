@@ -150,7 +150,14 @@ People are solving similar problems over and over again in their utility librari
 - repository
 	- contains playgrounds?
 	- swift version
-	- number of stars, forks, pull requests
+	- number of stars, pull requests
+	- forks
+		- counts
+		- fork tree statistics (to describe forks-of-forks or shifts of activity to downstream forks)
+			- depth
+			- balance
+		- activity statistics:
+		- diff analysis between forks
 	- dependencies
 		- import statements, non-apple... do the utilities stand on their own?
 		- cocoapods/carthage/spm support and usage
@@ -161,7 +168,7 @@ People are solving similar problems over and over again in their utility librari
 		- sentiment
 		- readability
 		- time to read
-	- on components
+	- apply to components:
 		- github description
 		- readmes
 		- comments
@@ -170,7 +177,8 @@ People are solving similar problems over and over again in their utility librari
 - metrics
 	- encode conformance/violation of api guidelines
 
-- segment per github search
+- group/segment results per: 
+	- github search
 
 ### Results
 
