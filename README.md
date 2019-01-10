@@ -128,7 +128,7 @@ People are solving similar problems over and over again in their utility librari
 		- [ ] associatedtype
 		- [ ] protocol conformance masks (& operator)
 		- [ ] access modifiers (public, private, open, final, static etc)
-		- [ ] attributes (@discardableResult, @objc, @escaping, @autoclosure, @available etc)
+		- [ ] attributes (@discardableResult, @objc, @escaping, @autoclosure, @available, @inlinable etc)
 	- [ ] comments
 		- [x] inline, inline swift doc, multiline, headerdoc
 		- [ ] use of headerdoc keywords
